@@ -1,0 +1,515 @@
+{
+  "status": "pass",
+  "artifactSha256": "321207209986e09a1e3368ab214ea84dd64333bec4209de9408da2ebb9964e69",
+  "checks": [
+    {
+      "theme": "light",
+      "node": "user",
+      "status": "pass",
+      "links": []
+    },
+    {
+      "theme": "light",
+      "node": "app",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/main.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "theme",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/config/theme/app_theme.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "screen",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/screens/chat/chat_screen.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "input",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/shared/message_field_box.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "state",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/providers/chat_provider.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "list",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/screens/chat/chat_screen.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        },
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/providers/chat_provider.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "mine",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/chat/my_message_bubble.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "http",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/config/helpers/get_yes_no_answer.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "api",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://yesno.wtf/api",
+          "label": "Open external service",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "mapping",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/config/helpers/get_yes_no_answer.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "entity",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/domain/entities/message.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "hers",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/chat/her_message_bubble.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "image",
+      "status": "pass",
+      "links": []
+    },
+    {
+      "theme": "light",
+      "node": "model",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/infrastructure/models/yes_no_model.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "avatar",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIXg1ouDuND7mbJmNeZeeIJj0v29FlGKDa_eAXWKMslZLncy7oib4ukTU&s=10",
+          "label": "Open external service",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "sdk",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.yaml",
+          "label": "Open source code",
+          "target": "_blank"
+        },
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.lock",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "targets",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/android/app/build.gradle.kts",
+          "label": "Open source code",
+          "target": "_blank"
+        },
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/android/app/src/main/AndroidManifest.xml",
+          "label": "Open source code",
+          "target": "_blank"
+        },
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/web/index.html",
+          "label": "Open source code",
+          "target": "_blank"
+        },
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/windows/CMakeLists.txt",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "git",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.yaml",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "node": "github",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.yaml",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "user",
+      "status": "pass",
+      "links": []
+    },
+    {
+      "theme": "dark",
+      "node": "app",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/main.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "theme",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/config/theme/app_theme.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "screen",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/screens/chat/chat_screen.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "input",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/shared/message_field_box.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "state",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/providers/chat_provider.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "list",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/screens/chat/chat_screen.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        },
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/providers/chat_provider.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "mine",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/chat/my_message_bubble.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "http",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/config/helpers/get_yes_no_answer.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "api",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://yesno.wtf/api",
+          "label": "Open external service",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "mapping",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/config/helpers/get_yes_no_answer.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "entity",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/domain/entities/message.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "hers",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/chat/her_message_bubble.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "image",
+      "status": "pass",
+      "links": []
+    },
+    {
+      "theme": "dark",
+      "node": "model",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/infrastructure/models/yes_no_model.dart",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "avatar",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIXg1ouDuND7mbJmNeZeeIJj0v29FlGKDa_eAXWKMslZLncy7oib4ukTU&s=10",
+          "label": "Open external service",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "sdk",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.yaml",
+          "label": "Open source code",
+          "target": "_blank"
+        },
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.lock",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "targets",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/android/app/build.gradle.kts",
+          "label": "Open source code",
+          "target": "_blank"
+        },
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/android/app/src/main/AndroidManifest.xml",
+          "label": "Open source code",
+          "target": "_blank"
+        },
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/web/index.html",
+          "label": "Open source code",
+          "target": "_blank"
+        },
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/windows/CMakeLists.txt",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "git",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.yaml",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "node": "github",
+      "status": "pass",
+      "links": [
+        {
+          "href": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.yaml",
+          "label": "Open source code",
+          "target": "_blank"
+        }
+      ]
+    }
+  ],
+  "escapeCloses": true,
+  "runtimeErrors": [],
+  "sourceLinks": "All internal node cards expose main source links in new tabs; remote navigation not fetched."
+}

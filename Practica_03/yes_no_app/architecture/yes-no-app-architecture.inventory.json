@@ -1,0 +1,253 @@
+{
+  "files": [
+    {
+      "path": "archify/yes-no-app-architecture.browser-check.json",
+      "bytes": 22363,
+      "sha256": "4ad35b4d961cbc9f6a10be6bd4940ac6160cda1b7c838da014345b0bc9843ba0"
+    },
+    {
+      "path": "archify/yes-no-app-architecture.delivery.json",
+      "bytes": 693,
+      "sha256": "9a1998de20eaa35167602e579fcdc576dfab97371337dacb7b8e605c5bfb19f5"
+    },
+    {
+      "path": "archify/yes-no-app-architecture.finalize-summary.json",
+      "bytes": 4328,
+      "sha256": "a0972d0469f9a8da4cf2319c2dbd0f45deefe1e0162d3f6e7a3e6b4497f884fa"
+    },
+    {
+      "path": "archify/yes-no-app-architecture.finalize.json",
+      "bytes": 38543,
+      "sha256": "de1da3f77b9cf4df8505f48ed7105de0293644bdcf0a51178611d377a5054348"
+    },
+    {
+      "path": "archify/yes-no-app-architecture.html",
+      "bytes": 793378,
+      "sha256": "6689af97e98e4d53e5caf55c03219afb7e8f28206d6935f1a5cbf28b760d71f0"
+    },
+    {
+      "path": "archive-evidence.mjs",
+      "bytes": 564,
+      "sha256": "d5055a1017856b193135072652db73a74a77dc45a9efae7ceae69b10fe39b9e1"
+    },
+    {
+      "path": "before-placement-review.json",
+      "bytes": 13089,
+      "sha256": "a5f490270a7eba1206b32bef30d726e5d462237315faf91c71d9e8b3795d82db"
+    },
+    {
+      "path": "build.mjs",
+      "bytes": 10624,
+      "sha256": "962e77490f3b31d95e15da7c8f152343e98784529b676efe77096fc7fe861165"
+    },
+    {
+      "path": "check.mjs",
+      "bytes": 6462,
+      "sha256": "6d8d279d4d12b6c1dae5d7c9a2d5ee9644d1802ae37b165e6a1dcfc6b1bae92c"
+    },
+    {
+      "path": "earlier-viewer-check/yes-no-app-architecture.browser-check.json",
+      "bytes": 22314,
+      "sha256": "fb442cd3e727c5c4ce6e8af6b4a9aaeb2f0403947efe6ea9ebd2c507a2b31a9a"
+    },
+    {
+      "path": "earlier-viewer-check/yes-no-app-architecture.visual-check.1440x900.dark.png",
+      "bytes": 96308,
+      "sha256": "630c8abaaba7b6f9762ff373fcae1515befe0fc8ebf4792422d72c4b5010ae40"
+    },
+    {
+      "path": "earlier-viewer-check/yes-no-app-architecture.visual-check.1440x900.light.png",
+      "bytes": 95978,
+      "sha256": "8381372984bf60a9095fe98bf5176c7f634bc5fc6c712249a883908ce44f9fb2"
+    },
+    {
+      "path": "earlier-viewer-check/yes-no-app-architecture.visual-check.2048x1320.dark.png",
+      "bytes": 144939,
+      "sha256": "7794d5525a2c4afcff712e48702f60d8bce36b8302e37f03fd357e42488447a9"
+    },
+    {
+      "path": "earlier-viewer-check/yes-no-app-architecture.visual-check.2048x1320.light.png",
+      "bytes": 138178,
+      "sha256": "5b16f170ac2bf24ca014f06c4e529950a95ca030d24ee6cba93802a6bfced64d"
+    },
+    {
+      "path": "earlier-viewer-check/yes-no-app-architecture.visual-check.html",
+      "bytes": 2094,
+      "sha256": "b1b9908e4523ad0a3f929f6791382250c84789c83320c0fc1ace4f0e0741376a"
+    },
+    {
+      "path": "earlier-viewer-check/yes-no-app-architecture.visual-check.json",
+      "bytes": 30409,
+      "sha256": "f11ab3eaee0f4523fd64d0982461ed44ec23f845d0366c0fd9370e911320e39a"
+    },
+    {
+      "path": "encoding-review/yes-no-app-architecture.browser-check.json",
+      "bytes": 22496,
+      "sha256": "13219bdaa13725dbd0c7f340eb049f23356e1a58ae31b3b1e9e487c0768ef51b"
+    },
+    {
+      "path": "encoding-review/yes-no-app-architecture.finalize-summary.json",
+      "bytes": 4352,
+      "sha256": "24bfec747e5d5b73351595e79fc4af37fc4268de9b947f9ba5fd817b419cb1fb"
+    },
+    {
+      "path": "encoding-review/yes-no-app-architecture.finalize.json",
+      "bytes": 38851,
+      "sha256": "7da2ffda05ba0e15764f3cc640dff849884cd8d4688ddfe26a6128f3d6bab22c"
+    },
+    {
+      "path": "enhance.mjs",
+      "bytes": 7941,
+      "sha256": "b23a10516ad25824ff22a3ebade68c5395edf04b7855621a27afeab5740a25bc"
+    },
+    {
+      "path": "repair-encoding.py",
+      "bytes": 438,
+      "sha256": "398a2c4874d04dd06a6203bd7f125bd2bb6b57461fbf960ca13a9d37b7b18059"
+    },
+    {
+      "path": "report.mjs",
+      "bytes": 8901,
+      "sha256": "bf8d73a21de3e1339e9934c5bee0f236e2ad2041adea3e17342ea7231a0f9fee"
+    },
+    {
+      "path": "review-2/yes-no-app-architecture.browser-check.json",
+      "bytes": 22489,
+      "sha256": "e26a11310994af08fcdb80fbba04265c73be3e677f29640b88e5107b8df4f139"
+    },
+    {
+      "path": "review-2/yes-no-app-architecture.finalize-summary.json",
+      "bytes": 4531,
+      "sha256": "2c5b1d9877f1907881ce938bef5ef3dbaf7a70e99efae51354cd3732ff39c3ee"
+    },
+    {
+      "path": "review-2/yes-no-app-architecture.finalize.json",
+      "bytes": 38824,
+      "sha256": "c5cff528dbd0a593980f10ac8723c9b7d905a72cdec45645d9edc0a392575c95"
+    },
+    {
+      "path": "review-3/yes-no-app-architecture.browser-check.json",
+      "bytes": 22489,
+      "sha256": "4480f5a99d6681c039a69151b32dfa1bf4c5ee2459e8710fbfe8416094424552"
+    },
+    {
+      "path": "review-3/yes-no-app-architecture.finalize-summary.json",
+      "bytes": 4331,
+      "sha256": "5326cf4721fc9cf69bad4b8f9fd4e8e0f4ad818d1d61db0a4e7236095b0eabdd"
+    },
+    {
+      "path": "review-3/yes-no-app-architecture.finalize.json",
+      "bytes": 38816,
+      "sha256": "d8be3bafa18dc84c08948f6eb0a148e084b0227f4f1d113baf233223b2907f22"
+    },
+    {
+      "path": "yes-no-app-architecture.browser-check.json",
+      "bytes": 22314,
+      "sha256": "7c1522ee2a162cd90a528564e283ac3271e99f7d4fc5efbce3a8c75869af1a3f"
+    },
+    {
+      "path": "yes-no-app-architecture.delivery.json",
+      "bytes": 1568,
+      "sha256": "54141ac59edbd0b88ace1bb5194cb75e2a2e605a671da59095cbf35dc5a14304"
+    },
+    {
+      "path": "yes-no-app-architecture.full-dark.png",
+      "bytes": 341678,
+      "sha256": "3da6c7cfac1a5fa8c739c1becf36b7db2145e698c7f66fc470715c90e2a9bdbd"
+    },
+    {
+      "path": "yes-no-app-architecture.full-light.png",
+      "bytes": 322981,
+      "sha256": "5c3f363993bd81ff5289c11526640f15bf766d9146960c3207972470ddbdd456"
+    },
+    {
+      "path": "yes-no-app-architecture.html",
+      "bytes": 814749,
+      "sha256": "321207209986e09a1e3368ab214ea84dd64333bec4209de9408da2ebb9964e69"
+    },
+    {
+      "path": "yes-no-app-architecture.interaction-check.json",
+      "bytes": 14954,
+      "sha256": "aff0cd710c408f63d8f0c4fbb79a107e41d73ca5c61912f15d5d0206292fdd17"
+    },
+    {
+      "path": "yes-no-app-architecture.interaction-dark-http.png",
+      "bytes": 128710,
+      "sha256": "359c71305a2cd31354831dc61f5ea9a849bf154d8ee1b62c90dea676a3500e2f"
+    },
+    {
+      "path": "yes-no-app-architecture.interaction-dark-model.png",
+      "bytes": 118971,
+      "sha256": "13bf89a5ffca29edec78ae5617aa0e40f5dc476755502465f2f6befe11e7d4e4"
+    },
+    {
+      "path": "yes-no-app-architecture.interaction-light-http.png",
+      "bytes": 121714,
+      "sha256": "53fdc96363a07f6de11eaa8104ec13921e1eacbf865489610a848debe5499c02"
+    },
+    {
+      "path": "yes-no-app-architecture.interaction-light-model.png",
+      "bytes": 118931,
+      "sha256": "80a0b36d717943b6fced055082d894c2aee21b2d7b97c4aa1c004c9318ad67bb"
+    },
+    {
+      "path": "yes-no-app-architecture.inventory.json",
+      "self": true
+    },
+    {
+      "path": "yes-no-app-architecture.json",
+      "bytes": 13041,
+      "sha256": "d7272d59694c05f1b962739335bff3e59cfe01a8f17d2e34136454c02039d086"
+    },
+    {
+      "path": "yes-no-app-architecture.perceptual-review.json",
+      "bytes": 876,
+      "sha256": "65268f78162b4d8ec53651c343690e70953479c41e3611d8de395dd3e46a2080"
+    },
+    {
+      "path": "yes-no-app-architecture.report.md",
+      "bytes": 14411,
+      "sha256": "c09cd719ab27f4224e2a0dfb29a53c325fe399b8e6b447a394674b87d500d2f0"
+    },
+    {
+      "path": "yes-no-app-architecture.source-check.json",
+      "bytes": 5367,
+      "sha256": "36f32fb8d01a7fde32d313487c4e514eb798a8ea9896f617a7920dccf03bd940"
+    },
+    {
+      "path": "yes-no-app-architecture.sources.json",
+      "bytes": 18791,
+      "sha256": "cba381dfde98e7e253ccae6a4077802360acd3acb8143dcb847e6daaa9a4a111"
+    },
+    {
+      "path": "yes-no-app-architecture.visual-check.1440x900.dark.png",
+      "bytes": 96222,
+      "sha256": "59e7a36d74d7a20f83ad03b741363f4b2645ed541733851601e183f506e49f67"
+    },
+    {
+      "path": "yes-no-app-architecture.visual-check.1440x900.light.png",
+      "bytes": 95863,
+      "sha256": "50e4ed413b1892cd0725734eeff1b674ee77916a4662aa127c46c004b4691294"
+    },
+    {
+      "path": "yes-no-app-architecture.visual-check.2048x1320.dark.png",
+      "bytes": 144576,
+      "sha256": "4cde7d74f36dcf8284a064ef6e235906a6f8e829e9991723b8edadbfc94c3045"
+    },
+    {
+      "path": "yes-no-app-architecture.visual-check.2048x1320.light.png",
+      "bytes": 137760,
+      "sha256": "c0d09fbe02e5d4f3959d546c0d57fbe6eb719901ee5641a637368c2c621ec3c1"
+    },
+    {
+      "path": "yes-no-app-architecture.visual-check.html",
+      "bytes": 2094,
+      "sha256": "b1b9908e4523ad0a3f929f6791382250c84789c83320c0fc1ace4f0e0741376a"
+    },
+    {
+      "path": "yes-no-app-architecture.visual-check.json",
+      "bytes": 30409,
+      "sha256": "d5dbe09876ec07e3b088acaaa5d071129e10ffbd71a09be7bdb6a72d03b20bac"
+    }
+  ]
+}

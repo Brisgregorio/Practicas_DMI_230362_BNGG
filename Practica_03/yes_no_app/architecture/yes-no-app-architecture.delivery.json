@@ -1,0 +1,33 @@
+{
+  "status": "pass",
+  "diagramType": "architecture",
+  "artifact": {
+    "path": "yes-no-app-architecture.html",
+    "sha256": "321207209986e09a1e3368ab214ea84dd64333bec4209de9408da2ebb9964e69",
+    "bytes": 814749
+  },
+  "specification": {
+    "path": "yes-no-app-architecture.json",
+    "sha256": "d7272d59694c05f1b962739335bff3e59cfe01a8f17d2e34136454c02039d086"
+  },
+  "nativeArchifyReceipt": "encoding-review/yes-no-app-architecture.finalize.json",
+  "provenance": "Final viewer extends the preserved native Archify HTML with layer navigation, detailed cards and main source URLs. Native receipts bind only archify/ HTML. Final viewer checks and this custom receipt bind the extended HTML.",
+  "jsonValidation": "Archify showcase passed",
+  "sourceValidation": "pass",
+  "browserEvidence": "pass",
+  "visualCapture": "pass",
+  "visualReview": "passed",
+  "interactionCheck": "pass",
+  "nodeInteractions": 40,
+  "applicationSourceUnmodified": true,
+  "limitations": [
+    "No live API response sampled; dynamic image host unknown.",
+    "Remote main source contents not fetched.",
+    "Answer-from-same-response requirement is not satisfied by existing code."
+  ],
+  "visualReviewNotes": [
+    "Inspected final full-page light and dark screenshots and component-card screenshots.",
+    "No overlapping nodes or labels observed. One routed crossover remains between avatar fetch and message submission; paths remain distinguishable.",
+    "Tall layout uses page scrolling. Node selection automatically zooms the diagram; overview captures reset the camera."
+  ]
+}

@@ -1,0 +1,519 @@
+{
+  "repository": {
+    "url": "https://github.com/Brisgregorio/Practicas_DMI_230362.git",
+    "revision": "007b7595ca0879ed28dd4e40b8d8f08deafb67b2",
+    "provider": "github"
+  },
+  "sourceBranch": "main",
+  "sources": [
+    {
+      "path": "Practica_03/yes_no_app/lib/main.dart",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/main.dart",
+      "sha256": "600460d6a748823b3411b3c1ec21d2c887d5615f7713ace7001f6796e5e73162",
+      "lines": 27
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/config/theme/app_theme.dart",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/config/theme/app_theme.dart",
+      "sha256": "52870e4cce8a50f6717371ee8ed73d8d90286adad3a844192413ea71c38e4c90",
+      "lines": 29
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/config/helpers/get_yes_no_answer.dart",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/config/helpers/get_yes_no_answer.dart",
+      "sha256": "856f0f88022e9a06c831c7c72b0f427f8e6cb42bc51989319109e1c296255bdf",
+      "lines": 38
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/domain/entities/message.dart",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/domain/entities/message.dart",
+      "sha256": "27426ec063745b8f4634b778aafe7279c584d1c205a651688b6e983af0053a0b",
+      "lines": 15
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/infrastructure/models/yes_no_model.dart",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/infrastructure/models/yes_no_model.dart",
+      "sha256": "18cc67f61ec6257d3d54ad43b4903a2c2b12fb2e47d1cf2afa223ad4b38db816",
+      "lines": 31
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/presentation/providers/chat_provider.dart",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/providers/chat_provider.dart",
+      "sha256": "63fefcaa8c51839be2a6d154defe72e20141a3e276668f3422d8cb06a5184917",
+      "lines": 44
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/presentation/screens/chat/chat_screen.dart",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/screens/chat/chat_screen.dart",
+      "sha256": "88f62414167b13e0233debd3756ec300f4e7b8da72618b8af68e5b56ee1c39c7",
+      "lines": 64
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/presentation/widgets/shared/message_field_box.dart",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/shared/message_field_box.dart",
+      "sha256": "396d7f3ce58ec96fd25acb4179b58587d860cce6469b759d479714d845bb7943",
+      "lines": 46
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/presentation/widgets/chat/my_message_bubble.dart",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/chat/my_message_bubble.dart",
+      "sha256": "ecafc7a7f2cbc820184866664af227b1822d9d0a70c2fe62e046da5f4cc690c0",
+      "lines": 34
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/presentation/widgets/chat/her_message_bubble.dart",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/chat/her_message_bubble.dart",
+      "sha256": "34774d3dc30a4cf2eee5bdb364fff6e9b9129f44777733dd9f1468f7cdce1c3b",
+      "lines": 63
+    },
+    {
+      "path": "Practica_03/yes_no_app/pubspec.yaml",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.yaml",
+      "sha256": "52d121be7bb9a5f320f60c84790743935d02bdfbbbcbb59c331d81545c37f430",
+      "lines": 98
+    },
+    {
+      "path": "Practica_03/yes_no_app/pubspec.lock",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.lock",
+      "sha256": "a12f5286d897c60f831215ebaf45ccf0452764e7ee9f58fc3638e9e999b1b449",
+      "lines": 357
+    },
+    {
+      "path": "Practica_03/yes_no_app/android/app/build.gradle.kts",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/android/app/build.gradle.kts",
+      "sha256": "192d921ddc733cf7673fd97179c98875090019ab23df1197435bcfa702b99a91",
+      "lines": 49
+    },
+    {
+      "path": "Practica_03/yes_no_app/android/app/src/main/AndroidManifest.xml",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/android/app/src/main/AndroidManifest.xml",
+      "sha256": "8968d57a76092ffbfa170471732c46663bc67f550c009a13429f8dc523a5aa69",
+      "lines": 45
+    },
+    {
+      "path": "Practica_03/yes_no_app/web/index.html",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/web/index.html",
+      "sha256": "dec5d85510eccf5d4119eb367bc5dc732a9fa778d9e78ecee8c0638769983bca",
+      "lines": 46
+    },
+    {
+      "path": "Practica_03/yes_no_app/windows/CMakeLists.txt",
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/windows/CMakeLists.txt",
+      "sha256": "24814f74d15e39e69fbe661520ef5358195098ffd0887a6f95c04e058d1e3e06",
+      "lines": 108
+    }
+  ],
+  "nodes": [
+    {
+      "id": "user",
+      "label": "User",
+      "sublabel": "Writes a question",
+      "layer": "Actor",
+      "technology": "Human",
+      "responsibility": "Enters text through the chat interface.",
+      "file": null,
+      "pos": [
+        30,
+        80
+      ],
+      "type": "external"
+    },
+    {
+      "id": "app",
+      "label": "Flutter application",
+      "sublabel": "main → MyApp → MaterialApp",
+      "layer": "Mobile client",
+      "technology": "Flutter / Dart runtime",
+      "responsibility": "runApp starts MyApp. MultiProvider registers ChatProvider; MaterialApp opens ChatScreen.",
+      "file": "lib/main.dart",
+      "pos": [
+        330,
+        260
+      ],
+      "type": "frontend"
+    },
+    {
+      "id": "theme",
+      "label": "AppTheme",
+      "sublabel": "Material 3 · pink seed",
+      "layer": "Mobile client",
+      "technology": "Flutter ThemeData",
+      "responsibility": "selectedColor: 6 selects pink. Dark brightness is commented out; diagram themes are independent.",
+      "file": "lib/config/theme/app_theme.dart",
+      "pos": [
+        630,
+        260
+      ],
+      "type": "frontend"
+    },
+    {
+      "id": "screen",
+      "label": "ChatScreen / _ChatView",
+      "sublabel": "Chat interface · context.watch",
+      "layer": "Presentation",
+      "technology": "Flutter / provider",
+      "responsibility": "Scaffold, avatar, message list and input. Watches ChatProvider; selects bubbles using FromWho.",
+      "file": "lib/presentation/screens/chat/chat_screen.dart",
+      "pos": [
+        30,
+        460
+      ],
+      "type": "frontend"
+    },
+    {
+      "id": "input",
+      "label": "MessageFieldBox",
+      "sublabel": "TextEditingController · FocusNode",
+      "layer": "Presentation",
+      "technology": "Flutter TextFormField",
+      "responsibility": "Submit or send button clears text and calls onValue. Controllers are created in build; no disposal is implemented.",
+      "file": "lib/presentation/widgets/shared/message_field_box.dart",
+      "pos": [
+        330,
+        460
+      ],
+      "type": "frontend"
+    },
+    {
+      "id": "state",
+      "label": "ChatProvider",
+      "sublabel": "sendMessage · herReply",
+      "layer": "State management",
+      "technology": "Provider / ChangeNotifier",
+      "responsibility": "Empty string returns. Adds user Message to messageList. Only text.endsWith(\"?\") invokes herReply (not awaited). notifyListeners rebuilds UI; 100 ms delay then 300 ms animateTo bottom. No try/catch.",
+      "file": "lib/presentation/providers/chat_provider.dart",
+      "pos": [
+        630,
+        660
+      ],
+      "type": "backend"
+    },
+    {
+      "id": "list",
+      "label": "messageList / ListView",
+      "sublabel": "User + response messages",
+      "layer": "Presentation / state",
+      "technology": "List<Message> / ListView.builder",
+      "responsibility": "ChatProvider owns the list (two initial user messages). ListView reads it and uses chatScrollController. notifyListeners refreshes the list.",
+      "file": "lib/presentation/screens/chat/chat_screen.dart",
+      "pos": [
+        330,
+        660
+      ],
+      "type": "frontend"
+    },
+    {
+      "id": "mine",
+      "label": "MyMessageBubble",
+      "sublabel": "message.text",
+      "layer": "Presentation",
+      "technology": "Flutter Widget",
+      "responsibility": "Renders user Message text with primary theme color.",
+      "file": "lib/presentation/widgets/chat/my_message_bubble.dart",
+      "pos": [
+        30,
+        660
+      ],
+      "type": "frontend"
+    },
+    {
+      "id": "http",
+      "label": "GetYesNoAnswer / Dio",
+      "sublabel": "Random choice → GET ?force=…",
+      "layer": "Infrastructure (config/helpers)",
+      "technology": "Dio / dart:math Random",
+      "responsibility": "nextInt(100): yes 40%, no 40%, maybe 20%. Derives Spanish text locally and requests matching force value. The user question is NOT sent. Reads only response.data[\"image\"] as String; ignores API answer.",
+      "file": "lib/config/helpers/get_yes_no_answer.dart",
+      "pos": [
+        630,
+        880
+      ],
+      "type": "backend"
+    },
+    {
+      "id": "api",
+      "label": "Yes/No API",
+      "sublabel": "https://yesno.wtf/api",
+      "layer": "External API / public internet",
+      "technology": "HTTPS / JSON",
+      "responsibility": "GET with force=yes|no|maybe. HTTP response is untrusted. No live request was made; actual returned image host is unknown.",
+      "file": null,
+      "pos": [
+        930,
+        880
+      ],
+      "type": "external",
+      "url": "https://yesno.wtf/api"
+    },
+    {
+      "id": "mapping",
+      "label": "Direct Message mapping",
+      "sublabel": "Local text + response image",
+      "layer": "Infrastructure → domain",
+      "technology": "Dart Message constructor",
+      "responsibility": "Actual path: Message(text: answerForChat, fromWho: hers, imageUrl: response.data[\"image\"] as String). The force parameter intends agreement, but response answer is neither read nor validated.",
+      "file": "lib/config/helpers/get_yes_no_answer.dart",
+      "pos": [
+        630,
+        1100
+      ],
+      "type": "backend"
+    },
+    {
+      "id": "entity",
+      "label": "Message / FromWho",
+      "sublabel": "text · imageUrl? · sentAt",
+      "layer": "Domain",
+      "technology": "Dart class / enum",
+      "responsibility": "One Message holds text, nullable imageUrl, FromWho.me/hers and sentAt. No Yes/No/Maybe enum exists. Same object reaches the text and image widgets.",
+      "file": "lib/domain/entities/message.dart",
+      "pos": [
+        330,
+        1100
+      ],
+      "type": "backend"
+    },
+    {
+      "id": "hers",
+      "label": "HerMessageBubble",
+      "sublabel": "Text + _ImageBubble",
+      "layer": "Presentation",
+      "technology": "Flutter / Image.network",
+      "responsibility": "Reads message.text and message.imageUrl! from the same object. loadingBuilder shows image-loading text; no errorBuilder or URL validation.",
+      "file": "lib/presentation/widgets/chat/her_message_bubble.dart",
+      "pos": [
+        30,
+        1100
+      ],
+      "type": "frontend"
+    },
+    {
+      "id": "image",
+      "label": "External GIF / image",
+      "sublabel": "Dynamic response image URL",
+      "layer": "External image resource / internet",
+      "technology": "Image.network",
+      "responsibility": "Image URL comes from response.data[\"image\"]. Host cannot be established statically; no invented host or example URL.",
+      "file": null,
+      "pos": [
+        930,
+        1330
+      ],
+      "type": "external"
+    },
+    {
+      "id": "model",
+      "label": "YesNoModel (unused)",
+      "sublabel": "fromJsonMap → toMessageEntity",
+      "layer": "Infrastructure / inactive",
+      "technology": "Dart JSON model",
+      "responsibility": "Defines answer, forced, image; fromJsonMap and toJson. No import/call from live request path. toMessageEntity maps yes to Si, all other answers (including maybe) to No. No field validation.",
+      "file": "lib/infrastructure/models/yes_no_model.dart",
+      "pos": [
+        330,
+        1330
+      ],
+      "type": "backend"
+    },
+    {
+      "id": "avatar",
+      "label": "External avatar",
+      "sublabel": "encrypted-tbn0.gstatic.com",
+      "layer": "External image resource / internet",
+      "technology": "NetworkImage",
+      "responsibility": "Separate static avatar URL in ChatScreen; unrelated to answer GIF.",
+      "file": null,
+      "pos": [
+        930,
+        460
+      ],
+      "type": "external",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIXg1ouDuND7mbJmNeZeeIJj0v29FlGKDa_eAXWKMslZLncy7oib4ukTU&s=10"
+    },
+    {
+      "id": "sdk",
+      "label": "Flutter SDK / Dart",
+      "sublabel": "pubspec.yaml + pubspec.lock",
+      "layer": "Development",
+      "technology": "Flutter SDK / Dart ^3.13.2",
+      "responsibility": "Runtime: flutter, cupertino_icons, provider, dio. Dev: flutter_test, flutter_lints, flutter_launcher_icons. Lockfile and local package configuration inspected; no package installation performed.",
+      "file": "pubspec.yaml",
+      "pos": [
+        30,
+        1610
+      ],
+      "type": "backend"
+    },
+    {
+      "id": "targets",
+      "label": "Development targets",
+      "sublabel": "Android · Web · Windows",
+      "layer": "Development",
+      "technology": "Gradle / HTML / CMake",
+      "responsibility": "Verified Android Flutter plugin, web bootstrap and Windows CMake target. iOS, Linux and macOS directories also exist. Android main manifest does not declare INTERNET; no configuration changed.",
+      "file": "android/app/build.gradle.kts",
+      "pos": [
+        330,
+        1610
+      ],
+      "type": "backend"
+    },
+    {
+      "id": "git",
+      "label": "Git working tree",
+      "sublabel": "Versioned project sources",
+      "layer": "Source control",
+      "technology": "Git",
+      "responsibility": "Local checkout identity and existing dirty generated plugin files recorded. This task writes architecture artifacts only; no commit, push or publication performed.",
+      "file": "pubspec.yaml",
+      "pos": [
+        630,
+        1610
+      ],
+      "type": "backend"
+    },
+    {
+      "id": "github",
+      "label": "GitHub repository",
+      "sublabel": "main · requested source links",
+      "layer": "Source control / GitHub boundary",
+      "technology": "GitHub",
+      "responsibility": "Brisgregorio/Practicas_DMI_230362. Source URLs use main and verified local repository-relative paths. Remote branch contents were not fetched.",
+      "file": "pubspec.yaml",
+      "pos": [
+        930,
+        1610
+      ],
+      "type": "external"
+    }
+  ],
+  "connections": [
+    {
+      "id": "user-screen",
+      "from": "user",
+      "to": "screen",
+      "label": "Enter text",
+      "variant": "emphasis"
+    },
+    {
+      "id": "app-screen",
+      "from": "app",
+      "to": "screen",
+      "label": "home",
+      "variant": "default"
+    },
+    {
+      "id": "app-theme",
+      "from": "app",
+      "to": "theme",
+      "label": "theme",
+      "variant": "default"
+    },
+    {
+      "id": "screen-input",
+      "from": "screen",
+      "to": "input",
+      "label": "onValue",
+      "variant": "emphasis"
+    },
+    {
+      "id": "input-state",
+      "from": "input",
+      "to": "state",
+      "label": "sendMessage",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "id": "state-list",
+      "from": "state",
+      "to": "list",
+      "label": "add / notify",
+      "variant": "emphasis"
+    },
+    {
+      "id": "list-mine",
+      "from": "list",
+      "to": "mine",
+      "label": "FromWho.me",
+      "variant": "default"
+    },
+    {
+      "id": "state-http",
+      "from": "state",
+      "to": "http",
+      "label": "endsWith(?)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "http-api",
+      "from": "http",
+      "to": "api",
+      "label": "GET force",
+      "variant": "emphasis"
+    },
+    {
+      "id": "api-mapping",
+      "from": "api",
+      "to": "mapping",
+      "label": "JSON image",
+      "variant": "emphasis"
+    },
+    {
+      "id": "http-mapping",
+      "from": "http",
+      "to": "mapping",
+      "label": "local text",
+      "variant": "emphasis"
+    },
+    {
+      "id": "mapping-entity",
+      "from": "mapping",
+      "to": "entity",
+      "label": "construct",
+      "variant": "emphasis"
+    },
+    {
+      "id": "entity-hers",
+      "from": "entity",
+      "to": "hers",
+      "label": "same Message",
+      "variant": "emphasis"
+    },
+    {
+      "id": "hers-image",
+      "from": "hers",
+      "to": "image",
+      "label": "GET image URL",
+      "variant": "default"
+    },
+    {
+      "id": "screen-avatar",
+      "from": "screen",
+      "to": "avatar",
+      "label": "avatar fetch",
+      "variant": "default"
+    },
+    {
+      "id": "sdk-targets",
+      "from": "sdk",
+      "to": "targets",
+      "label": "build",
+      "variant": "default"
+    },
+    {
+      "id": "git-github",
+      "from": "git",
+      "to": "github",
+      "label": "source links",
+      "variant": "dashed"
+    }
+  ],
+  "dirtyPaths": " M ../../Practica_02/hello_word_app/linux/flutter/generated_plugin_registrant.cc\n M ../../Practica_02/hello_word_app/linux/flutter/generated_plugin_registrant.h\n M ../../Practica_02/hello_word_app/linux/flutter/generated_plugins.cmake\n M ../../Practica_02/hello_word_app/macos/Flutter/GeneratedPluginRegistrant.swift\n M ../../Practica_02/hello_word_app/windows/flutter/generated_plugin_registrant.cc\n M ../../Practica_02/hello_word_app/windows/flutter/generated_plugin_registrant.h\n M ../../Practica_02/hello_word_app/windows/flutter/generated_plugins.cmake\n M linux/flutter/generated_plugin_registrant.cc\n M linux/flutter/generated_plugin_registrant.h\n M linux/flutter/generated_plugins.cmake\n M macos/Flutter/GeneratedPluginRegistrant.swift\n M windows/flutter/generated_plugin_registrant.cc\n M windows/flutter/generated_plugin_registrant.h\n M windows/flutter/generated_plugins.cmake\n?? architecture/\n",
+  "limitations": [
+    "No live API response sampled; dynamic image host unknown.",
+    "Remote main source contents not fetched.",
+    "Answer-from-same-response requirement is not satisfied by existing code."
+  ]
+}

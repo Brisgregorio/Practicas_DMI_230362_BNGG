@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "68f1e6e4-1f8c-4e68-b0fb-0557b2661a3d",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\grego\\Desktop\\FLUTTER\\Practicas_DMI_230362\\Practica_03\\yes_no_app\\architecture\\yes-no-app-architecture.json",
+  "output": "C:\\Users\\grego\\Desktop\\FLUTTER\\Practicas_DMI_230362\\Practica_03\\yes_no_app\\architecture\\archify\\yes-no-app-architecture.html",
+  "specification": {
+    "sha256": "d7272d59694c05f1b962739335bff3e59cfe01a8f17d2e34136454c02039d086",
+    "bytes": 13041
+  },
+  "artifact": {
+    "sha256": "6689af97e98e4d53e5caf55c03219afb7e8f28206d6935f1a5cbf28b760d71f0",
+    "bytes": 793378
+  }
+}

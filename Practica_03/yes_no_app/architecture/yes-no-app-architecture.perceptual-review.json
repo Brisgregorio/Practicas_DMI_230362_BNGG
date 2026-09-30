@@ -1,0 +1,17 @@
+{
+  "status": "pass",
+  "artifactSha256": "321207209986e09a1e3368ab214ea84dd64333bec4209de9408da2ebb9964e69",
+  "reviewer": "image-capable assistant",
+  "captures": [
+    "yes-no-app-architecture.full-light.png",
+    "yes-no-app-architecture.full-dark.png",
+    "yes-no-app-architecture.interaction-light-http.png",
+    "yes-no-app-architecture.interaction-dark-model.png"
+  ],
+  "observations": [
+    "Inspected final full-page light and dark screenshots and component-card screenshots.",
+    "No overlapping nodes or labels observed. One routed crossover remains between avatar fetch and message submission; paths remain distinguishable.",
+    "Tall layout uses page scrolling. Node selection automatically zooms the diagram; overview captures reset the camera."
+  ],
+  "placementReview": "One alternative placement was tested and restored because it increased crossings."
+}
