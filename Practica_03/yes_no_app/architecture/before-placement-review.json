@@ -1,0 +1,628 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "PrÃ¡ctica 03 - Yes No App",
+    "output": "architecture/archify/yes-no-app-architecture.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362.git",
+      "revision": "007b7595ca0879ed28dd4e40b8d8f08deafb67b2",
+      "provider": "github"
+    }
+  },
+  "components": [
+    {
+      "id": "user",
+      "label": "User",
+      "sublabel": "Writes a question",
+      "pos": [
+        30,
+        80
+      ],
+      "type": "external",
+      "size": [
+        210,
+        78
+      ]
+    },
+    {
+      "id": "app",
+      "label": "Flutter application",
+      "sublabel": "main â†’ MyApp â†’ MaterialApp",
+      "pos": [
+        330,
+        260
+      ],
+      "type": "frontend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/main.dart",
+          "line": 1,
+          "end_line": 27,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "theme",
+      "label": "AppTheme",
+      "sublabel": "Material 3 Â· pink seed",
+      "pos": [
+        630,
+        260
+      ],
+      "type": "frontend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/config/theme/app_theme.dart",
+          "line": 1,
+          "end_line": 29,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "screen",
+      "label": "ChatScreen / _ChatView",
+      "sublabel": "Chat interface Â· context.watch",
+      "pos": [
+        30,
+        460
+      ],
+      "type": "frontend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/presentation/screens/chat/chat_screen.dart",
+          "line": 1,
+          "end_line": 64,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "input",
+      "label": "MessageFieldBox",
+      "sublabel": "TextEditingController Â· FocusNode",
+      "pos": [
+        330,
+        460
+      ],
+      "type": "frontend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/presentation/widgets/shared/message_field_box.dart",
+          "line": 1,
+          "end_line": 46,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "state",
+      "label": "ChatProvider",
+      "sublabel": "sendMessage Â· herReply",
+      "pos": [
+        630,
+        660
+      ],
+      "type": "backend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/presentation/providers/chat_provider.dart",
+          "line": 1,
+          "end_line": 44,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "list",
+      "label": "messageList / ListView",
+      "sublabel": "User + response messages",
+      "pos": [
+        330,
+        660
+      ],
+      "type": "frontend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/presentation/screens/chat/chat_screen.dart",
+          "line": 1,
+          "end_line": 64,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "mine",
+      "label": "MyMessageBubble",
+      "sublabel": "message.text",
+      "pos": [
+        30,
+        660
+      ],
+      "type": "frontend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/presentation/widgets/chat/my_message_bubble.dart",
+          "line": 1,
+          "end_line": 34,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "http",
+      "label": "GetYesNoAnswer / Dio",
+      "sublabel": "Random choice â†’ GET ?force=â€¦",
+      "pos": [
+        630,
+        880
+      ],
+      "type": "backend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/config/helpers/get_yes_no_answer.dart",
+          "line": 1,
+          "end_line": 38,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "label": "Yes/No API",
+      "sublabel": "https://yesno.wtf/api",
+      "pos": [
+        930,
+        880
+      ],
+      "type": "external",
+      "size": [
+        210,
+        78
+      ]
+    },
+    {
+      "id": "mapping",
+      "label": "Direct Message mapping",
+      "sublabel": "Local text + response image",
+      "pos": [
+        630,
+        1100
+      ],
+      "type": "backend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/config/helpers/get_yes_no_answer.dart",
+          "line": 1,
+          "end_line": 38,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "entity",
+      "label": "Message / FromWho",
+      "sublabel": "text Â· imageUrl? Â· sentAt",
+      "pos": [
+        330,
+        1100
+      ],
+      "type": "backend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/domain/entities/message.dart",
+          "line": 1,
+          "end_line": 15,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "hers",
+      "label": "HerMessageBubble",
+      "sublabel": "Text + _ImageBubble",
+      "pos": [
+        30,
+        1100
+      ],
+      "type": "frontend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/presentation/widgets/chat/her_message_bubble.dart",
+          "line": 1,
+          "end_line": 63,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "image",
+      "label": "External GIF / image",
+      "sublabel": "Dynamic response image URL",
+      "pos": [
+        930,
+        1330
+      ],
+      "type": "external",
+      "size": [
+        210,
+        78
+      ]
+    },
+    {
+      "id": "model",
+      "label": "YesNoModel (unused)",
+      "sublabel": "fromJsonMap â†’ toMessageEntity",
+      "pos": [
+        330,
+        1330
+      ],
+      "type": "backend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/lib/infrastructure/models/yes_no_model.dart",
+          "line": 1,
+          "end_line": 31,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "avatar",
+      "label": "External avatar",
+      "sublabel": "encrypted-tbn0.gstatic.com",
+      "pos": [
+        930,
+        460
+      ],
+      "type": "external",
+      "size": [
+        210,
+        78
+      ]
+    },
+    {
+      "id": "sdk",
+      "label": "Flutter SDK / Dart",
+      "sublabel": "pubspec.yaml + pubspec.lock",
+      "pos": [
+        30,
+        1610
+      ],
+      "type": "backend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/pubspec.yaml",
+          "line": 1,
+          "end_line": 98,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "targets",
+      "label": "Development targets",
+      "sublabel": "Android Â· Web Â· Windows",
+      "pos": [
+        330,
+        1610
+      ],
+      "type": "backend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/android/app/build.gradle.kts",
+          "line": 1,
+          "end_line": 49,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "git",
+      "label": "Git working tree",
+      "sublabel": "Versioned project sources",
+      "pos": [
+        630,
+        1610
+      ],
+      "type": "backend",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/pubspec.yaml",
+          "line": 1,
+          "end_line": 98,
+          "label": "Open source code"
+        }
+      ]
+    },
+    {
+      "id": "github",
+      "label": "GitHub repository",
+      "sublabel": "main Â· requested source links",
+      "pos": [
+        930,
+        1610
+      ],
+      "type": "external",
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "Practica_03/yes_no_app/pubspec.yaml",
+          "line": 1,
+          "end_line": 98,
+          "label": "Open source code"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "user-screen",
+      "from": "user",
+      "to": "screen",
+      "label": "Enter text",
+      "variant": "emphasis"
+    },
+    {
+      "id": "app-screen",
+      "from": "app",
+      "to": "screen",
+      "label": "home",
+      "variant": "default"
+    },
+    {
+      "id": "app-theme",
+      "from": "app",
+      "to": "theme",
+      "label": "theme",
+      "variant": "default"
+    },
+    {
+      "id": "screen-input",
+      "from": "screen",
+      "to": "input",
+      "label": "onValue",
+      "variant": "emphasis"
+    },
+    {
+      "id": "input-state",
+      "from": "input",
+      "to": "state",
+      "label": "sendMessage",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "id": "state-list",
+      "from": "state",
+      "to": "list",
+      "label": "add / notify",
+      "variant": "emphasis"
+    },
+    {
+      "id": "list-mine",
+      "from": "list",
+      "to": "mine",
+      "label": "FromWho.me",
+      "variant": "default"
+    },
+    {
+      "id": "state-http",
+      "from": "state",
+      "to": "http",
+      "label": "endsWith(?)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "http-api",
+      "from": "http",
+      "to": "api",
+      "label": "GET force",
+      "variant": "emphasis"
+    },
+    {
+      "id": "api-mapping",
+      "from": "api",
+      "to": "mapping",
+      "label": "JSON image",
+      "variant": "emphasis"
+    },
+    {
+      "id": "http-mapping",
+      "from": "http",
+      "to": "mapping",
+      "label": "local text",
+      "variant": "emphasis"
+    },
+    {
+      "id": "mapping-entity",
+      "from": "mapping",
+      "to": "entity",
+      "label": "construct",
+      "variant": "emphasis"
+    },
+    {
+      "id": "entity-hers",
+      "from": "entity",
+      "to": "hers",
+      "label": "same Message",
+      "variant": "emphasis"
+    },
+    {
+      "id": "hers-image",
+      "from": "hers",
+      "to": "image",
+      "label": "GET image URL",
+      "variant": "default"
+    },
+    {
+      "id": "screen-avatar",
+      "from": "screen",
+      "to": "avatar",
+      "label": "avatar fetch",
+      "variant": "default"
+    },
+    {
+      "id": "sdk-targets",
+      "from": "sdk",
+      "to": "targets",
+      "label": "build",
+      "variant": "default"
+    },
+    {
+      "id": "git-github",
+      "from": "git",
+      "to": "github",
+      "label": "source links",
+      "variant": "dashed"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Internal Flutter application Â· mobile client",
+      "wraps": [
+        "app",
+        "theme",
+        "screen",
+        "input",
+        "state",
+        "list",
+        "mine",
+        "http",
+        "mapping",
+        "entity",
+        "hers",
+        "model"
+      ],
+      "pad": 22
+    },
+    {
+      "kind": "security-group",
+      "label": "External API Â· public internet",
+      "wraps": [
+        "api"
+      ],
+      "pad": 24
+    },
+    {
+      "kind": "security-group",
+      "label": "External image resource",
+      "wraps": [
+        "image"
+      ],
+      "pad": 24
+    },
+    {
+      "kind": "region",
+      "label": "Development infrastructure",
+      "wraps": [
+        "sdk",
+        "targets"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "security-group",
+      "label": "GitHub source-control boundary",
+      "wraps": [
+        "github"
+      ],
+      "pad": 20
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Verified behavior / requirement gap",
+      "items": [
+        "The app chooses text locally and sends force to the API. It does not derive text from the returned answer.",
+        "One Message preserves text/image pairing, but API agreement is not validated. YesNoModel is unused."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Not implemented",
+      "items": [
+        "HTTP error handling, response field validation, image URL validation and image errorBuilder.",
+        "Fallback reply, API loading state, retry and error recovery. No answer-value enum."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Implemented guards and loading",
+      "items": [
+        "Empty string ignored; non-question remains a user message without an API request. Whitespace is not trimmed.",
+        "Image loadingBuilder only. notifyListeners and ScrollController refresh and scroll the chat."
+      ]
+    }
+  ]
+}

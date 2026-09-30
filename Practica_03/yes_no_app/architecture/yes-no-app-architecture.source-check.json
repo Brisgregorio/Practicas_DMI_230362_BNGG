@@ -1,0 +1,136 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "path": "Practica_03/yes_no_app/lib/main.dart",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/main.dart",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/config/theme/app_theme.dart",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/config/theme/app_theme.dart",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/config/helpers/get_yes_no_answer.dart",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/config/helpers/get_yes_no_answer.dart",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/domain/entities/message.dart",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/domain/entities/message.dart",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/infrastructure/models/yes_no_model.dart",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/infrastructure/models/yes_no_model.dart",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/presentation/providers/chat_provider.dart",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/providers/chat_provider.dart",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/presentation/screens/chat/chat_screen.dart",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/screens/chat/chat_screen.dart",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/presentation/widgets/shared/message_field_box.dart",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/shared/message_field_box.dart",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/presentation/widgets/chat/my_message_bubble.dart",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/chat/my_message_bubble.dart",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/lib/presentation/widgets/chat/her_message_bubble.dart",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/lib/presentation/widgets/chat/her_message_bubble.dart",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/pubspec.yaml",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.yaml",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/pubspec.lock",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/pubspec.lock",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/android/app/build.gradle.kts",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/android/app/build.gradle.kts",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/android/app/src/main/AndroidManifest.xml",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/android/app/src/main/AndroidManifest.xml",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/web/index.html",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/web/index.html",
+      "embedded": true,
+      "validUrl": true
+    },
+    {
+      "path": "Practica_03/yes_no_app/windows/CMakeLists.txt",
+      "exists": true,
+      "hashUnchanged": true,
+      "url": "https://github.com/Brisgregorio/Practicas_DMI_230362/blob/main/Practica_03/yes_no_app/windows/CMakeLists.txt",
+      "embedded": true,
+      "validUrl": true
+    }
+  ],
+  "api": "https://yesno.wtf/api",
+  "sameResponseAnswer": false,
+  "association": "local answer → force request → returned image; same Message, no answer validation"
+}
