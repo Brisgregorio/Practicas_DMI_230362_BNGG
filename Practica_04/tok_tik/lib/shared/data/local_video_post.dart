@@ -80,3 +80,39 @@ List<Map<String, dynamic>> videoPosts = [
 
 
 ];
+
+import 'package:tok_tik/domain/entities/video_post.dart';
+
+class LocalVideoModel {
+  final String name;
+  final String videoUrl;
+  final int likes;
+  final int views;
+
+  LocalVideoModel({
+    required this.name,
+    required this.videoUrl,
+    required this.likes,
+    required this.views,
+  });
+
+  factory LocalVideoModel.fromJson(Map<String, dynamic> json) {
+    return LocalVideoModel(
+      name: json['name'] as String? ?? '',
+      videoUrl: json['videoUrl'] as String? ?? '',
+      likes: json['likes'] as int? ?? 0,
+      views: json['views'] as int? ?? 0,
+    );
+  }
+
+  VideoPost toVideoPostEntity() {
+    return VideoPost(
+      id: videoUrl,
+      caption: name,
+      videoUrl: videoUrl,
+      likes: likes,
+      isLiked: false,
+      source: 'local',
+    );
+  }
+}
