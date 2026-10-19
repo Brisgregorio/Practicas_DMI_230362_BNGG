@@ -39,7 +39,7 @@ En este modelo elemental, la capa de presentación y el `DiscoverProvider` depen
 
 #### Enlaces al Diagrama:
 - **[Ver Diagrama Interactivo en GitHub Pages](https://brisgregorio.github.io/Practicas_DMI_230362_BNGG/Practica_04/tok_tik/architecture/diagrama_provider_local.html)**
-- **[Ver Archivo Fuente en GitHub](https://github.com/Brisgregorio/Practicas_DMI_230362_BNGG/blob/Practica04/Practica_04/tok_tik/architecture/diagrama_provider_local.html)**
+- **[Ver Archivo Fuente en GitHub](https://github.com/Brisgregorio/Practicas_DMI_230362_BNGG/blob/main/Practica_04/tok_tik/architecture/diagrama_provider_local.html)**
 
 <p align="center">
   <img src="architecture/diagrama_provider_local.png" alt="Diagrama 1 - Arquitectura Provider Local" width="850">
@@ -58,7 +58,7 @@ En esta arquitectura profesional, el **Provider** interactúa exclusivamente con
 
 #### Enlaces al Diagrama:
 - **[Ver Diagrama Interactivo en GitHub Pages](https://brisgregorio.github.io/Practicas_DMI_230362_BNGG/Practica_04/tok_tik/architecture/diagrama_clean_code.html)**
-- **[Ver Archivo Fuente en GitHub](https://github.com/Brisgregorio/Practicas_DMI_230362_BNGG/blob/Practica04/Practica_04/tok_tik/architecture/diagrama_clean_code.html)**
+- **[Ver Archivo Fuente en GitHub](https://github.com/Brisgregorio/Practicas_DMI_230362_BNGG/blob/main/Practica_04/tok_tik/architecture/diagrama_clean_code.html)**
 
 <p align="center">
   <img src="architecture/diagrama_clean_code.png" alt="Diagrama 2 - Arquitectura Clean Code con Múltiples Datasources" width="850">
