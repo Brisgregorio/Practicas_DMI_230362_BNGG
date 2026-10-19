@@ -9,13 +9,18 @@ import 'package:toktik/infrastructure/repositories/video_posts_repository_impl.d
 import 'package:toktik/presentation/providers/discover_provider.dart';
 import 'package:toktik/presentation/screens/splash/splash_screen.dart';
 
+import 'package:toktik/infrastructure/datasources/local_storage_service.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 1. Detección automática de la temporada actual por la fecha del dispositivo
+  // 1. Inicialización del Local Storage para persistencia de favoritos y vistas
+  await LocalStorageService.init();
+
+  // 2. Detección automática de la temporada actual por la fecha del dispositivo
   final currentSeason = SeasonConfig.getSeasonByDate();
 
-  // 2. Sincronización del icono de la app en Android (pantalla de inicio y cajón de apps)
+  // 3. Sincronización del icono de la app en Android (pantalla de inicio y cajón de apps)
   await SeasonConfig.syncAppIcon(currentSeason);
 
   runApp(MyApp(season: currentSeason));

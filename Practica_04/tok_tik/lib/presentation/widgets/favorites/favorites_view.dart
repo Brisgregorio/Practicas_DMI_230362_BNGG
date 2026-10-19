@@ -1,19 +1,36 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:toktik/config/theme/season_config.dart';
+import 'package:toktik/domain/entities/video_post.dart';
+import 'package:toktik/presentation/widgets/shared/video_scrollable_view.dart';
 
 class FavoritesView extends StatelessWidget {
+  final List<VideoPost> favoriteVideos;
   final AppSeason season;
   final VoidCallback onExplorePressed;
+  final bool isActive;
+  final Function(VideoPost video, bool isLiked, int likesCount)? onLikeChanged;
 
   const FavoritesView({
     super.key,
     required this.season,
     required this.onExplorePressed,
+    this.favoriteVideos = const [],
+    this.isActive = false,
+    this.onLikeChanged,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (favoriteVideos.isNotEmpty) {
+      return VideoScrollableView(
+        videos: favoriteVideos,
+        sectionTag: 'Favoritos (${favoriteVideos.length})',
+        accentColor: season.accentColor,
+        isActive: isActive,
+        onLikeChanged: onLikeChanged,
+      );
+    }
     return Container(
       color: Colors.black,
       width: double.infinity,

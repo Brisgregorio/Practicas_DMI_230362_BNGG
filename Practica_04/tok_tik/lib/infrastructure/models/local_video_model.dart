@@ -23,9 +23,11 @@ class LocalVideoModel {
 
   VideoPost toVideoPostEntity() => VideoPost(
     caption: name,
+    description: name,
+    userName: '@toktik_oficial',
     videoUrl: videoUrl,
     likes: likes,
-    views: views
+    views: views,
   );
 
 }

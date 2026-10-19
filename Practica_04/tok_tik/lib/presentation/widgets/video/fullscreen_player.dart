@@ -1,21 +1,33 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:toktik/domain/entities/video_post.dart';
+import 'package:toktik/infrastructure/datasources/local_storage_service.dart';
+import 'package:toktik/presentation/widgets/shared/video_buttons.dart';
 import 'package:toktik/presentation/widgets/video/video_background.dart';
 import 'package:video_player/video_player.dart';
 
 class FullScreenPlayer extends StatefulWidget {
   final String videoUrl;
   final String caption;
+  final int likes;
+  final int views;
+  final VideoPost? video;
   final String? sectionTag;
   final Color? accentColor;
   final bool isActive;
+  final Function(bool isLiked, int likesCount)? onLikeChanged;
 
   const FullScreenPlayer({
     super.key,
     required this.videoUrl,
     required this.caption,
+    this.likes = 0,
+    this.views = 0,
+    this.video,
     this.sectionTag,
     this.accentColor,
     this.isActive = true,
+    this.onLikeChanged,
   });
 
   @override
@@ -24,9 +36,20 @@ class FullScreenPlayer extends StatefulWidget {
 
 class _FullScreenPlayerState extends State<FullScreenPlayer> {
   late VideoPlayerController controller;
+  late Future<void> _initializeFuture;
   bool isMuted = false;
   bool isPlaying = true;
-  bool hasError = false;
+  bool showMuteNotice = false;
+  Timer? _muteNoticeTimer;
+
+  VideoPost get _effectiveVideo =>
+      widget.video ??
+      VideoPost(
+        caption: widget.caption,
+        videoUrl: widget.videoUrl,
+        likes: widget.likes,
+        views: widget.views,
+      );
 
   @override
   void initState() {
@@ -41,11 +64,19 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
 
     controller
       ..setLooping(true)
-      ..setVolume(1.0); // SONIDO ACTIVO POR DEFECTO
+      ..setVolume(1.0); // Sonido activo por defecto
 
-    if (widget.isActive) {
-      controller.play();
-    }
+    // Inicializar UNA SOLA VEZ para evitar que pause/play reinicie la inicialización
+    _initializeFuture = controller.initialize().then((_) {
+      if (mounted) {
+        if (widget.isActive) {
+          controller.play();
+          // Registrar video visto en Local Storage con sus likes y vistas
+          LocalStorageService.saveViewedVideo(_effectiveVideo);
+        }
+        setState(() {});
+      }
+    });
 
     controller.addListener(() {
       if (mounted) {
@@ -66,13 +97,18 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
       if (!widget.isActive) {
         controller.pause();
       } else {
-        controller.play();
+        if (isPlaying) {
+          controller.play();
+        }
+        // Registrar video visto cuando pasa a estar activo
+        LocalStorageService.saveViewedVideo(_effectiveVideo);
       }
     }
   }
 
   @override
   void dispose() {
+    _muteNoticeTimer?.cancel();
     controller.dispose();
     super.dispose();
   }
@@ -89,13 +125,25 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
     setState(() {
       isMuted = !isMuted;
       controller.setVolume(isMuted ? 0.0 : 1.0);
+      showMuteNotice = true;
+    });
+
+    _muteNoticeTimer?.cancel();
+    _muteNoticeTimer = Timer(const Duration(milliseconds: 1400), () {
+      if (mounted) {
+        setState(() {
+          showMuteNotice = false;
+        });
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final effectiveVideo = _effectiveVideo;
+
     return FutureBuilder(
-      future: controller.initialize(),
+      future: _initializeFuture,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(
@@ -114,7 +162,8 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
           );
         }
 
-        if (snapshot.connectionState != ConnectionState.done) {
+        // Mientras no esté inicializado, mostramos el indicador inicial (solo al cargar por primera vez)
+        if (!controller.value.isInitialized) {
           return const Center(child: CircularProgressIndicator(strokeWidth: 2));
         }
 
@@ -122,10 +171,11 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
 
         return GestureDetector(
           onTap: _togglePlayPause,
+          behavior: HitTestBehavior.opaque,
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // Video a pantalla completa (FittedBox para cover vertical)
+              // 1. Video a pantalla completa (BoxFit.cover para pantalla inmersiva)
               SizedBox.expand(
                 child: FittedBox(
                   fit: BoxFit.cover,
@@ -137,63 +187,101 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
                 ),
               ),
 
-              // Gradiente para legibilidad
+              // 2. Gradiente inferior para legibilidad de títulos y controles
               VideoBackground(
-                stops: const [0.7, 1.0],
+                stops: const [0.65, 1.0],
               ),
 
-              // Indicador animado de Pausa en el centro al pausar
+              // 3. Indicador de Pausa animado en el centro (solo cuando el usuario pausa)
               if (!isPlaying)
                 Center(
                   child: Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(18),
                     decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.5),
+                      color: Colors.black.withValues(alpha: 0.55),
                       shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.3),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.4),
+                          blurRadius: 16,
+                        ),
+                      ],
                     ),
                     child: const Icon(
                       Icons.play_arrow_rounded,
-                      size: 64,
+                      size: 60,
                       color: Colors.white,
                     ),
                   ),
                 ),
 
-              // Botón de control de Audio/Sonido en la parte superior derecha (debajo del encabezado)
-              Positioned(
-                top: 102,
-                right: 18,
-                child: GestureDetector(
-                  onTap: _toggleMute,
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.55),
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: (widget.accentColor ?? Colors.white).withValues(alpha: 0.6),
-                        width: 1.2,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: (widget.accentColor ?? Colors.white).withValues(alpha: 0.25),
-                          blurRadius: 10,
+              // 4. Aviso flotante temporal al mutear / desmutear el video
+              if (showMuteNotice)
+                Center(
+                  child: AnimatedOpacity(
+                    opacity: showMuteNotice ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 250),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: 0.75),
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: (widget.accentColor ?? Colors.white).withValues(alpha: 0.6),
+                          width: 1.2,
                         ),
-                      ],
-                    ),
-                    child: Icon(
-                      isMuted ? Icons.volume_off_rounded : Icons.volume_up_rounded,
-                      color: isMuted ? Colors.white60 : (widget.accentColor ?? Colors.white),
-                      size: 20,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.5),
+                            blurRadius: 12,
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            isMuted ? Icons.volume_off_rounded : Icons.volume_up_rounded,
+                            color: isMuted ? Colors.redAccent : (widget.accentColor ?? Colors.white),
+                            size: 24,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            isMuted ? 'Audio silenciado' : 'Audio activado',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
+
+              // 5. Botones laterales rediseñados (Corazón, Vistas y Disco Giratorio con Mute)
+              Positioned(
+                bottom: 85,
+                right: 14,
+                child: VideoButtons(
+                  video: effectiveVideo,
+                  isMuted: isMuted,
+                  onToggleMute: _toggleMute,
+                  accentColor: widget.accentColor,
+                  onLikeChanged: widget.onLikeChanged,
+                ),
               ),
 
-              // Texto e identificador de sección festiva en la parte inferior
+              // 6. Texto descriptivo, nombre de usuario con "Ver más" y badge de sección
               Positioned(
-                bottom: 95,
-                left: 20,
+                bottom: 85,
+                left: 16,
+                right: 90, // Deja espacio para no chocar con los botones laterales
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -219,19 +307,27 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
                               color: widget.accentColor ?? Colors.white,
                             ),
                             const SizedBox(width: 5),
-                            Text(
-                              widget.sectionTag!,
-                              style: TextStyle(
-                                color: widget.accentColor ?? Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                            Flexible(
+                              child: Text(
+                                widget.sectionTag!,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: widget.accentColor ?? Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
                     ],
-                    _VideoCaption(caption: widget.caption),
+                    _VideoUserAndDescription(
+                      userName: effectiveVideo.userName,
+                      caption: effectiveVideo.caption,
+                      description: effectiveVideo.description,
+                      accentColor: widget.accentColor ?? const Color(0xFFFF2A54),
+                    ),
                   ],
                 ),
               ),
@@ -243,31 +339,144 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
   }
 }
 
-class _VideoCaption extends StatelessWidget {
+class _VideoUserAndDescription extends StatefulWidget {
+  final String userName;
   final String caption;
+  final String description;
+  final Color accentColor;
 
-  const _VideoCaption({required this.caption});
+  const _VideoUserAndDescription({
+    required this.userName,
+    required this.caption,
+    required this.description,
+    required this.accentColor,
+  });
+
+  @override
+  State<_VideoUserAndDescription> createState() => _VideoUserAndDescriptionState();
+}
+
+class _VideoUserAndDescriptionState extends State<_VideoUserAndDescription> {
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final titleStyle = Theme.of(context).textTheme.titleLarge?.copyWith(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          shadows: const [
-            Shadow(color: Colors.black87, blurRadius: 4, offset: Offset(1, 1)),
-          ],
-        );
+    final textToShow = widget.description.isNotEmpty ? widget.description : widget.caption;
+    final isLongText = textToShow.length > 55 || textToShow.contains('\n');
 
-    return SizedBox(
-      width: size.width * 0.65,
-      child: Text(
-        caption,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        style: titleStyle,
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Nombre de usuario con badge verificado
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              widget.userName,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                shadows: [
+                  Shadow(color: Colors.black87, blurRadius: 4, offset: Offset(1, 1)),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            Icon(
+              Icons.verified_rounded,
+              size: 15,
+              color: widget.accentColor,
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 6),
+
+        // Descripción con función "Ver más" / "Ver menos"
+        GestureDetector(
+          onTap: () {
+            if (isLongText) {
+              setState(() => isExpanded = !isExpanded);
+            }
+          },
+          child: AnimatedCrossFade(
+            duration: const Duration(milliseconds: 250),
+            crossFadeState:
+                isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+            firstChild: RichText(
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              text: TextSpan(
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13.5,
+                  height: 1.35,
+                  shadows: [
+                    Shadow(color: Colors.black87, blurRadius: 4, offset: Offset(1, 1)),
+                  ],
+                ),
+                children: [
+                  TextSpan(text: textToShow),
+                  if (isLongText)
+                    TextSpan(
+                      text: ' ( ... más )',
+                      style: TextStyle(
+                        color: widget.accentColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            secondChild: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Sección de descripción extensa con desplazamiento vertical
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 110),
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Text(
+                      textToShow,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13.5,
+                        height: 1.35,
+                        shadows: [
+                          Shadow(color: Colors.black87, blurRadius: 4, offset: Offset(1, 1)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '( ... menos )',
+                      style: TextStyle(
+                        color: widget.accentColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.5,
+                      ),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_up_rounded,
+                      size: 16,
+                      color: widget.accentColor,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
+

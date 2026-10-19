@@ -155,36 +155,52 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     // Sección 1: Para ti
                     VideoScrollableView(
                       videos: discoverProvider.forYouVideos,
-                      sectionTag: '✨ Para ti',
+                      sectionTag: 'Para ti',
                       accentColor: _currentSeason.accentColor,
                       isActive: _currentIndex == 0,
+                      onLoadMore: () => discoverProvider.loadMoreForSection(0),
+                      onRefresh: () => discoverProvider.refreshFeed(),
+                      onLikeChanged: (video, isLiked, count) =>
+                          discoverProvider.toggleLike(video, isLiked, count),
                     ),
 
                     // Sección 2: Cerca de ti
                     VideoScrollableView(
                       videos: discoverProvider.nearYouVideos,
-                      sectionTag: '📍 Cerca de ti • En tu zona',
+                      sectionTag: 'Cerca de ti - En tu zona',
                       accentColor: _currentSeason.accentColor,
                       isActive: _currentIndex == 1,
+                      onLoadMore: () => discoverProvider.loadMoreForSection(1),
+                      onRefresh: () => discoverProvider.refreshFeed(),
+                      onLikeChanged: (video, isLiked, count) =>
+                          discoverProvider.toggleLike(video, isLiked, count),
                     ),
 
                     // Sección 3: Descubrir
                     VideoScrollableView(
                       videos: discoverProvider.discoverVideos,
-                      sectionTag: '🔥 Descubrir • Tendencias',
+                      sectionTag: 'Descubrir - Tendencias',
                       accentColor: _currentSeason.accentColor,
                       isActive: _currentIndex == 2,
+                      onLoadMore: () => discoverProvider.loadMoreForSection(2),
+                      onRefresh: () => discoverProvider.refreshFeed(),
+                      onLikeChanged: (video, isLiked, count) =>
+                          discoverProvider.toggleLike(video, isLiked, count),
                     ),
 
-                    // Sección 4: Favoritos (Sección creada sin funcionalidad aún)
+                    // Sección 4: Favoritos (Sincronizado con Local Storage)
                     FavoritesView(
+                      favoriteVideos: discoverProvider.favoriteVideos,
                       season: _currentSeason,
+                      isActive: _currentIndex == 3,
                       onExplorePressed: () => _onTabTapped(0),
+                      onLikeChanged: (video, isLiked, count) =>
+                          discoverProvider.toggleLike(video, isLiked, count),
                     ),
                   ],
                 ),
 
-          // 2. Encabezado superior con botón de temporada y pestaña activa
+          // 2. Encabezado superior con botón de temporada, botón de actualizar feed y pestaña activa
           Positioned(
             top: 48,
             left: 16,
@@ -230,24 +246,97 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   ),
                 ),
 
-                // Indicador de sección actual
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.55),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.15),
+                // Lado derecho: Botón interactivo de actualizar feed + Indicador de sección activa
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Botón para actualizar el feed
+                    GestureDetector(
+                      onTap: () async {
+                        await discoverProvider.refreshFeed();
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: const Color(0xFF1E1E1E),
+                              behavior: SnackBarBehavior.floating,
+                              margin: const EdgeInsets.only(bottom: 75, left: 16, right: 16),
+                              duration: const Duration(seconds: 2),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                side: BorderSide(
+                                  color: _currentSeason.accentColor.withValues(alpha: 0.6),
+                                  width: 1.2,
+                                ),
+                              ),
+                              content: Row(
+                                children: [
+                                  Icon(Icons.auto_awesome, color: _currentSeason.accentColor, size: 20),
+                                  const SizedBox(width: 10),
+                                  const Expanded(
+                                    child: Text(
+                                      '¡Feed actualizado con nuevos videos!',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(right: 8),
+                        padding: const EdgeInsets.all(7),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.55),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: _currentSeason.accentColor.withValues(alpha: 0.6),
+                            width: 1.2,
+                          ),
+                        ),
+                        child: discoverProvider.isRefreshing
+                            ? SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: _currentSeason.accentColor,
+                                ),
+                              )
+                            : Icon(
+                                Icons.refresh_rounded,
+                                size: 17,
+                                color: _currentSeason.accentColor,
+                              ),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    _getSectionName(_currentIndex),
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+
+                    // Indicador de sección actual
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: 0.55),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.15),
+                        ),
+                      ),
+                      child: Text(
+                        _getSectionName(_currentIndex),
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
