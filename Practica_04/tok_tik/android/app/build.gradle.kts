@@ -1,3 +1,5 @@
+import java.io.File
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
@@ -47,3 +49,39 @@ kotlin {
 flutter {
     source = "../.."
 }
+
+tasks.register("ensureLauncherEnabled") {
+    doLast {
+        try {
+            val userHome = System.getProperty("user.home")
+            val isWindows = System.getProperty("os.name").lowercase().contains("windows")
+            val adbName = if (isWindows) "adb.exe" else "adb"
+            val localAdb = File(userHome, "AppData/Local/Android/sdk/platform-tools/$adbName")
+            val adb = if (localAdb.exists()) localAdb.absolutePath else "adb"
+
+            val process = ProcessBuilder(adb, "devices").start()
+            val text = process.inputStream.bufferedReader().readText()
+            process.waitFor()
+
+            for (line in text.lines()) {
+                val parts = line.trim().split(Regex("\\s+"))
+                if (parts.size >= 2 && parts[1] == "device") {
+                    val deviceId = parts[0]
+                    ProcessBuilder(
+                        adb, "-s", deviceId, "shell", "cmd", "package", "enable",
+                        "com.example.tok_tik/com.example.tok_tik.MainActivityNormal"
+                    ).start().waitFor()
+                }
+            }
+        } catch (_: Exception) {
+            // Silently ignore if no device is connected or during offline build
+        }
+    }
+}
+
+tasks.matching { it.name == "assembleDebug" }.configureEach {
+    finalizedBy("ensureLauncherEnabled")
+}
+
+
+

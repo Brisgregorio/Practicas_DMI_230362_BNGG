@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tok_tik/config/theme/app_theme.dart';
+import 'package:toktik/config/theme/app_theme.dart';
 
 void main() {
-  testWidgets('TokTik seasonal theme renders app content', (tester) async {
+  testWidgets('TokTik theme renders app content', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
-        theme: AppTheme().getTheme(AppSeason.halloween),
+        theme: AppTheme().getTheme(),
         home: const Scaffold(body: Center(child: Text('TokTik'))),
       ),
     );

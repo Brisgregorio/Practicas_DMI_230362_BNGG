@@ -1,16 +1,26 @@
-import 'package:tok_tik/presentation/providers/video_feed_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:toktik/domain/entities/video_post.dart';
+import 'package:toktik/domain/repositories/video_posts_repository.dart';
 
-class DiscoverProvider extends VideoFeedProvider {
-  DiscoverProvider({required super.videosRepository})
-    : super(feed: VideoFeed.discover);
-}
+class DiscoverProvider extends ChangeNotifier {
 
-class ForYouProvider extends VideoFeedProvider {
-  ForYouProvider({required super.videosRepository})
-    : super(feed: VideoFeed.forYou);
-}
+  final VideoPostRepository videosRepositoy;
 
-class FavoritesProvider extends VideoFeedProvider {
-  FavoritesProvider({required super.videosRepository})
-    : super(feed: VideoFeed.favorites);
+  bool initialLoading = true;
+  List<VideoPost> videos = [];
+
+  DiscoverProvider({
+    required this.videosRepositoy
+  });
+
+  VideoPostRepository get videosRepository => videosRepositoy;
+
+  Future<void> loadNextPage() async {
+    final newVideos = await videosRepositoy.getTrendingVideosByPage(1);
+    
+    videos.addAll( newVideos );
+    initialLoading = false;
+    notifyListeners();
+  }
+
 }

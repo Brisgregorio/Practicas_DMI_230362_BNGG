@@ -47,37 +47,4 @@ List<Map<String, dynamic>> videoPosts = [
     'likes': 342,
     'views': 3332,
   },
-  {
-    'name': 'Pintando un viernes',
-    'videoUrl': 'assets/videos/9.mp4',
-    'likes': 957,
-    'views': 1523,
-  },
-  {
-    'name': 'Paisaje?!??',
-    'videoUrl': 'assets/videos/10.mp4',
-    'likes': 3332,
-    'views': 5230,
-  }
-  ,
-  {
-    'name': '#karate #michigan',
-    'videoUrl': 'assets/videos/11.mp4',
-    'likes': 320,
-    'views': 4120,
-  }
-  ,
-  {
-    'name': 'Playing da tunes',
-    'videoUrl': 'assets/videos/12.mp4',
-    'likes': 421,
-    'views': 1301,
-  }
-  ,
-  {
-    'name': 'painting that shi bob ross style',
-    'videoUrl': 'assets/videos/13.mp4',
-    'likes': 206,
-    'views': 952,
-  },
 ];
