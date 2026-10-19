@@ -24,6 +24,23 @@ class MainActivity : FlutterActivity() {
         }
     }
 
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
+        val isDebug = (applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0
+        if (isDebug) {
+            try {
+                val normalComponent = ComponentName(applicationContext, "com.example.tok_tik.MainActivityNormal")
+                if (packageManager.getComponentEnabledSetting(normalComponent) != PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
+                    packageManager.setComponentEnabledSetting(
+                        normalComponent,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+            } catch (_: Exception) {}
+        }
+    }
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 

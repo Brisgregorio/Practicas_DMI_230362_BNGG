@@ -4,16 +4,27 @@ import 'package:toktik/presentation/widgets/shared/video_buttons.dart';
 import 'package:toktik/presentation/widgets/video/fullscreen_player.dart';
 
 class VideoScrollableView extends StatelessWidget {
-  
   final List<VideoPost> videos;
-  
+  final String? sectionTag;
+  final Color? accentColor;
+  final bool isActive;
+
   const VideoScrollableView({
-    super.key, 
-    required this.videos
+    super.key,
+    required this.videos,
+    this.sectionTag,
+    this.accentColor,
+    this.isActive = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (videos.isEmpty) {
+      return const Center(
+        child: CircularProgressIndicator(strokeWidth: 2),
+      );
+    }
+
     return PageView.builder(
       scrollDirection: Axis.vertical,
       physics: const BouncingScrollPhysics(),
@@ -28,14 +39,17 @@ class VideoScrollableView extends StatelessWidget {
               child: FullScreenPlayer(
                 caption: videoPost.caption,
                 videoUrl: videoPost.videoUrl,
-              )
+                sectionTag: sectionTag,
+                accentColor: accentColor,
+                isActive: isActive,
+              ),
             ),
 
-            // Botones
+            // Botones de interacción (Likes, vistas, rotación)
             Positioned(
-              bottom: 40,
+              bottom: 85,
               right: 20,
-              child: VideoButtons(video: videoPost)
+              child: VideoButtons(video: videoPost),
             ),
           ],
         );

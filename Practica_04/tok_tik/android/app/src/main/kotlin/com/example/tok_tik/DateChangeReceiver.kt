@@ -64,8 +64,14 @@ class DateChangeReceiver : BroadcastReceiver() {
             }
 
             // 2. Deshabilitar los demás aliases
+            val isDebug = (context.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0
             for (alias in aliases) {
                 if (alias != targetAlias) {
+                    // En modo DEBUG evitamos deshabilitar MainActivityNormal para que el CLI de Flutter
+                    // pueda siempre arrancar la aplicación sin que falle con 'Error type 3: Activity does not exist'
+                    if (isDebug && alias == "com.example.tok_tik.MainActivityNormal") {
+                        continue
+                    }
                     val component = ComponentName(context, alias)
                     if (pm.getComponentEnabledSetting(component) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {
                         pm.setComponentEnabledSetting(
