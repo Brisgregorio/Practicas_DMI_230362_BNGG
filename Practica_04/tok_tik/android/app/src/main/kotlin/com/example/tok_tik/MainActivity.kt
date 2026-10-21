@@ -8,6 +8,7 @@ import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
     private val CHANNEL = "com.example.toktik/app_icon"
+    private var pendingSeason: String? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -17,8 +18,13 @@ class MainActivity : FlutterActivity() {
                 "changeIcon" -> {
                     val season = call.argument<String>("season") ?: "normal"
                     try {
-                        val changed = DateChangeReceiver.updateAppIcon(applicationContext, season)
-                        result.success(changed)
+                        // Android launchers may stop/recreate the app when an alias is
+                        // disabled. Persist the choice in Flutter and switch aliases only
+                        // after this activity leaves the foreground.
+                        if (getCurrentAppIcon() != season.lowercase()) {
+                            pendingSeason = season
+                        }
+                        result.success(true)
                     } catch (error: Exception) {
                         result.error("ICON_UPDATE_FAILED", error.message ?: "No se pudo actualizar el icono", null)
                     }
@@ -28,6 +34,26 @@ class MainActivity : FlutterActivity() {
                 }
                 else -> result.notImplemented()
             }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        applyPendingSeason()
+    }
+
+    override fun onDestroy() {
+        applyPendingSeason()
+        super.onDestroy()
+    }
+
+    private fun applyPendingSeason() {
+        val season = pendingSeason ?: return
+        pendingSeason = null
+        try {
+            DateChangeReceiver.updateAppIcon(applicationContext, season)
+        } catch (error: Exception) {
+            android.util.Log.e("TokTik", "No se pudo actualizar el icono de la app", error)
         }
     }
 
