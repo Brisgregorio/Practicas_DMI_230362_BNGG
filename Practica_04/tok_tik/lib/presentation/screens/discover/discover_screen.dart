@@ -2,28 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toktik/config/theme/season_config.dart';
 import 'package:toktik/presentation/providers/discover_provider.dart';
+import 'package:toktik/presentation/providers/season_provider.dart';
 import 'package:toktik/presentation/widgets/favorites/favorites_view.dart';
 import 'package:toktik/presentation/widgets/shared/seasonal_bottom_navigation.dart';
 import 'package:toktik/presentation/widgets/shared/video_scrollable_view.dart';
 
 class DiscoverScreen extends StatefulWidget {
-  final AppSeason season;
-
-  const DiscoverScreen({super.key, this.season = AppSeason.normal});
+  const DiscoverScreen({super.key});
 
   @override
   State<DiscoverScreen> createState() => _DiscoverScreenState();
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
-  late AppSeason _currentSeason;
   late final PageController _pageController;
   int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _currentSeason = widget.season;
     _pageController = PageController(initialPage: 0);
   }
 
@@ -51,6 +48,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (ctx) {
+        final selectedSeason = ctx.watch<SeasonProvider>().season;
         return SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -82,7 +80,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ),
                 const SizedBox(height: 16),
                 ...AppSeason.values.map((season) {
-                  final isSelected = season == _currentSeason;
+                  final isSelected = season == selectedSeason;
                   return ListTile(
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
@@ -96,28 +94,34 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     title: Text(
                       season.displayName,
                       style: TextStyle(
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                        fontWeight:
+                            isSelected ? FontWeight.bold : FontWeight.normal,
                         color: isSelected ? season.accentColor : Colors.white,
                       ),
                     ),
                     subtitle: Text(
                       season.welcomeGreeting,
-                      style: const TextStyle(fontSize: 12, color: Colors.white54),
+                      style:
+                          const TextStyle(fontSize: 12, color: Colors.white54),
                     ),
                     trailing: isSelected
                         ? Icon(Icons.check_circle, color: season.accentColor)
                         : null,
                     onTap: () async {
-                      setState(() => _currentSeason = season);
-                      await SeasonConfig.syncAppIcon(season);
+                      final iconUpdated =
+                          await ctx.read<SeasonProvider>().select(season);
                       if (ctx.mounted) Navigator.pop(ctx);
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: season.accentColor,
                             content: Text(
-                              'Temporada: ${season.displayName}. El icono se actualizará en tu pantalla de inicio al salir.',
-                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                              iconUpdated
+                                  ? 'Tema ${season.displayName} guardado; el icono se actualizará en el launcher.'
+                                  : 'Tema ${season.displayName} guardado, pero Android no confirmó el cambio de icono.',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                             duration: const Duration(seconds: 3),
                           ),
@@ -137,6 +141,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   @override
   Widget build(BuildContext context) {
     final discoverProvider = context.watch<DiscoverProvider>();
+    final currentSeason = context.watch<SeasonProvider>().season;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -156,7 +161,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     VideoScrollableView(
                       videos: discoverProvider.forYouVideos,
                       sectionTag: 'Para ti',
-                      accentColor: _currentSeason.accentColor,
+                      accentColor: currentSeason.accentColor,
                       isActive: _currentIndex == 0,
                       onLoadMore: () => discoverProvider.loadMoreForSection(0),
                       onRefresh: () => discoverProvider.refreshFeed(),
@@ -168,7 +173,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     VideoScrollableView(
                       videos: discoverProvider.nearYouVideos,
                       sectionTag: 'Cerca de ti - En tu zona',
-                      accentColor: _currentSeason.accentColor,
+                      accentColor: currentSeason.accentColor,
                       isActive: _currentIndex == 1,
                       onLoadMore: () => discoverProvider.loadMoreForSection(1),
                       onRefresh: () => discoverProvider.refreshFeed(),
@@ -180,7 +185,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     VideoScrollableView(
                       videos: discoverProvider.discoverVideos,
                       sectionTag: 'Descubrir - Tendencias',
-                      accentColor: _currentSeason.accentColor,
+                      accentColor: currentSeason.accentColor,
                       isActive: _currentIndex == 2,
                       onLoadMore: () => discoverProvider.loadMoreForSection(2),
                       onRefresh: () => discoverProvider.refreshFeed(),
@@ -191,7 +196,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     // Sección 4: Favoritos (Sincronizado con Local Storage)
                     FavoritesView(
                       favoriteVideos: discoverProvider.favoriteVideos,
-                      season: _currentSeason,
+                      season: currentSeason,
                       isActive: _currentIndex == 3,
                       onExplorePressed: () => _onTabTapped(0),
                       onLikeChanged: (video, isLiked, count) =>
@@ -212,12 +217,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 GestureDetector(
                   onTap: () => _showSeasonSelector(context),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: Colors.black.withValues(alpha: 0.55),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: _currentSeason.accentColor.withValues(alpha: 0.6),
+                        color: currentSeason.accentColor.withValues(alpha: 0.6),
                       ),
                     ),
                     child: Row(
@@ -226,7 +232,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.asset(
-                            _currentSeason.logoAsset,
+                            currentSeason.logoAsset,
                             width: 20,
                             height: 20,
                             fit: BoxFit.cover,
@@ -234,11 +240,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          _currentSeason.displayName,
+                          currentSeason.displayName,
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
-                            color: _currentSeason.accentColor,
+                            color: currentSeason.accentColor,
                           ),
                         ),
                       ],
@@ -260,18 +266,22 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                             SnackBar(
                               backgroundColor: const Color(0xFF1E1E1E),
                               behavior: SnackBarBehavior.floating,
-                              margin: const EdgeInsets.only(bottom: 75, left: 16, right: 16),
+                              margin: const EdgeInsets.only(
+                                  bottom: 75, left: 16, right: 16),
                               duration: const Duration(seconds: 2),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 side: BorderSide(
-                                  color: _currentSeason.accentColor.withValues(alpha: 0.6),
+                                  color: currentSeason.accentColor
+                                      .withValues(alpha: 0.6),
                                   width: 1.2,
                                 ),
                               ),
                               content: Row(
                                 children: [
-                                  Icon(Icons.auto_awesome, color: _currentSeason.accentColor, size: 20),
+                                  Icon(Icons.auto_awesome,
+                                      color: currentSeason.accentColor,
+                                      size: 20),
                                   const SizedBox(width: 10),
                                   const Expanded(
                                     child: Text(
@@ -296,7 +306,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           color: Colors.black.withValues(alpha: 0.55),
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: _currentSeason.accentColor.withValues(alpha: 0.6),
+                            color: currentSeason.accentColor
+                                .withValues(alpha: 0.6),
                             width: 1.2,
                           ),
                         ),
@@ -306,20 +317,21 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                                 height: 16,
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
-                                  color: _currentSeason.accentColor,
+                                  color: currentSeason.accentColor,
                                 ),
                               )
                             : Icon(
                                 Icons.refresh_rounded,
                                 size: 17,
-                                color: _currentSeason.accentColor,
+                                color: currentSeason.accentColor,
                               ),
                       ),
                     ),
 
                     // Indicador de sección actual
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
                         color: Colors.black.withValues(alpha: 0.55),
                         borderRadius: BorderRadius.circular(20),
@@ -349,7 +361,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             bottom: 0,
             child: SeasonalBottomNavigation(
               currentIndex: _currentIndex,
-              season: _currentSeason,
+              season: currentSeason,
               onTap: _onTabTapped,
             ),
           ),

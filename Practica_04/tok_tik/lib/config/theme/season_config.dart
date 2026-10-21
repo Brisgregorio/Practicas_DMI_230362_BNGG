@@ -75,7 +75,8 @@ enum AppSeason {
 }
 
 class SeasonConfig {
-  static const MethodChannel _channel = MethodChannel('com.example.toktik/app_icon');
+  static const MethodChannel _channel =
+      MethodChannel('com.example.toktik/app_icon');
 
   /// Determina la temporada automáticamente con base en la fecha del dispositivo
   static AppSeason getSeasonByDate([DateTime? date]) {
@@ -103,14 +104,15 @@ class SeasonConfig {
   }
 
   /// Sincroniza el icono nativo de Android sin interrumpir la ejecución en primer plano
-  static Future<void> syncAppIcon(AppSeason season, {bool immediate = false}) async {
+  static Future<bool> syncAppIcon(AppSeason season) async {
     try {
-      await _channel.invokeMethod('changeIcon', {
-        'season': season.name,
-        'immediate': immediate,
-      });
+      return await _channel.invokeMethod<bool>('changeIcon', {
+            'season': season.name,
+          }) ??
+          false;
     } catch (e) {
       debugPrint('No se pudo cambiar el icono nativo: $e');
+      return false;
     }
   }
 }

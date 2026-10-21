@@ -1,25 +1,11 @@
 package com.example.tok_tik
 
-import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import java.util.Calendar
 
-class DateChangeReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context, intent: Intent) {
-        val action = intent.action
-        if (action == Intent.ACTION_DATE_CHANGED ||
-            action == Intent.ACTION_TIME_CHANGED ||
-            action == Intent.ACTION_TIMEZONE_CHANGED ||
-            action == Intent.ACTION_BOOT_COMPLETED) {
-
-            val season = calculateSeason()
-            updateAppIcon(context, season)
-        }
-    }
-
+/** Configures the seasonal launcher alias while retaining MainActivity as the only target. */
+class DateChangeReceiver {
     companion object {
         val aliases = listOf(
             "com.example.tok_tik.MainActivityNormal",
@@ -28,62 +14,51 @@ class DateChangeReceiver : BroadcastReceiver() {
             "com.example.tok_tik.MainActivityValentine"
         )
 
-        fun calculateSeason(): String {
-            val calendar = Calendar.getInstance()
-            val month = calendar.get(Calendar.MONTH) + 1 // 1-12
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-            return when {
-                month == 2 -> "valentine"
-                month == 10 || (month == 11 && day <= 3) -> "halloween"
-                month == 12 || (month == 1 && day <= 6) -> "navidad"
-                else -> "normal"
-            }
-        }
-
+        /** Returns true only after exactly one requested launcher alias is enabled. */
         fun updateAppIcon(context: Context, targetSeason: String): Boolean {
             val targetAlias = when (targetSeason.lowercase()) {
+                "normal" -> "com.example.tok_tik.MainActivityNormal"
                 "halloween" -> "com.example.tok_tik.MainActivityHalloween"
-                "navidad", "christmas" -> "com.example.tok_tik.MainActivityNavidad"
-                "valentine", "san_valentin" -> "com.example.tok_tik.MainActivityValentine"
-                else -> "com.example.tok_tik.MainActivityNormal"
+                "navidad" -> "com.example.tok_tik.MainActivityNavidad"
+                "valentine" -> "com.example.tok_tik.MainActivityValentine"
+                else -> throw IllegalArgumentException("Tema no reconocido: $targetSeason")
             }
 
-            val pm = context.packageManager
-            var hasChanged = false
+            val packageManager = context.packageManager
+            val previousStates = aliases.associateWith { alias ->
+                packageManager.getComponentEnabledSetting(ComponentName(context, alias))
+            }
 
-            // 1. Primero habilitar el alias objetivo para asegurar que siempre haya un punto de entrada activo
-            val targetComponent = ComponentName(context, targetAlias)
-            if (pm.getComponentEnabledSetting(targetComponent) != PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
-                pm.setComponentEnabledSetting(
-                    targetComponent,
+            try {
+                // Enable first so the package always has a launch entry during the transition.
+                packageManager.setComponentEnabledSetting(
+                    ComponentName(context, targetAlias),
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                     PackageManager.DONT_KILL_APP
                 )
-                hasChanged = true
-            }
-
-            // 2. Deshabilitar los demás aliases
-            val isDebug = (context.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0
-            for (alias in aliases) {
-                if (alias != targetAlias) {
-                    // En modo DEBUG evitamos deshabilitar MainActivityNormal para que el CLI de Flutter
-                    // pueda siempre arrancar la aplicación sin que falle con 'Error type 3: Activity does not exist'
-                    if (isDebug && alias == "com.example.tok_tik.MainActivityNormal") {
-                        continue
-                    }
-                    val component = ComponentName(context, alias)
-                    if (pm.getComponentEnabledSetting(component) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {
-                        pm.setComponentEnabledSetting(
-                            component,
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                aliases.filter { it != targetAlias }.forEach { alias ->
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(context, alias),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+                return true
+            } catch (error: Exception) {
+                // Roll back partial updates to avoid leaving multiple launcher entries enabled.
+                previousStates.forEach { (alias, state) ->
+                    try {
+                        packageManager.setComponentEnabledSetting(
+                            ComponentName(context, alias),
+                            state,
                             PackageManager.DONT_KILL_APP
                         )
-                        hasChanged = true
+                    } catch (_: Exception) {
+                        // Keep the original error; Flutter reports the operation as failed.
                     }
                 }
+                throw error
             }
-            return hasChanged
         }
     }
 }

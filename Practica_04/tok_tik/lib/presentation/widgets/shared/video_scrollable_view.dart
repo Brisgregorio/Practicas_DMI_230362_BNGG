@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toktik/domain/entities/video_post.dart';
 import 'package:toktik/presentation/widgets/video/fullscreen_player.dart';
 
-class VideoScrollableView extends StatelessWidget {
+class VideoScrollableView extends StatefulWidget {
   final List<VideoPost> videos;
   final String? sectionTag;
   final Color? accentColor;
@@ -23,8 +23,15 @@ class VideoScrollableView extends StatelessWidget {
   });
 
   @override
+  State<VideoScrollableView> createState() => _VideoScrollableViewState();
+}
+
+class _VideoScrollableViewState extends State<VideoScrollableView> {
+  int _currentIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    if (videos.isEmpty) {
+    if (widget.videos.isEmpty) {
       return const Center(
         child: CircularProgressIndicator(strokeWidth: 2),
       );
@@ -32,38 +39,42 @@ class VideoScrollableView extends StatelessWidget {
 
     final pageView = PageView.builder(
       scrollDirection: Axis.vertical,
-      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      itemCount: videos.length,
+      physics:
+          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      itemCount: widget.videos.length,
       onPageChanged: (index) {
-        if (index >= videos.length - 3 && onLoadMore != null) {
-          onLoadMore!();
+        setState(() => _currentIndex = index);
+        if (index >= widget.videos.length - 3 && widget.onLoadMore != null) {
+          widget.onLoadMore!();
         }
       },
       itemBuilder: (context, index) {
-        final VideoPost videoPost = videos[index];
+        final VideoPost videoPost = widget.videos[index];
 
         return FullScreenPlayer(
+          key: ValueKey('${index}_${videoPost.id}_${videoPost.videoUrl}'),
           video: videoPost,
           caption: videoPost.caption,
           videoUrl: videoPost.videoUrl,
           likes: videoPost.likes,
           views: videoPost.views,
-          sectionTag: sectionTag,
-          accentColor: accentColor,
-          isActive: isActive,
-          onLikeChanged: onLikeChanged != null
-              ? (isLiked, count) => onLikeChanged!(videoPost, isLiked, count)
+          sectionTag: widget.sectionTag,
+          accentColor: widget.accentColor,
+          isActive: widget.isActive && index == _currentIndex,
+          onLikeChanged: widget.onLikeChanged != null
+              ? (isLiked, count) =>
+                  widget.onLikeChanged!(videoPost, isLiked, count)
               : null,
         );
       },
     );
 
-    if (onRefresh != null) {
+    if (widget.onRefresh != null) {
       return RefreshIndicator(
-        color: accentColor ?? const Color(0xFFFF2A54),
+        color: widget.accentColor ?? const Color(0xFFFF2A54),
         backgroundColor: const Color(0xFF1E1E1E),
         strokeWidth: 2.5,
-        onRefresh: onRefresh!,
+        onRefresh: widget.onRefresh!,
         child: pageView,
       );
     }

@@ -1,5 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.intent.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:label="TokTik"
@@ -20,19 +19,7 @@
               />
         </activity>
 
-        <!-- Receptor de cambio de fecha y hora del sistema en segundo plano -->
-        <receiver
-            android:name=".DateChangeReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.DATE_CHANGED" />
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <!-- Activity Aliases para cambio dinámico de icono por temporada -->
+        <!-- Only one enabled alias exposes a launcher entry; all target MainActivity. -->
         <activity-alias
             android:name=".MainActivityNormal"
             android:targetActivity=".MainActivity"

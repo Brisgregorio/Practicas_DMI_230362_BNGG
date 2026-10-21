@@ -67,7 +67,7 @@ flutter build apk --debug
 
 ## Demo en línea
 
-**[Probar TokTik en Appetize.io](https://appetize.io/app/android/com.example.tok_tik)** permite abrir la aplicación Android desde el navegador cuando el enlace y sus permisos están disponibles. Las capturas de evidencia de esta práctica muestran la aplicación abierta en Appetize.io; no implican que se hayan verificado todas las funciones ni garantizan la disponibilidad futura del servicio.
+**[Probar TokTik en Appetize.io](https://appetize.io/app/b_qf52t7pymuuv6a2ilhacefyoji)** permite abrir la aplicación Android desde el navegador cuando el enlace y sus permisos están disponibles. Las capturas de evidencia de esta práctica muestran la aplicación abierta en Appetize.io; no implican que se hayan verificado todas las funciones ni garantizan la disponibilidad futura del servicio.
 
 Consulta la [documentación complementaria](DOCUMENTACION.md) y las [instrucciones de Appetize](appetize/INSTRUCCIONES.md).
 

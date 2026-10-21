@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +29,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _startSplashSequence() async {
-    // Sincronizar el icono nativo de la app en Android
-    SeasonConfig.syncAppIcon(widget.season);
-
     // Reproducir el sonido de bienvenida correspondiente a la temporada
     try {
       await _audioPlayer.play(AssetSource(widget.season.audioSourcePath));
@@ -42,11 +41,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (!mounted) return;
 
+    // Do not overlap the intro track with the first video in the feed.
+    await _audioPlayer.stop();
+    if (!mounted) return;
+
     Navigator.pushReplacement(
       context,
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 600),
-        pageBuilder: (_, __, ___) => DiscoverScreen(season: widget.season),
+        pageBuilder: (_, __, ___) => const DiscoverScreen(),
         transitionsBuilder: (_, animation, __, child) {
           return FadeTransition(opacity: animation, child: child);
         },
@@ -56,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void dispose() {
-    _audioPlayer.dispose();
+    unawaited(_audioPlayer.dispose());
     super.dispose();
   }
 
@@ -141,7 +144,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   duration: const Duration(milliseconds: 800),
                   delay: const Duration(milliseconds: 500),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
                     decoration: BoxDecoration(
                       color: season.accentColor.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(20),
@@ -170,7 +174,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     height: 28,
                     child: CircularProgressIndicator(
                       strokeWidth: 2.5,
-                      valueColor: AlwaysStoppedAnimation<Color>(season.accentColor),
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(season.accentColor),
                     ),
                   ),
                 ),

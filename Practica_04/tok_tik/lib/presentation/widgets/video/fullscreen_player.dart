@@ -34,11 +34,18 @@ class FullScreenPlayer extends StatefulWidget {
   State<FullScreenPlayer> createState() => _FullScreenPlayerState();
 }
 
-class _FullScreenPlayerState extends State<FullScreenPlayer> {
+class _FullScreenPlayerState extends State<FullScreenPlayer>
+    with WidgetsBindingObserver {
+  static Future<void> _audioOperations = Future<void>.value();
+
   late VideoPlayerController controller;
   late Future<void> _initializeFuture;
   bool isMuted = false;
   bool isPlaying = true;
+  bool _wantsPlayback = true;
+  bool _isAppInForeground = true;
+  bool _isDisposed = false;
+  String? _lastLoggedControllerError;
   bool showMuteNotice = false;
   Timer? _muteNoticeTimer;
 
@@ -51,9 +58,20 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
         views: widget.views,
       );
 
+  String get _diagnosticVideoLabel {
+    final id = widget.video?.id;
+    if (id != null && !id.startsWith('http://') && !id.startsWith('https://')) {
+      return id;
+    }
+    final pathSegments = Uri.tryParse(widget.videoUrl)?.pathSegments;
+    if (pathSegments == null || pathSegments.isEmpty) return 'video';
+    return pathSegments.last;
+  }
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     final isNetwork = widget.videoUrl.startsWith('http://') ||
         widget.videoUrl.startsWith('https://');
@@ -62,44 +80,125 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
         ? VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
         : VideoPlayerController.asset(widget.videoUrl);
 
-    controller
-      ..setLooping(true)
-      ..setVolume(1.0); // Sonido activo por defecto
+    debugPrint(
+        '[video_audio] init_start video=$_diagnosticVideoLabel active=${widget.isActive}');
 
-    // Inicializar UNA SOLA VEZ para evitar que pause/play reinicie la inicialización
-    _initializeFuture = controller.initialize().then((_) {
-      if (mounted) {
-        if (widget.isActive) {
-          controller.play();
-          // Registrar video visto en Local Storage con sus likes y vistas
-          LocalStorageService.saveViewedVideo(_effectiveVideo);
+    isMuted = LocalStorageService.videoMuted.value;
+    LocalStorageService.videoMuted.addListener(_handleMutePreferenceChanged);
+    controller.addListener(_handleControllerChanged);
+    _initializeFuture = _initializeController();
+  }
+
+  Future<void> _initializeController() async {
+    try {
+      await controller.initialize();
+      debugPrint(
+          '[video_audio] init_ok video=$_diagnosticVideoLabel initialized=${controller.value.isInitialized} error=${controller.value.errorDescription ?? 'none'}');
+      if (!mounted) return;
+      await controller.setLooping(true);
+      if (!mounted) return;
+      await _applyVolume();
+      if (!mounted) return;
+
+      setState(() {});
+      await _syncPlayback();
+      if (widget.isActive) {
+        await LocalStorageService.saveViewedVideo(_effectiveVideo);
+      }
+    } catch (error) {
+      debugPrint(
+          '[video_audio] init_error video=$_diagnosticVideoLabel error=$error');
+      rethrow;
+    }
+  }
+
+  void _handleControllerChanged() {
+    if (!mounted) return;
+    final error = controller.value.errorDescription;
+    if (error != null && error != _lastLoggedControllerError) {
+      _lastLoggedControllerError = error;
+      debugPrint(
+          '[video_audio] controller_error video=$_diagnosticVideoLabel error=$error');
+    } else if (error == null) {
+      _lastLoggedControllerError = null;
+    }
+    final currentlyPlaying = controller.value.isPlaying;
+    if (currentlyPlaying != isPlaying) {
+      setState(() => isPlaying = currentlyPlaying);
+    }
+  }
+
+  void _handleMutePreferenceChanged() {
+    if (!mounted) return;
+    final muted = LocalStorageService.videoMuted.value;
+    if (muted == isMuted) return;
+    setState(() => isMuted = muted);
+    _applyVolume();
+  }
+
+  Future<void> _syncPlayback() async {
+    if (!controller.value.isInitialized) return;
+    await _enqueueControllerOperation(() async {
+      if (_isDisposed || !controller.value.isInitialized) return;
+      final shouldPlay =
+          widget.isActive && _isAppInForeground && _wantsPlayback;
+      try {
+        if (shouldPlay) {
+          await controller.play();
+        } else {
+          await controller.pause();
         }
-        setState(() {});
+      } catch (error) {
+        debugPrint(
+            'No se pudo actualizar la reproduccion de ${widget.videoUrl}: $error');
+        if (shouldPlay) {
+          _wantsPlayback = false;
+          if (mounted && isPlaying) setState(() => isPlaying = false);
+        }
       }
     });
+  }
 
-    controller.addListener(() {
-      if (mounted) {
-        final currentlyPlaying = controller.value.isPlaying;
-        if (currentlyPlaying != isPlaying) {
-          setState(() {
-            isPlaying = currentlyPlaying;
-          });
-        }
+  Future<void> _applyVolume() async {
+    if (!controller.value.isInitialized) return;
+    await _enqueueControllerOperation(() async {
+      if (_isDisposed || !controller.value.isInitialized) return;
+      final requestedVolume = isMuted ? 0.0 : 1.0;
+      try {
+        await controller.setVolume(requestedVolume);
+        debugPrint(
+            '[video_audio] volume_applied video=$_diagnosticVideoLabel muted=$isMuted requested=$requestedVolume controllerValue=${controller.value.volume} platformCall=completed');
+      } catch (error) {
+        debugPrint(
+            '[video_audio] volume_error video=$_diagnosticVideoLabel muted=$isMuted requested=$requestedVolume error=$error');
       }
     });
+  }
+
+  Future<void> _enqueueControllerOperation(
+    Future<void> Function() operation,
+  ) {
+    final result = _audioOperations.then((_) => operation());
+    _audioOperations = result.catchError((Object error) {
+      debugPrint('Error en controlador ${widget.videoUrl}: $error');
+    });
+    return result;
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    _isAppInForeground = state == AppLifecycleState.resumed;
+    _syncPlayback();
   }
 
   @override
   void didUpdateWidget(covariant FullScreenPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.isActive != oldWidget.isActive) {
-      if (!widget.isActive) {
-        controller.pause();
-      } else {
-        if (isPlaying) {
-          controller.play();
-        }
+      debugPrint(
+          '[video_audio] active_changed video=$_diagnosticVideoLabel active=${widget.isActive}');
+      _syncPlayback();
+      if (widget.isActive) {
         // Registrar video visto cuando pasa a estar activo
         LocalStorageService.saveViewedVideo(_effectiveVideo);
       }
@@ -108,23 +207,24 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
 
   @override
   void dispose() {
+    _isDisposed = true;
     _muteNoticeTimer?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
+    LocalStorageService.videoMuted.removeListener(_handleMutePreferenceChanged);
+    controller.removeListener(_handleControllerChanged);
     controller.dispose();
     super.dispose();
   }
 
   void _togglePlayPause() {
-    if (controller.value.isPlaying) {
-      controller.pause();
-    } else {
-      controller.play();
-    }
+    _wantsPlayback = !_wantsPlayback;
+    _syncPlayback();
   }
 
   void _toggleMute() {
+    final muted = !isMuted;
+    LocalStorageService.setVideoMuted(muted);
     setState(() {
-      isMuted = !isMuted;
-      controller.setVolume(isMuted ? 0.0 : 1.0);
       showMuteNotice = true;
     });
 
@@ -150,7 +250,8 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.error_outline, color: Colors.white70, size: 48),
+                const Icon(Icons.error_outline,
+                    color: Colors.white70, size: 48),
                 const SizedBox(height: 12),
                 Text(
                   widget.caption,
@@ -226,12 +327,14 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
                     opacity: showMuteNotice ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 250),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
                       decoration: BoxDecoration(
                         color: Colors.black.withValues(alpha: 0.75),
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(
-                          color: (widget.accentColor ?? Colors.white).withValues(alpha: 0.6),
+                          color: (widget.accentColor ?? Colors.white)
+                              .withValues(alpha: 0.6),
                           width: 1.2,
                         ),
                         boxShadow: [
@@ -245,8 +348,12 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
-                            isMuted ? Icons.volume_off_rounded : Icons.volume_up_rounded,
-                            color: isMuted ? Colors.redAccent : (widget.accentColor ?? Colors.white),
+                            isMuted
+                                ? Icons.volume_off_rounded
+                                : Icons.volume_up_rounded,
+                            color: isMuted
+                                ? Colors.redAccent
+                                : (widget.accentColor ?? Colors.white),
                             size: 24,
                           ),
                           const SizedBox(width: 8),
@@ -281,7 +388,8 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
               Positioned(
                 bottom: 85,
                 left: 16,
-                right: 90, // Deja espacio para no chocar con los botones laterales
+                right:
+                    90, // Deja espacio para no chocar con los botones laterales
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -289,12 +397,14 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
                     if (widget.sectionTag != null) ...[
                       Container(
                         margin: const EdgeInsets.only(bottom: 8),
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.black.withValues(alpha: 0.65),
                           borderRadius: BorderRadius.circular(14),
                           border: Border.all(
-                            color: (widget.accentColor ?? Colors.white).withValues(alpha: 0.7),
+                            color: (widget.accentColor ?? Colors.white)
+                                .withValues(alpha: 0.7),
                             width: 1,
                           ),
                         ),
@@ -326,7 +436,8 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
                       userName: effectiveVideo.userName,
                       caption: effectiveVideo.caption,
                       description: effectiveVideo.description,
-                      accentColor: widget.accentColor ?? const Color(0xFFFF2A54),
+                      accentColor:
+                          widget.accentColor ?? const Color(0xFFFF2A54),
                     ),
                   ],
                 ),
@@ -353,7 +464,8 @@ class _VideoUserAndDescription extends StatefulWidget {
   });
 
   @override
-  State<_VideoUserAndDescription> createState() => _VideoUserAndDescriptionState();
+  State<_VideoUserAndDescription> createState() =>
+      _VideoUserAndDescriptionState();
 }
 
 class _VideoUserAndDescriptionState extends State<_VideoUserAndDescription> {
@@ -361,7 +473,8 @@ class _VideoUserAndDescriptionState extends State<_VideoUserAndDescription> {
 
   @override
   Widget build(BuildContext context) {
-    final textToShow = widget.description.isNotEmpty ? widget.description : widget.caption;
+    final textToShow =
+        widget.description.isNotEmpty ? widget.description : widget.caption;
     final isLongText = textToShow.length > 55 || textToShow.contains('\n');
 
     return Column(
@@ -379,7 +492,10 @@ class _VideoUserAndDescriptionState extends State<_VideoUserAndDescription> {
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
                 shadows: [
-                  Shadow(color: Colors.black87, blurRadius: 4, offset: Offset(1, 1)),
+                  Shadow(
+                      color: Colors.black87,
+                      blurRadius: 4,
+                      offset: Offset(1, 1)),
                 ],
               ),
             ),
@@ -403,8 +519,9 @@ class _VideoUserAndDescriptionState extends State<_VideoUserAndDescription> {
           },
           child: AnimatedCrossFade(
             duration: const Duration(milliseconds: 250),
-            crossFadeState:
-                isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+            crossFadeState: isExpanded
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
             firstChild: RichText(
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -414,7 +531,10 @@ class _VideoUserAndDescriptionState extends State<_VideoUserAndDescription> {
                   fontSize: 13.5,
                   height: 1.35,
                   shadows: [
-                    Shadow(color: Colors.black87, blurRadius: 4, offset: Offset(1, 1)),
+                    Shadow(
+                        color: Colors.black87,
+                        blurRadius: 4,
+                        offset: Offset(1, 1)),
                   ],
                 ),
                 children: [
@@ -446,7 +566,10 @@ class _VideoUserAndDescriptionState extends State<_VideoUserAndDescription> {
                         fontSize: 13.5,
                         height: 1.35,
                         shadows: [
-                          Shadow(color: Colors.black87, blurRadius: 4, offset: Offset(1, 1)),
+                          Shadow(
+                              color: Colors.black87,
+                              blurRadius: 4,
+                              offset: Offset(1, 1)),
                         ],
                       ),
                     ),
@@ -479,4 +602,3 @@ class _VideoUserAndDescriptionState extends State<_VideoUserAndDescription> {
     );
   }
 }
-

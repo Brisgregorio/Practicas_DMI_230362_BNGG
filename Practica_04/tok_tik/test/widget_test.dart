@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toktik/config/helpers/random_video_metrics.dart';
 import 'package:toktik/config/theme/app_theme.dart';
+import 'package:toktik/config/theme/season_config.dart';
 import 'package:toktik/domain/entities/video_post.dart';
 import 'package:toktik/infrastructure/datasources/local_storage_service.dart';
+import 'package:toktik/presentation/providers/season_provider.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -66,6 +69,46 @@ void main() {
     expect(reconstructed.isLiked, true);
   });
 
+  test('selected season persists and restores', () async {
+    const iconChannel = MethodChannel('com.example.toktik/app_icon');
+    final messenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(
+      iconChannel,
+      (call) async => true,
+    );
+
+    final seasonProvider = await SeasonProvider.restore();
+
+    try {
+      for (final season in AppSeason.values) {
+        expect(await seasonProvider.select(season), isTrue);
+        final preferences = await SharedPreferences.getInstance();
+        expect(
+          preferences.getString('toktik_selected_season'),
+          season.name,
+        );
+        expect(season.audioSourcePath,
+            'sounds/${season.name == 'normal' ? 'intro' : season.name}.mp3');
+      }
+
+      final restoredProvider = await SeasonProvider.restore();
+      expect(restoredProvider.season, AppSeason.navidad);
+    } finally {
+      messenger.setMockMethodCallHandler(iconChannel, null);
+    }
+  });
+
+  test('video mute preference persists across controllers', () async {
+    await LocalStorageService.setVideoMuted(true);
+
+    expect(LocalStorageService.videoMuted.value, isTrue);
+    final preferences = await SharedPreferences.getInstance();
+    expect(preferences.getBool('toktik_video_muted'), isTrue);
+
+    await LocalStorageService.setVideoMuted(false);
+  });
+
   test('LocalStorageService manages favorites and viewed videos', () async {
     final video = VideoPost(
       id: 'v1',
@@ -101,4 +144,3 @@ void main() {
     expect(LocalStorageService.isVideoViewed(video.videoUrl), false);
   });
 }
-

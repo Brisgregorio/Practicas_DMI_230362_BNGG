@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toktik/domain/entities/video_post.dart';
 
@@ -8,6 +9,8 @@ import 'package:toktik/domain/entities/video_post.dart';
 class LocalStorageService {
   static const String _keyFavorites = 'toktik_favorite_videos';
   static const String _keyViewed = 'toktik_viewed_videos';
+  static const String _keyVideoMuted = 'toktik_video_muted';
+  static final ValueNotifier<bool> videoMuted = ValueNotifier<bool>(false);
 
   // Memoria caché para acceso ultrarrápido y fallback seguro
   static final Map<String, VideoPost> _favoritesCache = {};
@@ -19,6 +22,7 @@ class LocalStorageService {
     if (_initialized) return;
     try {
       final prefs = await SharedPreferences.getInstance();
+      videoMuted.value = prefs.getBool(_keyVideoMuted) ?? false;
 
       // Cargar favoritos persistidos
       final favoritesRaw = prefs.getStringList(_keyFavorites) ?? [];
@@ -47,6 +51,15 @@ class LocalStorageService {
     } catch (_) {
       _initialized = true;
     }
+  }
+
+  /// Keeps the user's mute choice consistent across video controllers and launches.
+  static Future<void> setVideoMuted(bool muted) async {
+    videoMuted.value = muted;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(_keyVideoMuted, muted);
+    } catch (_) {}
   }
 
   /// 1. Almacena un video visto en el Local Storage con sus likes y vistas
@@ -144,9 +157,8 @@ class LocalStorageService {
   static Future<void> _persistFavorites() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final list = _favoritesCache.values
-          .map((v) => jsonEncode(v.toJson()))
-          .toList();
+      final list =
+          _favoritesCache.values.map((v) => jsonEncode(v.toJson())).toList();
       await prefs.setStringList(_keyFavorites, list);
     } catch (_) {}
   }

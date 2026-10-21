@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toktik/config/theme/app_theme.dart';
-import 'package:toktik/config/theme/season_config.dart';
 import 'package:toktik/infrastructure/datasources/cloudinary_video_datasource_impl.dart';
 import 'package:toktik/infrastructure/datasources/pexels_video_datasource_impl.dart';
 import 'package:toktik/infrastructure/datasources/pixabay_video_datasource_impl.dart';
 import 'package:toktik/infrastructure/repositories/video_posts_repository_impl.dart';
 import 'package:toktik/presentation/providers/discover_provider.dart';
+import 'package:toktik/presentation/providers/season_provider.dart';
 import 'package:toktik/presentation/screens/splash/splash_screen.dart';
 
 import 'package:toktik/infrastructure/datasources/local_storage_service.dart';
@@ -17,19 +17,15 @@ void main() async {
   // 1. Inicialización del Local Storage para persistencia de favoritos y vistas
   await LocalStorageService.init();
 
-  // 2. Detección automática de la temporada actual por la fecha del dispositivo
-  final currentSeason = SeasonConfig.getSeasonByDate();
-
-  // 3. Sincronización del icono de la app en Android (pantalla de inicio y cajón de apps)
-  await SeasonConfig.syncAppIcon(currentSeason);
-
-  runApp(MyApp(season: currentSeason));
+  // Restablecer la preferencia antes de mostrar tema, splash o sonido.
+  final seasonProvider = await SeasonProvider.restore();
+  runApp(MyApp(seasonProvider: seasonProvider));
 }
 
 class MyApp extends StatelessWidget {
-  final AppSeason season;
+  final SeasonProvider seasonProvider;
 
-  const MyApp({super.key, this.season = AppSeason.normal});
+  const MyApp({super.key, required this.seasonProvider});
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +47,7 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<SeasonProvider>.value(value: seasonProvider),
         ChangeNotifierProvider(
           lazy: false,
           create: (_) => DiscoverProvider(
@@ -60,11 +57,15 @@ class MyApp extends StatelessWidget {
           )..loadNextPage(),
         ),
       ],
-      child: MaterialApp(
-        title: 'TokTik',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme(season: season).getTheme(),
-        home: SplashScreen(season: season),
+      child: Consumer<SeasonProvider>(
+        builder: (context, seasonState, _) {
+          return MaterialApp(
+            title: 'TokTik',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme(season: seasonState.season).getTheme(),
+            home: SplashScreen(season: seasonState.season),
+          );
+        },
       ),
     );
   }
