@@ -65,15 +65,36 @@ widgets_app/
 
 ## Capturas de pantalla de la aplicación
 
-Las imágenes de esta sección son capturas existentes en `imagenes/`. Se muestran en tres columnas y con un ancho uniforme.
+Las 11 capturas reales de `imagenes/` están distribuidas en celdas individuales. Cada imagen usa el mismo ancho para mantener la galería ordenada.
 
-| Inicio y navegación | Demostraciones de widgets | Tema y estado |
-|---|---|---|
-| <img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.44%20PM.jpeg" alt="Pantalla principal de Widgets App" width="145"><br><sub>Pantalla principal y catálogo de módulos</sub> | <img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM.jpeg" alt="Pantalla de botones" width="145"><br><sub>Botones</sub><br><br><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%281%29.jpeg" alt="Pantalla de tarjetas" width="145"><br><sub>Tarjetas</sub><br><br><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%282%29.jpeg" alt="Indicadores de progreso" width="145"><br><sub>Indicadores de progreso</sub> | <img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.44%20PM%20%281%29.jpeg" alt="Contador con Riverpod" width="145"><br><sub>Contador con Riverpod</sub> |
-
-| Inicio y navegación | Demostraciones de widgets | Tema y estado |
-|---|---|---|
-| <sub>No hay una captura independiente del menú lateral en la carpeta de evidencias.</sub> | <img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%283%29.jpeg" alt="Snackbars y diálogos" width="145"><br><sub>Snackbars y diálogos</sub><br><br><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%284%29.jpeg" alt="Contenedor animado" width="145"><br><sub>Contenedor animado</sub><br><br><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%285%29.jpeg" alt="Controles interactivos" width="145"><br><sub>Controles interactivos</sub><br><br><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%286%29.jpeg" alt="Tutorial introductorio" width="145"><br><sub>Tutorial introductorio</sub> | <img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%287%29.jpeg" alt="Selector de colores y tema claro" width="145"><br><sub>Selector de colores y modo claro</sub><br><br><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.46%20PM.jpeg" alt="Selector de colores y tema oscuro" width="145"><br><sub>Selector de colores y modo oscuro</sub> |
+<table>
+  <thead>
+    <tr>
+      <th colspan="3">Galería de evidencias</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.44%20PM.jpeg" alt="Pantalla principal de Widgets App" width="145"><br><sub>Inicio y navegación</sub></td>
+      <td align="center"><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM.jpeg" alt="Pantalla de botones" width="145"><br><sub>Botones</sub></td>
+      <td align="center"><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%281%29.jpeg" alt="Pantalla de tarjetas" width="145"><br><sub>Tarjetas</sub></td>
+    </tr>
+    <tr>
+      <td align="center"><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%282%29.jpeg" alt="Indicadores de progreso" width="145"><br><sub>Indicadores de progreso</sub></td>
+      <td align="center"><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%283%29.jpeg" alt="Snackbars y diálogos" width="145"><br><sub>Snackbars y diálogos</sub></td>
+      <td align="center"><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%284%29.jpeg" alt="Contenedor animado" width="145"><br><sub>Animaciones</sub></td>
+    </tr>
+    <tr>
+      <td align="center"><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%285%29.jpeg" alt="Controles interactivos" width="145"><br><sub>Controles interactivos</sub></td>
+      <td align="center"><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%286%29.jpeg" alt="Tutorial introductorio" width="145"><br><sub>Tutorial</sub></td>
+      <td align="center"><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.44%20PM%20%281%29.jpeg" alt="Contador con Riverpod" width="145"><br><sub>Contador con Riverpod</sub></td>
+    </tr>
+    <tr>
+      <td align="center"><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.45%20PM%20%287%29.jpeg" alt="Selector de colores y tema claro" width="145"><br><sub>Selector de colores y modo claro</sub></td>
+      <td align="center" colspan="2"><img src="./imagenes/WhatsApp%20Image%202026-10-30%20at%2012.17.46%20PM.jpeg" alt="Selector de colores y tema oscuro" width="145"><br><sub>Selector de colores y modo oscuro</sub></td>
+    </tr>
+  </tbody>
+</table>
 
 La carpeta `imagenes/` no contiene capturas independientes del menú desplegado ni de la pantalla de desplazamiento infinito; por eso no se muestran evidencias de esas vistas.
 
