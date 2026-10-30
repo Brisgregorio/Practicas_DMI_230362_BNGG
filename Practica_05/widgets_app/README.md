@@ -114,7 +114,7 @@ La aplicación está organizada por responsabilidades:
 
 El archivo HTML está disponible en el proyecto como [`architecture/index.html`](./architecture/index.html).
 
-### Abrir el diagrama desde GitHub Pages
+### Diagrama de Arquitectura 
 
 [Ver diagrama interactivo de Widgets App](https://brisgregorio.github.io/Practicas_DMI_230362_BNGG/Practica_05/widgets_app/architecture/index.html)
 
