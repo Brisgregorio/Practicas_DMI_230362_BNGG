@@ -1,5 +1,5 @@
 name: cinemapedia
-description: "A new Flutter project."
+description: "Cinemapedia_230362"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -45,6 +45,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.14.4
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -63,6 +64,27 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - .env
+    - assets/icon/
+
+flutter_launcher_icons:
+  image_path: assets/icon/cinemapedia_logo.png
+  android: true
+  adaptive_icon_background: "#000000"
+  adaptive_icon_foreground: assets/icon/launcher_foreground.png
+  ios: true
+  web:
+    generate: true
+    image_path: assets/icon/cinemapedia_logo.png
+    background_color: "#12002B"
+    theme_color: "#12002B"
+  macos:
+    generate: true
+    image_path: assets/icon/cinemapedia_logo.png
+  windows:
+    generate: true
+    image_path: assets/icon/cinemapedia_logo.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

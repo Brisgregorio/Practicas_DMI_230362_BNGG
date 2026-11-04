@@ -22,7 +22,7 @@ class ThemeChangerScreen extends ConsumerWidget {
             onPressed: () {
               ref.read(themeNotifierProvider.notifier).toggleDarkmode();
             },
-          )
+          ),
         ],
       ),
       body: const _ThemeChangerView(),
@@ -43,20 +43,23 @@ class _ThemeChangerView extends ConsumerWidget {
       itemBuilder: (context, index) {
         final Color color = colors[index];
 
-        return RadioListTile<int>(
+        return ListTile(
+          leading: Radio<int>(
+            value: index,
+            groupValue: selectedColor,
+            activeColor: color,
+            onChanged: (value) {
+              if (value != null) {
+                ref
+                    .read(themeNotifierProvider.notifier)
+                    .changeColorIndex(value);
+              }
+            },
+          ),
           title: Text('Este color', style: TextStyle(color: color)),
-          subtitle: Text(color.value.toRadixString(16).toUpperCase()),
-          activeColor: color,
-          value: index,
-          groupValue: selectedColor,
-          onChanged: (value) {
-            if (value != null) {
-              ref.read(themeNotifierProvider.notifier).changeColorIndex(value);
-            }
-          },
+          subtitle: Text(color.toARGB32().toRadixString(16).toUpperCase()),
         );
       },
     );
   }
 }
-

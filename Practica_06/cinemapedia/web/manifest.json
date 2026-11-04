@@ -1,11 +1,11 @@
 {
-    "name": "cinemapedia",
-    "short_name": "cinemapedia",
+    "name": "Cinemapedia_230362",
+    "short_name": "Cinemapedia_230362",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#12002B",
+    "theme_color": "#12002B",
+    "description": "Cinemapedia_230362",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
