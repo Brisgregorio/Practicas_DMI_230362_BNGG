@@ -6,12 +6,15 @@ import 'package:cinemapedia/domain/entities/movie.dart';
 
 import 'package:cinemapedia/presentation/delegates/search_movie_delegate.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 
 class CustomAppbar extends ConsumerWidget {
   const CustomAppbar({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+
     return SafeArea(
       bottom: false,
       child: Padding(
@@ -30,6 +33,7 @@ class CustomAppbar extends ConsumerWidget {
                     query: searchQuery,
                     context: context,
                     delegate: SearchMovieDelegate(
+                      localizations: l10n,
                       initialMovies: searchedMovies,
                       searchMovies: ref
                           .read(searchedMoviesProvider.notifier)

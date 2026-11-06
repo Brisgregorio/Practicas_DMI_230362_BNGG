@@ -18,7 +18,9 @@ La interfaz tiene una identidad propia basada en azul profundo, morado y violeta
 - Las flechas semitransparentes avanzan una película con un toque; doble toque salta al final o, si ya está al final, vuelve al inicio.
 - Si falla la carga del carrusel, se muestra un mensaje y una opción para volver a intentar.
 - Mensajes al llegar al principio y al final del carrusel.
-- El país elegido actualiza la región e idioma de las peticiones a TMDB y los textos de películas; la interfaz se mantiene en español.
+- El país elegido actualiza la región e idioma de las peticiones a TMDB, la clasificación mostrada y el idioma de toda la interfaz.
+- La interfaz está traducida al español, inglés, portugués, alemán, árabe y japonés mediante recursos ARB de Flutter.
+- El país seleccionado se conserva entre ejecuciones; la selección de Egipto activa la disposición RTL de Flutter.
 - Calificación numérica y estrella visual.
 - Clasificación por país con bandera, idioma y referencia de clasificación.
 - Diseño personalizado en tonos azules y morados.
@@ -91,6 +93,7 @@ No subir el archivo `.env` a repositorios públicos. El archivo `.env.template` 
 - Al llegar a la última película se muestra el mensaje de final de lista.
 - Tocar una tarjeta abre el detalle de la película.
 - El selector modal de país actualiza la bandera, el idioma/región de las peticiones y la referencia de clasificación mostrada en las tarjetas.
+- El mismo selector también cambia la locale de la interfaz y guarda el código del país con `shared_preferences`. La locale de interfaz usa el idioma base del país (por ejemplo, `en-US` y `en-AU` usan inglés); las peticiones TMDB mantienen el idioma y la región completos.
 
 ## Estructura principal
 ```text

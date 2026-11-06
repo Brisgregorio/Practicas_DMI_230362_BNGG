@@ -2,6 +2,7 @@ import 'package:cinemapedia/presentation/providers/counter_provider.dart';
 import 'package:cinemapedia/presentation/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 
 class CounterScreen extends ConsumerWidget {
   static const String name = 'counter_screen';
@@ -12,10 +13,11 @@ class CounterScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final int clickCounter = ref.watch(counterProvider);
     final bool isDarkmode = ref.watch(isDarkmodeProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Counter Screen'),
+        title: Text(l10n.counterScreenTitle),
         actions: [
           IconButton(
             icon: Icon(
@@ -24,12 +26,12 @@ class CounterScreen extends ConsumerWidget {
             onPressed: () {
               ref.read(isDarkmodeProvider.notifier).update((state) => !state);
             },
-          )
+          ),
         ],
       ),
       body: Center(
         child: Text(
-          'Valor: $clickCounter',
+          l10n.counterValue(clickCounter),
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
@@ -42,5 +44,3 @@ class CounterScreen extends ConsumerWidget {
     );
   }
 }
-
-

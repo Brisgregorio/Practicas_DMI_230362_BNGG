@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 
 class ButtonsScreen extends StatelessWidget {
-
   static const String name = 'buttons_screen';
 
   const ButtonsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Buttons Screen'),
-      ),
+      appBar: AppBar(title: Text(l10n.buttonsScreenTitle)),
       body: const _ButtonsView(),
       floatingActionButton: FloatingActionButton(
-        child: const Icon( Icons.arrow_back_ios_new_rounded ),
-        onPressed: (){
+        child: const Icon(Icons.arrow_back_ios_new_rounded),
+        onPressed: () {
           context.pop();
         },
       ),
@@ -29,7 +29,7 @@ class _ButtonsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final l10n = AppLocalizations.of(context)!;
     final colors = Theme.of(context).colorScheme;
 
     return SizedBox(
@@ -40,49 +40,53 @@ class _ButtonsView extends StatelessWidget {
           spacing: 10,
           alignment: WrapAlignment.center,
           children: [
-            ElevatedButton(onPressed: () {}, child: const Text('Elevated')),
-            const ElevatedButton(onPressed: null, child: Text('Elevated Disabled')),
-    
+            ElevatedButton(onPressed: () {}, child: Text(l10n.elevatedButton)),
+            ElevatedButton(
+              onPressed: null,
+              child: Text(l10n.disabledElevatedButton),
+            ),
+
             ElevatedButton.icon(
-              onPressed: (){}, 
-              icon: const Icon( Icons.access_alarm_rounded), 
-              label: const Text('Elevated Icon') 
+              onPressed: () {},
+              icon: const Icon(Icons.access_alarm_rounded),
+              label: Text(l10n.elevatedIconButton),
             ),
 
-            FilledButton(onPressed: (){}, child: const Text('Filled')),
+            FilledButton(onPressed: () {}, child: Text(l10n.filledButton)),
             FilledButton.icon(
-              onPressed: (){}, 
-              icon: const Icon( Icons.accessibility_new ),
-              label: const Text('Filled Icon'),
+              onPressed: () {},
+              icon: const Icon(Icons.accessibility_new),
+              label: Text(l10n.filledIconButton),
             ),
 
-            OutlinedButton(onPressed: (){}, child: const Text('Outline')),
+            OutlinedButton(onPressed: () {}, child: Text(l10n.outlinedButton)),
             OutlinedButton.icon(
-              onPressed: (){}, 
-              label: const Text('Outline Icon'),
-              icon: const Icon( Icons.terminal)
+              onPressed: () {},
+              label: Text(l10n.outlinedIconButton),
+              icon: const Icon(Icons.terminal),
             ),
 
-            TextButton(onPressed: (){}, child: const Text('Text')),
+            TextButton(onPressed: () {}, child: Text(l10n.textButton)),
             TextButton.icon(
-              onPressed: (){}, 
-              icon: const Icon( Icons.account_box_outlined),
-              label: const Text('Text Icon'),
+              onPressed: () {},
+              icon: const Icon(Icons.account_box_outlined),
+              label: Text(l10n.textIconButton),
             ),
 
             const CustomButton(),
 
-
-            IconButton(onPressed: (){}, icon: const Icon( Icons.app_registration_rounded)),
             IconButton(
-              onPressed: (){}, 
-              icon: const Icon( Icons.app_registration_rounded),
+              onPressed: () {},
+              icon: const Icon(Icons.app_registration_rounded),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.app_registration_rounded),
               style: ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(colors.primary),
                 iconColor: const WidgetStatePropertyAll(Colors.white),
               ),
             ),
-
           ],
         ),
       ),
@@ -90,15 +94,13 @@ class _ButtonsView extends StatelessWidget {
   }
 }
 
-
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-
+    final l10n = AppLocalizations.of(context)!;
     final colors = Theme.of(context).colorScheme;
-
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
@@ -106,13 +108,15 @@ class CustomButton extends StatelessWidget {
         color: colors.primary,
         child: InkWell(
           onTap: () {},
-          child: const Padding(
-            padding: EdgeInsets.symmetric( horizontal: 20, vertical: 10),
-            child: Text('Hola Mundo', style: TextStyle(color: Colors.white))
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Text(
+              l10n.helloWorld,
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
         ),
       ),
     );
   }
 }
-

@@ -3,6 +3,7 @@ import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/domain/datasources/actors_datasource.dart';
 import 'package:cinemapedia/domain/repositories/movies_repository.dart';
 import 'package:cinemapedia/infrastructure/repositories/actor_repository_impl.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 import 'package:cinemapedia/presentation/providers/actors/actors_repository_provider.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_repository_provider.dart';
 import 'package:cinemapedia/presentation/screens/movies/movie_screen.dart';
@@ -24,7 +25,12 @@ void main() {
             (ref) => ActorRepositoryImpl(_TestActorsDatasource()),
           ),
         ],
-        child: const MaterialApp(home: MovieScreen(movieId: '42')),
+        child: MaterialApp(
+          locale: const Locale('es'),
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          home: const MovieScreen(movieId: '42'),
+        ),
       ),
     );
     await tester.pump();

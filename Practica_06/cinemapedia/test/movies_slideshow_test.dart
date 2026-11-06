@@ -1,4 +1,5 @@
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 import 'package:cinemapedia/presentation/widgets/movies/movies_slideshow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,8 +9,8 @@ void main() {
   testWidgets('carousel arrows advance one movie per tap', (tester) async {
     await tester.pumpWidget(
       ProviderScope(
-        child: MaterialApp(
-          home: Scaffold(
+        child: _localizedApp(
+          Scaffold(
             body: MoviesSlideshow(
               movies: List.generate(3, (index) => _movie(index + 1)),
             ),
@@ -39,8 +40,8 @@ void main() {
   ) async {
     await tester.pumpWidget(
       ProviderScope(
-        child: MaterialApp(
-          home: Scaffold(body: MoviesSlideshow(movies: [_movie(1)])),
+        child: _localizedApp(
+          Scaffold(body: MoviesSlideshow(movies: [_movie(1)])),
         ),
       ),
     );
@@ -59,8 +60,8 @@ void main() {
   ) async {
     await tester.pumpWidget(
       ProviderScope(
-        child: MaterialApp(
-          home: Scaffold(
+        child: _localizedApp(
+          Scaffold(
             body: MoviesSlideshow(
               movies: List.generate(3, (index) => _movie(index + 1)),
             ),
@@ -95,8 +96,8 @@ void main() {
     var retried = false;
     await tester.pumpWidget(
       ProviderScope(
-        child: MaterialApp(
-          home: Scaffold(
+        child: _localizedApp(
+          Scaffold(
             body: MoviesSlideshow(
               movies: const [],
               hasError: true,
@@ -113,6 +114,13 @@ void main() {
     expect(retried, isTrue);
   });
 }
+
+Widget _localizedApp(Widget home) => MaterialApp(
+  locale: const Locale('es'),
+  supportedLocales: AppLocalizations.supportedLocales,
+  localizationsDelegates: AppLocalizations.localizationsDelegates,
+  home: home,
+);
 
 Movie _movie(int id) => Movie(
   adult: false,

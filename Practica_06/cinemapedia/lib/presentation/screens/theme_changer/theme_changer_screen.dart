@@ -1,6 +1,7 @@
 import 'package:cinemapedia/presentation/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 
 class ThemeChangerScreen extends ConsumerWidget {
   static const String name = 'theme_changer_screen';
@@ -10,10 +11,11 @@ class ThemeChangerScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDarkmode = ref.watch(themeNotifierProvider).isDarkmode;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Theme changer'),
+        title: Text(l10n.themeChangerTitle),
         actions: [
           IconButton(
             icon: Icon(
@@ -37,6 +39,7 @@ class _ThemeChangerView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final List<Color> colors = ref.watch(colorListProvider);
     final int selectedColor = ref.watch(themeNotifierProvider).selectedColor;
+    final l10n = AppLocalizations.of(context)!;
 
     return ListView.builder(
       itemCount: colors.length,
@@ -56,7 +59,7 @@ class _ThemeChangerView extends ConsumerWidget {
               }
             },
           ),
-          title: Text('Este color', style: TextStyle(color: color)),
+          title: Text(l10n.thisColor, style: TextStyle(color: color)),
           subtitle: Text(color.toARGB32().toRadixString(16).toUpperCase()),
         );
       },

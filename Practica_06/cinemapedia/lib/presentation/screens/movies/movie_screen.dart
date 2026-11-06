@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:animate_do/animate_do.dart';
 
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:cinemapedia/presentation/providers/movies/movie_info_provider.dart';
@@ -39,6 +40,8 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     ref.listen(selectedCinemaCountryProvider, (previous, next) {
       ref.invalidate(movieInfoProvider);
       ref.invalidate(actorsByMovieProvider);
@@ -61,12 +64,12 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text('No se pudo cargar la película.'),
+                Text(l10n.movieLoadFailed),
                 TextButton(
                   onPressed: () => ref
                       .read(movieInfoProvider.notifier)
                       .loadMovie(widget.movieId),
-                  child: const Text('Reintentar'),
+                  child: Text(l10n.retry),
                 ),
               ],
             ),
@@ -183,6 +186,7 @@ class _ActorsByMovie extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final l10n = AppLocalizations.of(context)!;
     final actorsByMovie = ref.watch(actorsByMovieProvider);
 
     if (actorsByMovie[movieId] == null) {
@@ -192,14 +196,14 @@ class _ActorsByMovie extends ConsumerWidget {
       if (hasError) {
         return Column(
           children: [
-            const Text(
-              'No se pudo cargar el reparto.',
-              style: TextStyle(color: Colors.white70),
+            Text(
+              l10n.castLoadFailed,
+              style: const TextStyle(color: Colors.white70),
             ),
             TextButton(
               onPressed: () =>
                   ref.read(actorsByMovieProvider.notifier).loadActors(movieId),
-              child: const Text('Reintentar'),
+              child: Text(l10n.retry),
             ),
           ],
         );

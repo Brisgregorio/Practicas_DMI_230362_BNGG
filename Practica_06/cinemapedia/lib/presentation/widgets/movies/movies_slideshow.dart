@@ -5,6 +5,8 @@ import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cinemapedia/config/constants/country_catalog.dart';
 import 'package:cinemapedia/config/constants/cinema_country.dart';
+import 'package:cinemapedia/config/helpers/localized_country.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 import 'package:cinemapedia/presentation/providers/settings/cinema_country_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -55,6 +57,8 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (widget.movies.isEmpty) {
       return SizedBox(
         height: 280,
@@ -74,8 +78,8 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
                     const SizedBox(height: 10),
                     Text(
                       widget.hasError
-                          ? 'No se pudieron cargar las películas.'
-                          : 'No hay películas disponibles para este país.',
+                          ? l10n.noMoviesFailed
+                          : l10n.noMoviesCountry,
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: Colors.white70),
                     ),
@@ -84,7 +88,7 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
                       TextButton.icon(
                         onPressed: widget.onRetry,
                         icon: const Icon(Icons.refresh_rounded),
-                        label: const Text('Reintentar'),
+                        label: Text(l10n.retry),
                       ),
                     ],
                   ],
@@ -102,8 +106,8 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Clasificación por país',
+              Text(
+                l10n.countryRatingTitle,
                 style: TextStyle(
                   fontSize: 13,
                   color: Colors.white70,
@@ -112,7 +116,7 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
               ),
               const SizedBox(height: 4),
               Text(
-                '${flagForCountry(country.code)}  ${country.name} · ${country.language}',
+                '${flagForCountry(country.code)}  ${localizedCountryName(l10n, country)} · ${country.language}',
                 style: const TextStyle(
                   color: Color(0xFFB9A6FF),
                   fontSize: 12,
@@ -138,11 +142,9 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
                 onIndexChanged: (index) {
                   setState(() => currentIndex = index);
                   if (index == 0) {
-                    showBoundaryMessage(
-                      'Inicio de la lista · primera película',
-                    );
+                    showBoundaryMessage(l10n.atListStart);
                   } else if (index == widget.movies.length - 1) {
-                    showBoundaryMessage('Final de la lista · última película');
+                    showBoundaryMessage(l10n.atListEnd);
                   }
                 },
                 pagination: const SwiperPagination(
@@ -155,18 +157,20 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
                 itemCount: widget.movies.length,
                 itemBuilder: (context, index) => _MovieCarouselCard(
                   movie: widget.movies[index],
-                  countryName: country.name,
+                  countryName: localizedCountryName(l10n, country),
                   countryCode: country.code,
                   countryFlag: flagForCountry(country.code),
                   rating: certification(widget.movies[index], country),
                 ),
               ),
               if (widget.movies.length > 1) ...[
-                Positioned(
-                  left: 8,
+                PositionedDirectional(
+                  start: 8,
                   child: _CarouselArrow(
-                    icon: Icons.chevron_left_rounded,
-                    tooltip: 'Película anterior',
+                    icon: Directionality.of(context) == TextDirection.rtl
+                        ? Icons.chevron_right_rounded
+                        : Icons.chevron_left_rounded,
+                    tooltip: l10n.previousMovie,
                     enabled: currentIndex > 0,
                     onPressed: () {
                       if (currentIndex > 0) swiperController.previous();
@@ -178,11 +182,13 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
                     ),
                   ),
                 ),
-                Positioned(
-                  right: 8,
+                PositionedDirectional(
+                  end: 8,
                   child: _CarouselArrow(
-                    icon: Icons.chevron_right_rounded,
-                    tooltip: 'Siguiente película',
+                    icon: Directionality.of(context) == TextDirection.rtl
+                        ? Icons.chevron_left_rounded
+                        : Icons.chevron_right_rounded,
+                    tooltip: l10n.nextMovie,
                     enabled: currentIndex < widget.movies.length - 1,
                     onPressed: () {
                       if (currentIndex < widget.movies.length - 1) {
@@ -204,16 +210,16 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
           padding: const EdgeInsets.only(top: 0, bottom: 8),
           child: Center(
             child: Text(
-              'Desliza para explorar · ${currentIndex + 1}/${widget.movies.length}',
+              l10n.swipeExplore(currentIndex + 1, widget.movies.length),
               style: const TextStyle(color: Colors.white38, fontSize: 11),
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 18),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Text(
-            '* Clasificación orientativa. Consulta la clasificación oficial local.',
-            style: TextStyle(color: Colors.white38, fontSize: 10),
+            l10n.ratingDisclaimer,
+            style: const TextStyle(color: Colors.white38, fontSize: 10),
           ),
         ),
       ],
@@ -353,8 +359,8 @@ class _MovieCarouselCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text(
-                            'Título en idioma seleccionado',
+                          Text(
+                            AppLocalizations.of(context)!.selectedLanguageTitle,
                             style: TextStyle(
                               color: Colors.white70,
                               fontSize: 10,
@@ -376,7 +382,9 @@ class _MovieCarouselCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            'Título original (${movie.originalLanguage.toUpperCase()})',
+                            AppLocalizations.of(context)!.originalTitleLanguage(
+                              movie.originalLanguage.toUpperCase(),
+                            ),
                             style: const TextStyle(
                               color: Colors.white70,
                               fontSize: 10,
@@ -445,7 +453,8 @@ class _MovieCarouselCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(13, 0, 13, 10),
                 child: Text(
-                  'Clasificación seleccionada: $countryName',
+                  AppLocalizations.of(context)!
+                      .selectedRatingCountry(countryName),
                   style: const TextStyle(color: Colors.white60, fontSize: 10),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

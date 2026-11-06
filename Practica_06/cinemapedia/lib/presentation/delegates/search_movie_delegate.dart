@@ -4,10 +4,12 @@ import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 
 typedef SearchMoviesCallback = Future<List<Movie>> Function(String query);
 
 class SearchMovieDelegate extends SearchDelegate<Movie?> {
+  final AppLocalizations localizations;
   final SearchMoviesCallback searchMovies;
   List<Movie> initialMovies;
 
@@ -19,11 +21,14 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   bool _isDisposed = false;
   int _requestId = 0;
 
-  SearchMovieDelegate({required this.searchMovies, required this.initialMovies})
-    : super(
-        searchFieldLabel: 'Buscar películas',
-        // textInputAction: TextInputAction.done
-      );
+  SearchMovieDelegate({
+    required this.localizations,
+    required this.searchMovies,
+    required this.initialMovies,
+  }) : super(
+         searchFieldLabel: localizations.searchMovies,
+         // textInputAction: TextInputAction.done
+       );
 
   void clearStreams() {
     _isDisposed = true;
@@ -49,7 +54,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
       } catch (error) {
         if (_isDisposed || requestId != _requestId) return;
         debugPrint('Movie search request failed: ${error.runtimeType}');
-        searchError = 'No se pudo realizar la búsqueda.';
+        searchError = localizations.searchFailed;
         initialMovies = [];
         debouncedMovies.add([]);
       } finally {
@@ -73,7 +78,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
                 Text(searchError!),
                 TextButton(
                   onPressed: () => _onQueryChanged(query),
-                  child: const Text('Reintentar'),
+                  child: Text(localizations.retry),
                 ),
               ],
             ),
@@ -82,7 +87,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
         final movies = snapshot.data ?? [];
         if (movies.isEmpty) {
-          return const Center(child: Text('No se encontraron películas.'));
+          return Center(child: Text(localizations.noResults));
         }
 
         return ListView.builder(

@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
-
+import 'package:cinemapedia/l10n/app_localizations.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
   const CustomBottomNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return BottomNavigationBar(
       elevation: 0,
-      items: const [
+      items: [
         BottomNavigationBarItem(
-          icon: Icon( Icons.home_max ),
-          label: 'Inicio'
+          icon: const Icon(Icons.home_max),
+          label: l10n.home,
         ),
         BottomNavigationBarItem(
-          icon: Icon( Icons.label_outline ),
-          label: 'Categorías'
+          icon: const Icon(Icons.label_outline),
+          label: l10n.categories,
         ),
         BottomNavigationBarItem(
-          icon: Icon( Icons.favorite_outline ),
-          label: 'Favoritos'
+          icon: const Icon(Icons.favorite_outline),
+          label: l10n.favorites,
         ),
-      ]
+      ],
     );
   }
 }

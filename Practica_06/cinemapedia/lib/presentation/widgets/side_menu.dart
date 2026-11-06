@@ -1,14 +1,12 @@
 import 'package:cinemapedia/config/menu/menu_items.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class SideMenu extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  const SideMenu({
-    super.key,
-    required this.scaffoldKey,
-  });
+  const SideMenu({super.key, required this.scaffoldKey});
 
   @override
   State<SideMenu> createState() => _SideMenuState();
@@ -19,6 +17,7 @@ class _SideMenuState extends State<SideMenu> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final hasNotch = MediaQuery.of(context).viewPadding.top > 35;
 
     return NavigationDrawer(
@@ -35,28 +34,32 @@ class _SideMenuState extends State<SideMenu> {
       children: [
         Padding(
           padding: EdgeInsets.fromLTRB(28, hasNotch ? 0 : 20, 16, 10),
-          child: const Text('Main'),
+          child: Text(l10n.mainMenu),
         ),
-        ...appMenuItems.sublist(0, 3).map(
-          (item) => NavigationDrawerDestination(
-            icon: Icon(item.icon),
-            label: Text(item.title),
-          ),
-        ),
+        ...appMenuItems
+            .sublist(0, 3)
+            .map(
+              (item) => NavigationDrawerDestination(
+                icon: Icon(item.icon),
+                label: Text(item.title(l10n)),
+              ),
+            ),
         const Padding(
           padding: EdgeInsets.fromLTRB(28, 16, 28, 10),
           child: Divider(),
         ),
-        const Padding(
-          padding: EdgeInsets.fromLTRB(28, 10, 16, 10),
-          child: Text('More options'),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(28, 10, 16, 10),
+          child: Text(l10n.moreOptions),
         ),
-        ...appMenuItems.sublist(3).map(
-          (item) => NavigationDrawerDestination(
-            icon: Icon(item.icon),
-            label: Text(item.title),
-          ),
-        ),
+        ...appMenuItems
+            .sublist(3)
+            .map(
+              (item) => NavigationDrawerDestination(
+                icon: Icon(item.icon),
+                label: Text(item.title(l10n)),
+              ),
+            ),
       ],
     );
   }

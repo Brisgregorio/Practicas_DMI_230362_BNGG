@@ -1,79 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 
 class SnackbarScreen extends StatelessWidget {
-
   static const name = 'snackbar_screen';
 
   const SnackbarScreen({super.key});
 
-  void showCustomSnackbar( BuildContext context ) {
+  void showCustomSnackbar(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
 
     ScaffoldMessenger.of(context).clearSnackBars();
 
     final snakback = SnackBar(
-      content: const Text('Hola Mundo'),
-      action: SnackBarAction(label: 'Ok!', onPressed: () {}),
+      content: Text(l10n.helloWorld),
+      action: SnackBarAction(label: l10n.ok, onPressed: () {}),
       duration: const Duration(seconds: 2),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snakback);
-
   }
 
-  void openDialog( BuildContext context ) {
+  void openDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
 
     showDialog(
-      context: context, 
+      context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: const Text('¿Estás seguro?'),
-        content: const Text('Ex sit ea est in. Aliqua cillum amet tempor id officia tempor adipisicing amet commodo aliqua. Ut eiusmod cillum nulla sit ut non minim laboris cupidatat exercitation minim magna pariatur est. Nisi aute ea id enim sint occaecat aute adipisicing duis qui nisi. Nulla cillum nulla eiusmod enim magna sint eu dolor occaecat cupidatat.'),
+        title: Text(l10n.areYouSure),
+        content: Text(l10n.demoDialogMessage),
         actions: [
-          TextButton( onPressed: ()=> context.pop(), child: const Text('Cancelar')),
-          
-          FilledButton( onPressed: ()=> context.pop(), child: const Text('Aceptar')),
+          TextButton(onPressed: () => context.pop(), child: Text(l10n.cancel)),
+
+          FilledButton(
+            onPressed: () => context.pop(),
+            child: Text(l10n.accept),
+          ),
         ],
       ),
     );
-
   }
-
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Snackbars y Diálogos'),
-      ),
+    final l10n = AppLocalizations.of(context)!;
 
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n.snackbarsScreenTitle)),
 
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             FilledButton.tonal(
-              onPressed: (){
+              onPressed: () {
                 showAboutDialog(
                   context: context,
-                  children: [
-                    const Text('Aute amet dolore ipsum ex adipisicing incididunt pariatur eiusmod ipsum duis voluptate commodo qui. Non anim nulla enim do sunt minim anim sit nostrud sunt. Ex culpa ipsum voluptate ut qui Lorem ad. Consequat dolor duis nulla ipsum ea. Nostrud nulla nulla ad pariatur ullamco cupidatat aliquip irure dolore amet deserunt nulla veniam. Id ut duis nulla in commodo elit. Laboris ea ipsum aute excepteur quis magna elit est incididunt veniam deserunt ad veniam.')
-                  ]
+                  children: [Text(l10n.demoAboutMessage)],
                 );
-              }, child: const Text('Licencias usadas')),
+              },
+              child: Text(l10n.usedLicenses),
+            ),
 
             FilledButton.tonal(
-              onPressed: () => openDialog(context), 
-              child: const Text('Mostrar diálogo'))
+              onPressed: () => openDialog(context),
+              child: Text(l10n.showDialog),
+            ),
           ],
         ),
       ),
 
-
       floatingActionButton: FloatingActionButton.extended(
-        label: const Text('Mostrar Snackbar'),
-        icon: const Icon( Icons.remove_red_eye_outlined ),
+        label: Text(l10n.showSnackbar),
+        icon: const Icon(Icons.remove_red_eye_outlined),
         onPressed: () => showCustomSnackbar(context),
       ),
     );

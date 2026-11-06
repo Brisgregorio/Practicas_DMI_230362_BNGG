@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 
 class UiControlsScreen extends StatelessWidget {
   static const name = 'ui_controls_screen';
@@ -7,10 +8,10 @@ class UiControlsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('UI Controls'),
-      ),
+      appBar: AppBar(title: Text(l10n.controlsScreenTitle)),
       body: const _UiControlsView(),
     );
   }
@@ -26,7 +27,6 @@ class _UiControlsView extends StatefulWidget {
 enum Transportation { car, plane, boat, submarine }
 
 class _UiControlsViewState extends State<_UiControlsView> {
-
   bool isDeveloper = true;
   Transportation selectedTransportation = Transportation.car;
   bool wantsBreakfast = false;
@@ -35,12 +35,20 @@ class _UiControlsViewState extends State<_UiControlsView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final selectedTransportationLabel = switch (selectedTransportation) {
+      Transportation.car => l10n.byCar,
+      Transportation.boat => l10n.byBoat,
+      Transportation.plane => l10n.byPlane,
+      Transportation.submarine => l10n.bySubmarine,
+    };
+
     return ListView(
       physics: const ClampingScrollPhysics(),
       children: [
         SwitchListTile(
-          title: const Text('Developer Mode'),
-          subtitle: const Text('Controles adicionales'),
+          title: Text(l10n.developerMode),
+          subtitle: Text(l10n.additionalControls),
           value: isDeveloper,
           onChanged: (value) => setState(() {
             isDeveloper = !isDeveloper;
@@ -48,12 +56,12 @@ class _UiControlsViewState extends State<_UiControlsView> {
         ),
 
         ExpansionTile(
-          title: const Text('Vehículo de transporte'),
-          subtitle: Text('$selectedTransportation'),
+          title: Text(l10n.transportationVehicle),
+          subtitle: Text(selectedTransportationLabel),
           children: [
             RadioListTile(
-              title: const Text('By Car'),
-              subtitle: const Text('Viajar por carro'),
+              title: Text(l10n.byCar),
+              subtitle: Text(l10n.travelByCar),
               value: Transportation.car,
               groupValue: selectedTransportation,
               onChanged: (value) => setState(() {
@@ -61,8 +69,8 @@ class _UiControlsViewState extends State<_UiControlsView> {
               }),
             ),
             RadioListTile(
-              title: const Text('By Boat'),
-              subtitle: const Text('Viajar por barco'),
+              title: Text(l10n.byBoat),
+              subtitle: Text(l10n.travelByBoat),
               value: Transportation.boat,
               groupValue: selectedTransportation,
               onChanged: (value) => setState(() {
@@ -70,8 +78,8 @@ class _UiControlsViewState extends State<_UiControlsView> {
               }),
             ),
             RadioListTile(
-              title: const Text('By Plane'),
-              subtitle: const Text('Viajar por avión'),
+              title: Text(l10n.byPlane),
+              subtitle: Text(l10n.travelByPlane),
               value: Transportation.plane,
               groupValue: selectedTransportation,
               onChanged: (value) => setState(() {
@@ -79,8 +87,8 @@ class _UiControlsViewState extends State<_UiControlsView> {
               }),
             ),
             RadioListTile(
-              title: const Text('By Submarine'),
-              subtitle: const Text('Viajar por submarino'),
+              title: Text(l10n.bySubmarine),
+              subtitle: Text(l10n.travelBySubmarine),
               value: Transportation.submarine,
               groupValue: selectedTransportation,
               onChanged: (value) => setState(() {
@@ -89,29 +97,28 @@ class _UiControlsViewState extends State<_UiControlsView> {
             ),
           ],
         ),
-      
+
         CheckboxListTile(
-          title: const Text('¿Desayuno?'),
+          title: Text(l10n.breakfast),
           value: wantsBreakfast,
           onChanged: (value) => setState(() {
             wantsBreakfast = !wantsBreakfast;
           }),
         ),
         CheckboxListTile(
-          title: const Text('Almuerzo?'),
+          title: Text(l10n.lunch),
           value: wantsLunch,
           onChanged: (value) => setState(() {
             wantsLunch = !wantsLunch;
           }),
         ),
         CheckboxListTile(
-          title: const Text('Cena?'),
+          title: Text(l10n.dinner),
           value: wantsDinner,
           onChanged: (value) => setState(() {
             wantsDinner = !wantsDinner;
           }),
         ),
-
       ],
     );
   }

@@ -4,6 +4,8 @@ import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cinemapedia/config/constants/cinema_country.dart';
 import 'package:cinemapedia/config/constants/country_catalog.dart';
+import 'package:cinemapedia/config/helpers/localized_country.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   static const name = 'home-screen';
@@ -25,6 +27,8 @@ class _CinemapediaDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Drawer(
       backgroundColor: const Color(0xFF171936),
       child: SafeArea(
@@ -40,7 +44,7 @@ class _CinemapediaDrawer extends StatelessWidget {
                   end: Alignment.bottomRight,
                 ),
               ),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(
@@ -52,10 +56,10 @@ class _CinemapediaDrawer extends StatelessWidget {
                   CinemapediaBrand(foregroundColor: Colors.white),
                   SizedBox(height: 4),
                   Text(
-                    'Tu universo de películas',
-                    style: TextStyle(color: Colors.white70),
+                    l10n.drawerTagline,
+                    style: const TextStyle(color: Colors.white70),
                   ),
-                  Text(
+                  const Text(
                     '230362 · BNGG',
                     style: TextStyle(color: Colors.white70, fontSize: 12),
                   ),
@@ -65,27 +69,27 @@ class _CinemapediaDrawer extends StatelessWidget {
             const SizedBox(height: 12),
             _DrawerItem(
               icon: Icons.home_rounded,
-              title: 'Inicio',
+              title: l10n.home,
               onTap: () => Navigator.pop(context),
             ),
             _DrawerItem(
               icon: Icons.local_movies_rounded,
-              title: 'En cartelera',
+              title: l10n.nowPlaying,
               onTap: () => Navigator.pop(context),
             ),
             _DrawerItem(
               icon: Icons.trending_up_rounded,
-              title: 'Populares',
+              title: l10n.popular,
               onTap: () => Navigator.pop(context),
             ),
             _DrawerItem(
               icon: Icons.star_rounded,
-              title: 'Mejor calificadas',
+              title: l10n.topRated,
               onTap: () => Navigator.pop(context),
             ),
             _DrawerItem(
               icon: Icons.settings_rounded,
-              title: 'País e idioma de películas',
+              title: l10n.countrySettings,
               onTap: () {
                 Navigator.pop(context);
                 showModalBottomSheet<void>(
@@ -103,11 +107,11 @@ class _CinemapediaDrawer extends StatelessWidget {
             ),
             const Spacer(),
             const Divider(color: Colors.white12),
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(18),
               child: Text(
-                'Desarrollado por Brisa Nallely Garcia Gregorio',
-                style: TextStyle(color: Colors.white54, fontSize: 11),
+                l10n.developedBy,
+                style: const TextStyle(color: Colors.white54, fontSize: 11),
               ),
             ),
           ],
@@ -122,6 +126,7 @@ class _CinemaCountrySelector extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final selectedCountry = ref.watch(selectedCinemaCountryProvider);
     return SafeArea(
       child: Padding(
@@ -131,13 +136,13 @@ class _CinemaCountrySelector extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'País e idioma de películas',
+              l10n.countrySettings,
               style: Theme.of(context).textTheme.titleLarge
                   ?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 6),
-            const Text(
-              'Cambia la región, el idioma de TMDB y la clasificación mostrada. La interfaz permanece en español.',
+            Text(
+              l10n.selectorDescription,
               style: TextStyle(color: Colors.white70),
             ),
             const SizedBox(height: 12),
@@ -150,16 +155,21 @@ class _CinemaCountrySelector extends ConsumerWidget {
                 children: cinemaCountryCatalog.map((country) {
                   final isSelected = country.code == selectedCountry.code;
                   return ListTile(
+                    key: ValueKey('country-${country.code}'),
                     leading: Text(
                       flagForCountry(country.code),
                       style: const TextStyle(fontSize: 26),
                     ),
                     title: Text(
-                      country.name,
+                      localizedCountryName(l10n, country),
                       style: const TextStyle(color: Colors.white),
                     ),
                     subtitle: Text(
-                      '${country.code} (${country.languageName}) · Clasificación: ${country.certification}',
+                      l10n.countryItemDetails(
+                        country.code,
+                        country.languageName,
+                        country.certification,
+                      ),
                       style: const TextStyle(color: Colors.white60),
                     ),
                     trailing: isSelected
@@ -239,6 +249,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     ref.listen(selectedCinemaCountryProvider, (previous, next) {
       _reloadHomeMovies();
     });
@@ -259,7 +270,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
           expandedHeight: 72,
           leading: Builder(
             builder: (context) => IconButton(
-              tooltip: 'Abrir menú',
+              tooltip: l10n.openMenu,
               icon: const Icon(Icons.menu_rounded, size: 28),
               onPressed: () => Scaffold.of(context).openDrawer(),
             ),
@@ -283,7 +294,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     ),
                     const SizedBox(width: 7),
                     Text(
-                      'DESCUBRE TU PRÓXIMA HISTORIA',
+                      l10n.discoveryTag,
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         letterSpacing: 1.3,
                         color: const Color(0xFFB9A6FF),
@@ -304,28 +315,28 @@ class _HomeViewState extends ConsumerState<_HomeView> {
               ),
               MovieHorizontalListview(
                 movies: nowPlayingMovies,
-                title: 'En cartelera',
-                subTitle: 'Ahora',
+                title: l10n.nowPlaying,
+                subTitle: l10n.now,
                 loadNextPage: () =>
                     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
               ),
               MovieHorizontalListview(
                 movies: upcomingMovies,
-                title: 'Próximamente',
-                subTitle: 'Muy pronto',
+                title: l10n.comingSoon,
+                subTitle: l10n.soon,
                 loadNextPage: () =>
                     ref.read(upcomingMoviesProvider.notifier).loadNextPage(),
               ),
               MovieHorizontalListview(
                 movies: popularMovies,
-                title: 'Populares',
+                title: l10n.popular,
                 loadNextPage: () =>
                     ref.read(popularMoviesProvider.notifier).loadNextPage(),
               ),
               MovieHorizontalListview(
                 movies: topRatedMovies,
-                title: 'Favoritas del público',
-                subTitle: 'Top',
+                title: l10n.topRated,
+                subTitle: l10n.top,
                 loadNextPage: () =>
                     ref.read(topRatedMoviesProvider.notifier).loadNextPage(),
               ),

@@ -1,4 +1,5 @@
 import 'package:cinemapedia/config/helpers/human_formats.dart';
+import 'package:cinemapedia/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
@@ -80,6 +81,7 @@ class _Slide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyles = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -124,7 +126,10 @@ class _Slide extends StatelessWidget {
           SizedBox(
             width: 150,
             child: Text(
-              'Original (${movie.originalLanguage.toUpperCase()}): ${movie.originalTitle}',
+              l10n.originalLanguageAndTitle(
+                movie.originalLanguage.toUpperCase(),
+                movie.originalTitle,
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: textStyles.bodySmall?.copyWith(color: Colors.white60),
