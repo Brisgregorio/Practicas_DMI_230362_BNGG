@@ -9,7 +9,7 @@ Cinemapedia es una aplicación móvil desarrollada en Flutter para explorar pel�
 
 ## Diagrama interactivo
 
-[Abrir Arquitectura interactiva de Cinemapedia](Practica06/Arquitectura/Arquitectura_de_Cinemapedia.html). El HTML es autocontenido y puede publicarse directamente con GitHub Pages.
+[Diagrama de arquitectura de Cinemapedia](https://brisgregorio.github.io/Practicas_DMI_230362_BNGG/Practica_06/cinemapedia/Practica06/Arquitectura/Arquitectura_de_Cinemapedia.html?utm_source=chatgpt.com). El HTML es autocontenido y puede publicarse directamente con GitHub Pages.
 
 
 ## Identidad visual
