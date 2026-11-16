@@ -1,4 +1,5 @@
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/infrastructure/datasources/tmdb_dio.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_repository_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -49,10 +50,13 @@ class MoviesNotifier extends StateNotifier<List<Movie>> {
       currentPage = nextPage;
       hasLoaded = true;
       state = [...state, ...movies];
-    } catch (_) {
+    } catch (error) {
       if (!mounted) return;
-      // No bloquear la interfaz si falla la red o el servicio de TMDB.
-      debugPrint('Movie request failed; check the network and TMDB settings.');
+      debugPrint(
+        error is TmdbApiException
+            ? error.diagnostic
+            : 'Ocurrió un error al cargar películas desde TMDB.',
+      );
       hasError = true;
       hasLoaded = true;
       // Emitir un nuevo estado para que los proveedores dependientes se reconstruyan.

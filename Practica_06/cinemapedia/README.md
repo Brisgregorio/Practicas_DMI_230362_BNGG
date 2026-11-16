@@ -7,6 +7,11 @@
 ## Descripción
 Cinemapedia es una aplicación móvil desarrollada en Flutter para explorar películas, consultar estrenos, descubrir títulos populares y revisar información cinematográfica. La aplicación utiliza The Movie Database (TMDB) como fuente de información.
 
+## Diagrama interactivo
+
+[Abrir Arquitectura interactiva de Cinemapedia](Practica06/Arquitectura/Arquitectura_de_Cinemapedia.html). El HTML es autocontenido y puede publicarse directamente con GitHub Pages.
+
+
 ## Identidad visual
 La interfaz tiene una identidad propia basada en azul profundo, morado y violeta. Incluye tarjetas redondeadas, degradados, elementos luminosos y un icono exclusivo de Cinemapedia.
 
@@ -78,6 +83,21 @@ La interfaz tiene una identidad propia basada en azul profundo, morado y violeta
    ```bash
    flutter run
    ```
+
+Para generar el APK de producción, asegúrate de que `.env` esté en la raíz del
+proyecto y ejecuta:
+
+```bash
+flutter build apk --release
+```
+
+`.env` está declarado como asset de Flutter y se carga antes de iniciar la
+aplicación, también en compilaciones release. Como alternativa, se puede
+proporcionar `THE_MOVIEDB_KEY` durante la compilación con
+`--dart-define=THE_MOVIEDB_KEY=...`; no agregues la clave al código fuente ni a
+repositorios. La clave que se empaqueta en una aplicación cliente puede
+extraerse del APK, así que debe tratarse como una credencial pública y
+restringirse/rotarse desde TMDB cuando sea posible.
 
 ## Cómo obtener la API Key
 1. Crear una cuenta en [The Movie Database](https://www.themoviedb.org/).

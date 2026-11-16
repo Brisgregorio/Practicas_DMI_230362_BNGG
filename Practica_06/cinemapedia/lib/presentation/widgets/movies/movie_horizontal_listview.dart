@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:go_router/go_router.dart';
+import 'package:cinemapedia/presentation/screens/movies/movie_screen.dart';
 
 class MovieHorizontalListview extends StatefulWidget {
   final List<Movie> movies;
@@ -81,6 +82,10 @@ class _Slide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyles = Theme.of(context).textTheme;
+    final isDarkmode = Theme.of(context).brightness == Brightness.dark;
+    final ratingColor = isDarkmode
+        ? Colors.amber.shade300
+      : const Color(0xFF6D3700);
     final l10n = AppLocalizations.of(context)!;
 
     return Container(
@@ -107,7 +112,10 @@ class _Slide extends StatelessWidget {
                     );
                   }
                   return GestureDetector(
-                    onTap: () => context.push('/movie/${movie.id}'),
+                    onTap: () => context.pushNamed(
+                      MovieScreen.name,
+                      pathParameters: {'id': movie.id.toString()},
+                    ),
                     child: FadeIn(child: child),
                   );
                 },
@@ -132,7 +140,7 @@ class _Slide extends StatelessWidget {
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: textStyles.bodySmall?.copyWith(color: Colors.white60),
+              style: textStyles.bodySmall,
             ),
           ),
 
@@ -141,12 +149,12 @@ class _Slide extends StatelessWidget {
             width: 150,
             child: Row(
               children: [
-                Icon(Icons.star_half_outlined, color: Colors.yellow.shade800),
+                Icon(Icons.star_half_outlined, color: ratingColor),
                 const SizedBox(width: 3),
                 Text(
                   '${movie.voteAverage}',
                   style: textStyles.bodyMedium?.copyWith(
-                    color: Colors.yellow.shade800,
+                    color: ratingColor,
                   ),
                 ),
                 const Spacer(),

@@ -8,6 +8,7 @@ import 'package:cinemapedia/l10n/app_localizations.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:cinemapedia/presentation/providers/movies/movie_info_provider.dart';
 import 'package:cinemapedia/presentation/widgets/shared/custom_appbar.dart';
+import 'package:cinemapedia/presentation/widgets/movies/favorite_movie_button.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
   static const name = 'movie-screen';
@@ -151,6 +152,11 @@ class _MovieDetails extends StatelessWidget {
           ),
         ),
 
+        Align(
+          alignment: Alignment.centerRight,
+          child: FavoriteMovieButton(movie: movie),
+        ),
+
         // Generos de la película
         Padding(
           padding: const EdgeInsets.all(8),
@@ -198,7 +204,7 @@ class _ActorsByMovie extends ConsumerWidget {
           children: [
             Text(
               l10n.castLoadFailed,
-              style: const TextStyle(color: Colors.white70),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             TextButton(
               onPressed: () =>

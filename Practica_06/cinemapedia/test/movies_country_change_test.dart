@@ -1,12 +1,16 @@
 import 'package:cinemapedia/config/constants/cinema_country.dart';
 import 'package:cinemapedia/infrastructure/datasources/moviedb_datasource.dart';
 import 'package:cinemapedia/infrastructure/datasources/actor_moviedb_datasource.dart';
+import 'package:cinemapedia/infrastructure/datasources/tv_series_moviedb_datasource.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/domain/entities/movie_genre.dart';
 import 'package:cinemapedia/domain/repositories/movies_repository.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_providers.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_repository_provider.dart';
 import 'package:cinemapedia/presentation/providers/actors/actors_repository_provider.dart';
 import 'package:cinemapedia/presentation/providers/settings/cinema_country_provider.dart';
+import 'package:cinemapedia/presentation/providers/settings/interface_language_provider.dart';
+import 'package:cinemapedia/presentation/providers/series/tv_series_repository_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -42,6 +46,34 @@ void main() {
         actorRepository.datasource as ActorMovieDbDatasource;
     expect(actorDatasource.dio.options.queryParameters['language'], 'de-DE');
     expect(actorDatasource.dio.options.queryParameters['region'], 'DE');
+
+    final tvSeriesDatasource =
+        container.read(tvSeriesDatasourceProvider) as TvSeriesMovieDbDatasource;
+    expect(
+      tvSeriesDatasource.dio.options.queryParameters['language'],
+      'de-DE',
+    );
+    expect(tvSeriesDatasource.dio.options.queryParameters['region'], 'DE');
+  });
+
+  test('interface language does not alter TMDB language or region', () {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+
+    container.read(selectedInterfaceLanguageProvider.notifier).state = 'zh';
+
+    final movieDatasource =
+        container.read(movieDatasourceProvider) as MoviedbDatasource;
+    final tvSeriesDatasource =
+        container.read(tvSeriesDatasourceProvider) as TvSeriesMovieDbDatasource;
+
+    expect(movieDatasource.dio.options.queryParameters['language'], 'es-MX');
+    expect(movieDatasource.dio.options.queryParameters['region'], 'MX');
+    expect(
+      tvSeriesDatasource.dio.options.queryParameters['language'],
+      'es-MX',
+    );
+    expect(tvSeriesDatasource.dio.options.queryParameters['region'], 'MX');
   });
   test(
     'changing country reloads movie lists with the selected country',
@@ -105,6 +137,12 @@ class _CountryMoviesRepository implements MoviesRepository {
 
   @override
   Future<List<Movie>> getTopRated({int page = 1}) async => _movies();
+
+  @override
+  Future<List<MovieGenre>> getMovieGenres() async => [];
+
+  @override
+  Future<List<Movie>> getMoviesByGenre({required int genreId, int page = 1}) async => _movies();
 
   @override
   Future<Movie> getMovieById(String id) async => _movies().single;

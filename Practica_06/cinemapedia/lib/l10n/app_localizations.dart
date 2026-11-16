@@ -11,6 +11,7 @@ import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
 import 'app_localizations_ja.dart';
 import 'app_localizations_pt.dart';
+import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -104,6 +105,7 @@ abstract class AppLocalizations {
     Locale('es'),
     Locale('ja'),
     Locale('pt'),
+    Locale('zh'),
   ];
 
   /// No description provided for @discoveryTag.
@@ -190,11 +192,137 @@ abstract class AppLocalizations {
   /// **'Favoritos'**
   String get favorites;
 
+  /// No description provided for @addToFavorites.
+  ///
+  /// In es, this message translates to:
+  /// **'Añadir a favoritos'**
+  String get addToFavorites;
+
+  /// No description provided for @removeFromFavorites.
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar de favoritos'**
+  String get removeFromFavorites;
+
+  /// No description provided for @noFavoriteMovies.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no tienes películas favoritas.'**
+  String get noFavoriteMovies;
+
+  /// No description provided for @favoritesLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudieron cargar las películas favoritas.'**
+  String get favoritesLoadFailed;
+
+  /// No description provided for @selectGenre.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige un género para ver sus películas.'**
+  String get selectGenre;
+
+  /// No description provided for @genresLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudieron cargar los géneros.'**
+  String get genresLoadFailed;
+
+  /// No description provided for @genreMoviesLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudieron cargar las películas de este género.'**
+  String get genreMoviesLoadFailed;
+
+  /// No description provided for @noMoviesForGenre.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay películas disponibles en este género.'**
+  String get noMoviesForGenre;
+
+  /// No description provided for @series.
+  ///
+  /// In es, this message translates to:
+  /// **'Series'**
+  String get series;
+
+  /// No description provided for @popularSeries.
+  ///
+  /// In es, this message translates to:
+  /// **'Series populares'**
+  String get popularSeries;
+
+  /// No description provided for @seriesLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudieron cargar las series populares.'**
+  String get seriesLoadFailed;
+
+  /// No description provided for @seriesDetailsLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudieron cargar los detalles de la serie.'**
+  String get seriesDetailsLoadFailed;
+
+  /// No description provided for @noPopularSeries.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay series populares disponibles.'**
+  String get noPopularSeries;
+
+  /// No description provided for @noFavorites.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no tienes favoritos.'**
+  String get noFavorites;
+
+  /// No description provided for @rankingTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Clasificación'**
+  String get rankingTitle;
+
+  /// No description provided for @demoDataLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos de demostración'**
+  String get demoDataLabel;
+
+  /// No description provided for @demoDataDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Los perfiles y puntos son ejemplos ficticios, no representan usuarios ni puntuaciones reales.'**
+  String get demoDataDescription;
+
+  /// No description provided for @demoProfile.
+  ///
+  /// In es, this message translates to:
+  /// **'Perfil de ejemplo {number}'**
+  String demoProfile(int number);
+
+  /// No description provided for @demoPoints.
+  ///
+  /// In es, this message translates to:
+  /// **'{points} puntos'**
+  String demoPoints(int points);
+
   /// No description provided for @selectorDescription.
   ///
   /// In es, this message translates to:
-  /// **'Cambia la región, el idioma de TMDB y la clasificación mostrada. La interfaz también cambiará al idioma del país seleccionado.'**
+  /// **'El país define la región, el idioma y la clasificación de TMDB. El idioma de la interfaz se puede elegir por separado.'**
   String get selectorDescription;
+
+  /// No description provided for @interfaceLanguage.
+  ///
+  /// In es, this message translates to:
+  /// **'Idioma de la interfaz'**
+  String get interfaceLanguage;
+
+  /// No description provided for @followCountryLanguage.
+  ///
+  /// In es, this message translates to:
+  /// **'Seguir idioma del país'**
+  String get followCountryLanguage;
 
   /// No description provided for @classification.
   ///
@@ -373,49 +501,49 @@ abstract class AppLocalizations {
   /// No description provided for @pleaseWait.
   ///
   /// In es, this message translates to:
-  /// **'Espere por favor'**
+  /// **'Acomódate, ¡ya empieza la función!'**
   String get pleaseWait;
 
   /// No description provided for @loading.
   ///
   /// In es, this message translates to:
-  /// **'Cargando...'**
+  /// **'Buscando el control remoto...'**
   String get loading;
 
   /// No description provided for @loadingMovies.
   ///
   /// In es, this message translates to:
-  /// **'Cargando películas'**
+  /// **'Convenciendo a las películas de aparecer...'**
   String get loadingMovies;
 
   /// No description provided for @gettingPopcorn.
   ///
   /// In es, this message translates to:
-  /// **'Comprando palomitas de maíz'**
+  /// **'Negociando con las palomitas...'**
   String get gettingPopcorn;
 
   /// No description provided for @loadingPopular.
   ///
   /// In es, this message translates to:
-  /// **'Cargando populares'**
+  /// **'Llamando a las estrellas...'**
   String get loadingPopular;
 
   /// No description provided for @callingGirlfriend.
   ///
   /// In es, this message translates to:
-  /// **'Llamando a mi novia'**
+  /// **'Pidiéndole a la claqueta que espere...'**
   String get callingGirlfriend;
 
   /// No description provided for @almostThere.
   ///
   /// In es, this message translates to:
-  /// **'Ya mero...'**
+  /// **'¡Ya casi llega el tráiler!'**
   String get almostThere;
 
   /// No description provided for @takingLonger.
   ///
   /// In es, this message translates to:
-  /// **'Esto está tardando más de lo esperado :('**
+  /// **'La película se está tomando su tiempo para entrar...'**
   String get takingLonger;
 
   /// No description provided for @mainMenu.
@@ -910,6 +1038,7 @@ class _AppLocalizationsDelegate
     'es',
     'ja',
     'pt',
+    'zh',
   ].contains(locale.languageCode);
 
   @override
@@ -931,6 +1060,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsJa();
     case 'pt':
       return AppLocalizationsPt();
+    case 'zh':
+      return AppLocalizationsZh();
   }
 
   throw FlutterError(

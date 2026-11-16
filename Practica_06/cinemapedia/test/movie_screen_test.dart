@@ -1,23 +1,29 @@
 import 'package:cinemapedia/domain/entities/actor.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/domain/entities/movie_genre.dart';
 import 'package:cinemapedia/domain/datasources/actors_datasource.dart';
 import 'package:cinemapedia/domain/repositories/movies_repository.dart';
 import 'package:cinemapedia/infrastructure/repositories/actor_repository_impl.dart';
 import 'package:cinemapedia/l10n/app_localizations.dart';
 import 'package:cinemapedia/presentation/providers/actors/actors_repository_provider.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_repository_provider.dart';
+import 'package:cinemapedia/presentation/providers/settings/cinema_country_provider.dart';
 import 'package:cinemapedia/presentation/screens/movies/movie_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   testWidgets('movie screen renders details after selecting a movie', (
     tester,
   ) async {
+    SharedPreferences.setMockInitialValues({});
+    final preferences = await SharedPreferences.getInstance();
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          sharedPreferencesProvider.overrideWithValue(preferences),
           movieRepositoryProvider.overrideWith(
             (ref) => _TestMoviesRepository(),
           ),
@@ -71,6 +77,12 @@ class _TestMoviesRepository implements MoviesRepository {
 
   @override
   Future<List<Movie>> getTopRated({int page = 1}) async => [];
+
+  @override
+  Future<List<MovieGenre>> getMovieGenres() async => [];
+
+  @override
+  Future<List<Movie>> getMoviesByGenre({required int genreId, int page = 1}) async => [];
 
   @override
   Future<List<Movie>> getUpcoming({int page = 1}) async => [];

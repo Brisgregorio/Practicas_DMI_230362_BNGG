@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cinemapedia/l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
-  const CustomBottomNavigation({super.key});
+  final int selectedIndex;
+
+  const CustomBottomNavigation({super.key, this.selectedIndex = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +13,8 @@ class CustomBottomNavigation extends StatelessWidget {
 
     return BottomNavigationBar(
       elevation: 0,
+      currentIndex: selectedIndex.clamp(0, 2).toInt(),
+      onTap: (index) => context.go('/?page=$index'),
       items: [
         BottomNavigationBarItem(
           icon: const Icon(Icons.home_max),

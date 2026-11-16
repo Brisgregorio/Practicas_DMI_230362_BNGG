@@ -7,22 +7,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cinemapedia/config/constants/cinema_country.dart';
 import 'package:cinemapedia/config/helpers/localized_country.dart';
 import 'package:cinemapedia/config/router/app_router.dart';
-import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:cinemapedia/l10n/app_localizations.dart';
 import 'package:cinemapedia/presentation/providers/settings/cinema_country_provider.dart';
+import 'package:cinemapedia/presentation/providers/settings/interface_language_provider.dart';
+import 'package:cinemapedia/presentation/providers/theme_provider.dart';
 
 Future<void> _countryPersistence = Future<void>.value();
+Future<void> _interfaceLanguagePersistence = Future<void>.value();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
   final preferences = await SharedPreferences.getInstance();
   final selectedCountry = loadSelectedCinemaCountry(preferences);
+  final selectedInterfaceLanguage = loadSelectedInterfaceLanguage(preferences);
   runApp(
     ProviderScope(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(preferences),
         selectedCinemaCountryProvider.overrideWith((ref) => selectedCountry),
+        selectedInterfaceLanguageProvider.overrideWith(
+          (ref) => selectedInterfaceLanguage,
+        ),
       ],
       child: const MainApp(),
     ),
@@ -35,7 +41,8 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final preferences = ref.watch(sharedPreferencesProvider);
-    final selectedCountry = ref.watch(selectedCinemaCountryProvider);
+    final locale = ref.watch(interfaceLocaleProvider);
+    final appTheme = ref.watch(themeNotifierProvider);
 
     ref.listen(selectedCinemaCountryProvider, (previous, next) {
       if (previous?.code == next.code) return;
@@ -43,12 +50,18 @@ class MainApp extends ConsumerWidget {
         (_) => _persistSelectedCountry(preferences, next),
       );
     });
+    ref.listen(selectedInterfaceLanguageProvider, (previous, next) {
+      if (previous == next) return;
+      _interfaceLanguagePersistence = _interfaceLanguagePersistence.then(
+        (_) => _persistSelectedInterfaceLanguage(preferences, next),
+      );
+    });
 
     return MaterialApp.router(
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
-      theme: AppTheme().getTheme(),
-      locale: interfaceLocaleForCountry(selectedCountry),
+      theme: appTheme.getTheme(),
+      locale: locale,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -56,6 +69,23 @@ class MainApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+    );
+  }
+}
+
+Future<void> _persistSelectedInterfaceLanguage(
+  SharedPreferences preferences,
+  String language,
+) async {
+  try {
+    await saveSelectedInterfaceLanguage(preferences, language);
+  } on Object catch (error, stackTrace) {
+    FlutterError.reportError(
+      FlutterErrorDetails(
+        exception: error,
+        stack: stackTrace,
+        library: 'interface language preference persistence',
+      ),
     );
   }
 }

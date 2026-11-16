@@ -52,8 +52,80 @@ class AppLocalizationsDe extends AppLocalizations {
   String get favorites => 'Favoriten';
 
   @override
+  String get addToFavorites => 'Zu Favoriten hinzufügen';
+
+  @override
+  String get removeFromFavorites => 'Aus Favoriten entfernen';
+
+  @override
+  String get noFavoriteMovies => 'Du hast noch keine Lieblingsfilme.';
+
+  @override
+  String get favoritesLoadFailed =>
+      'Lieblingsfilme konnten nicht geladen werden.';
+
+  @override
+  String get selectGenre => 'Wähle ein Genre, um die Filme zu sehen.';
+
+  @override
+  String get genresLoadFailed => 'Genres konnten nicht geladen werden.';
+
+  @override
+  String get genreMoviesLoadFailed =>
+      'Filme dieses Genres konnten nicht geladen werden.';
+
+  @override
+  String get noMoviesForGenre => 'Für dieses Genre sind keine Filme verfügbar.';
+
+  @override
+  String get series => 'Serien';
+
+  @override
+  String get popularSeries => 'Beliebte Serien';
+
+  @override
+  String get seriesLoadFailed =>
+      'Beliebte Serien konnten nicht geladen werden.';
+
+  @override
+  String get seriesDetailsLoadFailed =>
+      'Seriendetails konnten nicht geladen werden.';
+
+  @override
+  String get noPopularSeries => 'Es sind keine beliebten Serien verfügbar.';
+
+  @override
+  String get noFavorites => 'Du hast noch keine Favoriten.';
+
+  @override
+  String get rankingTitle => 'Rangliste';
+
+  @override
+  String get demoDataLabel => 'Beispieldaten';
+
+  @override
+  String get demoDataDescription =>
+      'Profile und Punkte sind fiktive Beispiele und keine echten Nutzer oder Bewertungen.';
+
+  @override
+  String demoProfile(int number) {
+    return 'Beispielprofil $number';
+  }
+
+  @override
+  String demoPoints(int points) {
+    return '$points Punkte';
+  }
+
+  @override
   String get selectorDescription =>
-      'Ändert die Region, die TMDB-Sprache und die angezeigte Altersfreigabe. Die Benutzeroberfläche wechselt ebenfalls zur Sprache des ausgewählten Landes.';
+      'Das Land steuert TMDB-Region, Sprache und Altersfreigabe. Die Sprache der Oberfläche kann unabhängig gewählt werden.';
+
+  @override
+  String get interfaceLanguage => 'Sprache der Oberfläche';
+
+  @override
+  String get followCountryLanguage => 'Sprache des Landes verwenden';
 
   @override
   String get classification => 'Altersfreigabe';
@@ -154,28 +226,30 @@ class AppLocalizationsDe extends AppLocalizations {
   String get openMenu => 'Menü öffnen';
 
   @override
-  String get pleaseWait => 'Bitte warten';
+  String get pleaseWait =>
+      'Mach es dir bequem, gleich beginnt die Vorstellung!';
 
   @override
-  String get loading => 'Wird geladen...';
+  String get loading => 'Wir suchen die Fernbedienung...';
 
   @override
-  String get loadingMovies => 'Filme werden geladen';
+  String get loadingMovies => 'Wir überreden die Filme zum Auftauchen...';
 
   @override
-  String get gettingPopcorn => 'Popcorn wird vorbereitet';
+  String get gettingPopcorn => 'Wir verhandeln mit dem Popcorn...';
 
   @override
-  String get loadingPopular => 'Beliebte Filme werden geladen';
+  String get loadingPopular => 'Wir rufen die Stars an...';
 
   @override
-  String get callingGirlfriend => 'Ich rufe meine Freundin an';
+  String get callingGirlfriend =>
+      'Wir bitten die Regie um einen kurzen Moment...';
 
   @override
-  String get almostThere => 'Fast geschafft...';
+  String get almostThere => 'Der Trailer ist gleich da!';
 
   @override
-  String get takingLonger => 'Das dauert länger als erwartet :(';
+  String get takingLonger => 'Der Film lässt sich mit seinem Auftritt Zeit...';
 
   @override
   String get mainMenu => 'Hauptmenü';

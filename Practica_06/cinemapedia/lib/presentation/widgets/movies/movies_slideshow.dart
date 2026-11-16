@@ -58,6 +58,8 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+    final foreground = Theme.of(context).colorScheme.onSurface;
 
     if (widget.movies.isEmpty) {
       return SizedBox(
@@ -72,7 +74,7 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
                       widget.hasError
                           ? Icons.cloud_off_rounded
                           : Icons.movie_filter_outlined,
-                      color: Colors.white60,
+                        color: foreground.withValues(alpha: 0.72),
                       size: 32,
                     ),
                     const SizedBox(height: 10),
@@ -81,7 +83,7 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
                           ? l10n.noMoviesFailed
                           : l10n.noMoviesCountry,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.white70),
+                      style: textTheme.bodyMedium,
                     ),
                     if (widget.hasError && widget.onRetry != null) ...[
                       const SizedBox(height: 8),
@@ -108,17 +110,15 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
             children: [
               Text(
                 l10n.countryRatingTitle,
-                style: TextStyle(
+                style: textTheme.bodyMedium?.copyWith(
                   fontSize: 13,
-                  color: Colors.white70,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 '${flagForCountry(country.code)}  ${localizedCountryName(l10n, country)} · ${country.language}',
-                style: const TextStyle(
-                  color: Color(0xFFB9A6FF),
+                style: textTheme.bodySmall?.copyWith(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
@@ -211,7 +211,7 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
           child: Center(
             child: Text(
               l10n.swipeExplore(currentIndex + 1, widget.movies.length),
-              style: const TextStyle(color: Colors.white38, fontSize: 11),
+              style: textTheme.bodySmall?.copyWith(fontSize: 11),
             ),
           ),
         ),
@@ -219,7 +219,7 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Text(
             l10n.ratingDisclaimer,
-            style: const TextStyle(color: Colors.white38, fontSize: 10),
+            style: textTheme.bodySmall?.copyWith(fontSize: 10),
           ),
         ),
       ],

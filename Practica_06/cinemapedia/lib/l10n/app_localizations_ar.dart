@@ -52,8 +52,76 @@ class AppLocalizationsAr extends AppLocalizations {
   String get favorites => 'المفضلة';
 
   @override
+  String get addToFavorites => 'أضف إلى المفضلة';
+
+  @override
+  String get removeFromFavorites => 'أزل من المفضلة';
+
+  @override
+  String get noFavoriteMovies => 'ليس لديك أفلام مفضلة بعد.';
+
+  @override
+  String get favoritesLoadFailed => 'تعذر تحميل الأفلام المفضلة.';
+
+  @override
+  String get selectGenre => 'اختر نوعاً لعرض أفلامه.';
+
+  @override
+  String get genresLoadFailed => 'تعذر تحميل الأنواع.';
+
+  @override
+  String get genreMoviesLoadFailed => 'تعذر تحميل أفلام هذا النوع.';
+
+  @override
+  String get noMoviesForGenre => 'لا تتوفر أفلام لهذا النوع.';
+
+  @override
+  String get series => 'المسلسلات';
+
+  @override
+  String get popularSeries => 'المسلسلات الشائعة';
+
+  @override
+  String get seriesLoadFailed => 'تعذر تحميل المسلسلات الشائعة.';
+
+  @override
+  String get seriesDetailsLoadFailed => 'تعذر تحميل تفاصيل المسلسل.';
+
+  @override
+  String get noPopularSeries => 'لا تتوفر مسلسلات شائعة.';
+
+  @override
+  String get noFavorites => 'ليس لديك مفضلات بعد.';
+
+  @override
+  String get rankingTitle => 'التصنيف';
+
+  @override
+  String get demoDataLabel => 'بيانات تجريبية';
+
+  @override
+  String get demoDataDescription =>
+      'الملفات والنقاط أمثلة خيالية وليست لمستخدمين أو نتائج حقيقية.';
+
+  @override
+  String demoProfile(int number) {
+    return 'ملف تجريبي $number';
+  }
+
+  @override
+  String demoPoints(int points) {
+    return '$points نقطة';
+  }
+
+  @override
   String get selectorDescription =>
-      'يغيّر المنطقة ولغة TMDB والتصنيف المعروض. كما تتغير لغة الواجهة إلى لغة البلد المحدد.';
+      'يحدد البلد منطقة TMDB ولغتها والتصنيف. ويمكن اختيار لغة الواجهة بشكل مستقل.';
+
+  @override
+  String get interfaceLanguage => 'لغة الواجهة';
+
+  @override
+  String get followCountryLanguage => 'اتبع لغة البلد';
 
   @override
   String get classification => 'التصنيف';
@@ -154,28 +222,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String get openMenu => 'فتح القائمة';
 
   @override
-  String get pleaseWait => 'يرجى الانتظار';
+  String get pleaseWait => 'استرخِ، سيبدأ العرض حالاً!';
 
   @override
-  String get loading => 'جارٍ التحميل...';
+  String get loading => 'نبحث عن جهاز التحكم...';
 
   @override
-  String get loadingMovies => 'جارٍ تحميل الأفلام';
+  String get loadingMovies => 'نقنع الأفلام بالظهور...';
 
   @override
-  String get gettingPopcorn => 'جارٍ إعداد الفشار';
+  String get gettingPopcorn => 'نتفاوض مع الفشار...';
 
   @override
-  String get loadingPopular => 'جارٍ تحميل الأفلام الشائعة';
+  String get loadingPopular => 'ننادي النجوم...';
 
   @override
-  String get callingGirlfriend => 'أتصل بصديقتي';
+  String get callingGirlfriend => 'نطلب من المخرج الانتظار قليلاً...';
 
   @override
-  String get almostThere => 'أوشكنا...';
+  String get almostThere => 'الإعلان الترويجي على وشك الوصول!';
 
   @override
-  String get takingLonger => 'يستغرق الأمر وقتاً أطول من المتوقع :(';
+  String get takingLonger => 'الفيلم يتدلل قبل أن يظهر...';
 
   @override
   String get mainMenu => 'الرئيسية';

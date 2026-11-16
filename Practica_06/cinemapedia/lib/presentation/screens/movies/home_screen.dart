@@ -6,35 +6,81 @@ import 'package:cinemapedia/config/constants/cinema_country.dart';
 import 'package:cinemapedia/config/constants/country_catalog.dart';
 import 'package:cinemapedia/config/helpers/localized_country.dart';
 import 'package:cinemapedia/l10n/app_localizations.dart';
+import 'package:cinemapedia/presentation/views/views.dart';
+import 'package:cinemapedia/presentation/providers/theme_provider.dart';
+import 'package:cinemapedia/presentation/screens/theme_changer/theme_changer_screen.dart';
+import 'package:cinemapedia/presentation/screens/series/series_home_screen.dart';
+import 'package:cinemapedia/presentation/screens/ranking/demo_ranking_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   static const name = 'home-screen';
-  const HomeScreen({super.key});
+
+  final int pageIndex;
+  final String? section;
+
+  const HomeScreen({super.key, this.pageIndex = 0, this.section});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const _CinemapediaDrawer(),
+      drawer: _CinemapediaDrawer(
+        onNavigate: (section) {
+          Navigator.pop(context);
+          final sectionParameter = section == null ? '' : '&section=$section';
+          context.go('/?page=0$sectionParameter');
+        },
+        onOpenTheme: () {
+          Navigator.pop(context);
+          context.pushNamed(ThemeChangerScreen.name);
+        },
+        onOpenSeries: () {
+          Navigator.pop(context);
+          context.pushNamed(SeriesHomeScreen.name);
+        },
+        onOpenRanking: () {
+          Navigator.pop(context);
+          context.pushNamed(DemoRankingScreen.name);
+        },
+      ),
       drawerEnableOpenDragGesture: true,
-      body: const _HomeView(),
-      bottomNavigationBar: const CustomBottomNavigation(),
+      body: IndexedStack(
+        index: pageIndex.clamp(0, 2).toInt(),
+        children: [
+          HomeView(section: section),
+          const CategoriesView(),
+          const FavoritesView(),
+        ],
+      ),
+      bottomNavigationBar: CustomBottomNavigation(selectedIndex: pageIndex),
     );
   }
 }
 
-class _CinemapediaDrawer extends StatelessWidget {
-  const _CinemapediaDrawer();
+class _CinemapediaDrawer extends ConsumerWidget {
+  final ValueChanged<String?> onNavigate;
+  final VoidCallback onOpenTheme;
+  final VoidCallback onOpenSeries;
+  final VoidCallback onOpenRanking;
+
+  const _CinemapediaDrawer({
+    required this.onNavigate,
+    required this.onOpenTheme,
+    required this.onOpenSeries,
+    required this.onOpenRanking,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
 
     return Drawer(
       backgroundColor: const Color(0xFF171936),
       child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
             Container(
               padding: const EdgeInsets.fromLTRB(22, 28, 22, 24),
               decoration: const BoxDecoration(
@@ -70,22 +116,22 @@ class _CinemapediaDrawer extends StatelessWidget {
             _DrawerItem(
               icon: Icons.home_rounded,
               title: l10n.home,
-              onTap: () => Navigator.pop(context),
+              onTap: () => onNavigate(null),
             ),
             _DrawerItem(
               icon: Icons.local_movies_rounded,
               title: l10n.nowPlaying,
-              onTap: () => Navigator.pop(context),
+              onTap: () => onNavigate('nowPlaying'),
             ),
             _DrawerItem(
               icon: Icons.trending_up_rounded,
               title: l10n.popular,
-              onTap: () => Navigator.pop(context),
+              onTap: () => onNavigate('popular'),
             ),
             _DrawerItem(
               icon: Icons.star_rounded,
               title: l10n.topRated,
-              onTap: () => Navigator.pop(context),
+              onTap: () => onNavigate('topRated'),
             ),
             _DrawerItem(
               icon: Icons.settings_rounded,
@@ -105,7 +151,39 @@ class _CinemapediaDrawer extends StatelessWidget {
                 );
               },
             ),
-            const Spacer(),
+            _DrawerItem(
+              icon: Icons.live_tv_outlined,
+              title: l10n.series,
+              onTap: onOpenSeries,
+            ),
+            _DrawerItem(
+              icon: Icons.leaderboard_outlined,
+              title: l10n.rankingTitle,
+              onTap: onOpenRanking,
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.palette_outlined,
+                color: Color(0xFFB9A6FF),
+              ),
+              title: Text(
+                l10n.themeChangerTitle,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              trailing: Switch(
+                value: ref.watch(themeNotifierProvider).isDarkmode,
+                activeThumbColor: const Color(0xFFB9A6FF),
+                onChanged: (_) => ref
+                    .read(themeNotifierProvider.notifier)
+                    .toggleDarkmode(),
+              ),
+              onTap: onOpenTheme,
+              dense: true,
+            ),
+            const SizedBox(height: 12),
             const Divider(color: Colors.white12),
             Padding(
               padding: EdgeInsets.all(18),
@@ -114,7 +192,8 @@ class _CinemapediaDrawer extends StatelessWidget {
                 style: const TextStyle(color: Colors.white54, fontSize: 11),
               ),
             ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -128,6 +207,9 @@ class _CinemaCountrySelector extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final selectedCountry = ref.watch(selectedCinemaCountryProvider);
+    final selectedInterfaceLanguage = ref.watch(
+      selectedInterfaceLanguageProvider,
+    );
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
@@ -144,6 +226,40 @@ class _CinemaCountrySelector extends ConsumerWidget {
             Text(
               l10n.selectorDescription,
               style: TextStyle(color: Colors.white70),
+            ),
+            const SizedBox(height: 12),
+            DropdownButtonFormField<String>(
+              key: const ValueKey('interface-language-selector'),
+              initialValue: selectedInterfaceLanguage,
+              decoration: InputDecoration(
+                labelText: l10n.interfaceLanguage,
+                labelStyle: const TextStyle(color: Colors.white70),
+                filled: true,
+                fillColor: const Color(0xFF202143),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              dropdownColor: const Color(0xFF202143),
+              style: const TextStyle(color: Colors.white),
+              items: [
+                DropdownMenuItem(
+                  value: automaticInterfaceLanguage,
+                  child: Text(l10n.followCountryLanguage),
+                ),
+                ...interfaceLanguageOptions.entries.map(
+                  (language) => DropdownMenuItem(
+                    value: language.key,
+                    child: Text(language.value),
+                  ),
+                ),
+              ],
+              onChanged: (language) {
+                if (language == null) return;
+                ref
+                    .read(selectedInterfaceLanguageProvider.notifier)
+                    .state = language;
+              },
             ),
             const SizedBox(height: 12),
             ConstrainedBox(
@@ -214,137 +330,4 @@ class _DrawerItem extends StatelessWidget {
     onTap: onTap,
     dense: true,
   );
-}
-
-class _HomeView extends ConsumerStatefulWidget {
-  const _HomeView();
-
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends ConsumerState<_HomeView> {
-  void _reloadHomeMovies() {
-    ref.invalidate(nowPlayingMoviesProvider);
-    ref.invalidate(popularMoviesProvider);
-    ref.invalidate(topRatedMoviesProvider);
-    ref.invalidate(upcomingMoviesProvider);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) _loadHomeMovies();
-    });
-  }
-
-  void _loadHomeMovies() {
-    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
-    ref.read(popularMoviesProvider.notifier).loadNextPage();
-    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
-    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadHomeMovies();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    ref.listen(selectedCinemaCountryProvider, (previous, next) {
-      _reloadHomeMovies();
-    });
-    final initialLoading = ref.watch(initialLoadingProvider);
-    if (initialLoading) return const FullScreenLoader();
-
-    final slideShowMovies = ref.watch(moviesSlideshowProvider);
-    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
-    final popularMovies = ref.watch(popularMoviesProvider);
-    final topRatedMovies = ref.watch(topRatedMoviesProvider);
-    final upcomingMovies = ref.watch(upcomingMoviesProvider);
-
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          floating: true,
-          pinned: false,
-          expandedHeight: 72,
-          leading: Builder(
-            builder: (context) => IconButton(
-              tooltip: l10n.openMenu,
-              icon: const Icon(Icons.menu_rounded, size: 28),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
-          ),
-          flexibleSpace: const FlexibleSpaceBar(
-            titlePadding: EdgeInsets.only(left: 58, bottom: 15),
-            title: CustomAppbar(),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(18, 14, 18, 6),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.auto_awesome,
-                      color: Color(0xFF9E86FF),
-                      size: 18,
-                    ),
-                    const SizedBox(width: 7),
-                    Text(
-                      l10n.discoveryTag,
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        letterSpacing: 1.3,
-                        color: const Color(0xFFB9A6FF),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              MoviesSlideshow(
-                key: ValueKey(ref.watch(selectedCinemaCountryProvider).code),
-                movies: slideShowMovies,
-                isLoading: !ref
-                    .watch(nowPlayingMoviesProvider.notifier)
-                    .hasLoaded,
-                hasError: ref.watch(nowPlayingMoviesProvider.notifier).hasError,
-                onRetry: _reloadHomeMovies,
-              ),
-              MovieHorizontalListview(
-                movies: nowPlayingMovies,
-                title: l10n.nowPlaying,
-                subTitle: l10n.now,
-                loadNextPage: () =>
-                    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
-              ),
-              MovieHorizontalListview(
-                movies: upcomingMovies,
-                title: l10n.comingSoon,
-                subTitle: l10n.soon,
-                loadNextPage: () =>
-                    ref.read(upcomingMoviesProvider.notifier).loadNextPage(),
-              ),
-              MovieHorizontalListview(
-                movies: popularMovies,
-                title: l10n.popular,
-                loadNextPage: () =>
-                    ref.read(popularMoviesProvider.notifier).loadNextPage(),
-              ),
-              MovieHorizontalListview(
-                movies: topRatedMovies,
-                title: l10n.topRated,
-                subTitle: l10n.top,
-                loadNextPage: () =>
-                    ref.read(topRatedMoviesProvider.notifier).loadNextPage(),
-              ),
-              const SizedBox(height: 18),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
 }

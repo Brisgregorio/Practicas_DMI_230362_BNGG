@@ -46,6 +46,7 @@ void main() {
       'de': 'Filmland und Sprache',
       'ar': 'بلد الأفلام ولغتها',
       'ja': '映画の国と言語',
+      'zh': '影片国家和语言',
     };
 
     for (final entry in expectedTranslations.entries) {
@@ -74,5 +75,42 @@ void main() {
         entry.key == 'ar' ? TextDirection.rtl : TextDirection.ltr,
       );
     }
+  });
+
+  testWidgets('Chinese translations cover categories, series, and ranking', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('zh'),
+        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        home: Builder(
+          builder: (context) {
+            final l10n = AppLocalizations.of(context)!;
+            return Column(
+              children: [
+                Text(l10n.categories),
+                Text(l10n.series),
+                Text(l10n.rankingTitle),
+                Text(l10n.addToFavorites),
+                Text(l10n.demoDataLabel),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+
+    expect(find.text('分类'), findsOneWidget);
+    expect(find.text('剧集'), findsOneWidget);
+    expect(find.text('排行榜'), findsOneWidget);
+    expect(find.text('添加到收藏'), findsOneWidget);
+    expect(find.text('演示数据'), findsOneWidget);
   });
 }

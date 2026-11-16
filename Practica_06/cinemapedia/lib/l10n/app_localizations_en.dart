@@ -52,8 +52,77 @@ class AppLocalizationsEn extends AppLocalizations {
   String get favorites => 'Favorites';
 
   @override
+  String get addToFavorites => 'Add to favorites';
+
+  @override
+  String get removeFromFavorites => 'Remove from favorites';
+
+  @override
+  String get noFavoriteMovies => 'You have no favorite movies yet.';
+
+  @override
+  String get favoritesLoadFailed => 'Favorite movies could not be loaded.';
+
+  @override
+  String get selectGenre => 'Choose a genre to see its movies.';
+
+  @override
+  String get genresLoadFailed => 'Genres could not be loaded.';
+
+  @override
+  String get genreMoviesLoadFailed =>
+      'Movies in this genre could not be loaded.';
+
+  @override
+  String get noMoviesForGenre => 'No movies are available in this genre.';
+
+  @override
+  String get series => 'Series';
+
+  @override
+  String get popularSeries => 'Popular series';
+
+  @override
+  String get seriesLoadFailed => 'Popular series could not be loaded.';
+
+  @override
+  String get seriesDetailsLoadFailed => 'Series details could not be loaded.';
+
+  @override
+  String get noPopularSeries => 'No popular series are available.';
+
+  @override
+  String get noFavorites => 'You have no favorites yet.';
+
+  @override
+  String get rankingTitle => 'Ranking';
+
+  @override
+  String get demoDataLabel => 'Demonstration data';
+
+  @override
+  String get demoDataDescription =>
+      'Profiles and points are fictional examples, not real users or scores.';
+
+  @override
+  String demoProfile(int number) {
+    return 'Example profile $number';
+  }
+
+  @override
+  String demoPoints(int points) {
+    return '$points points';
+  }
+
+  @override
   String get selectorDescription =>
-      'Changes the region, TMDB language, and displayed rating. The interface also switches to the selected country\'s language.';
+      'The country controls TMDB region, language, and rating. The interface language can be selected independently.';
+
+  @override
+  String get interfaceLanguage => 'Interface language';
+
+  @override
+  String get followCountryLanguage => 'Follow country language';
 
   @override
   String get classification => 'Rating';
@@ -154,28 +223,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get openMenu => 'Open menu';
 
   @override
-  String get pleaseWait => 'Please wait';
+  String get pleaseWait => 'Get comfy, the show is about to start!';
 
   @override
-  String get loading => 'Loading...';
+  String get loading => 'Looking for the remote...';
 
   @override
-  String get loadingMovies => 'Loading movies';
+  String get loadingMovies => 'Convincing the movies to show up...';
 
   @override
-  String get gettingPopcorn => 'Getting some popcorn';
+  String get gettingPopcorn => 'Negotiating with the popcorn...';
 
   @override
-  String get loadingPopular => 'Loading popular movies';
+  String get loadingPopular => 'Calling the stars...';
 
   @override
-  String get callingGirlfriend => 'Calling my girlfriend';
+  String get callingGirlfriend => 'Asking the director to hold the slate...';
 
   @override
-  String get almostThere => 'Almost there...';
+  String get almostThere => 'The trailer is almost here!';
 
   @override
-  String get takingLonger => 'This is taking longer than expected :(';
+  String get takingLonger => 'The movie is taking its sweet time to arrive...';
 
   @override
   String get mainMenu => 'Main';

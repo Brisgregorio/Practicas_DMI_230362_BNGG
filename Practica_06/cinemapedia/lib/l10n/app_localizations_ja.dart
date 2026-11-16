@@ -52,8 +52,75 @@ class AppLocalizationsJa extends AppLocalizations {
   String get favorites => 'お気に入り';
 
   @override
+  String get addToFavorites => 'お気に入りに追加';
+
+  @override
+  String get removeFromFavorites => 'お気に入りから削除';
+
+  @override
+  String get noFavoriteMovies => 'お気に入りの映画はまだありません。';
+
+  @override
+  String get favoritesLoadFailed => 'お気に入りの映画を読み込めませんでした。';
+
+  @override
+  String get selectGenre => 'ジャンルを選択して作品を表示します。';
+
+  @override
+  String get genresLoadFailed => 'ジャンルを読み込めませんでした。';
+
+  @override
+  String get genreMoviesLoadFailed => 'このジャンルの作品を読み込めませんでした。';
+
+  @override
+  String get noMoviesForGenre => 'このジャンルの作品はありません。';
+
+  @override
+  String get series => 'シリーズ';
+
+  @override
+  String get popularSeries => '人気シリーズ';
+
+  @override
+  String get seriesLoadFailed => '人気シリーズを読み込めませんでした。';
+
+  @override
+  String get seriesDetailsLoadFailed => 'シリーズの詳細を読み込めませんでした。';
+
+  @override
+  String get noPopularSeries => '人気シリーズはありません。';
+
+  @override
+  String get noFavorites => 'お気に入りはまだありません。';
+
+  @override
+  String get rankingTitle => 'ランキング';
+
+  @override
+  String get demoDataLabel => 'デモデータ';
+
+  @override
+  String get demoDataDescription => 'プロフィールとポイントは架空の例であり、実在のユーザーやスコアではありません。';
+
+  @override
+  String demoProfile(int number) {
+    return 'サンプルプロフィール $number';
+  }
+
+  @override
+  String demoPoints(int points) {
+    return '$points ポイント';
+  }
+
+  @override
   String get selectorDescription =>
-      '地域、TMDBの言語、表示されるレーティングを変更します。画面の言語も選択した国の言語に切り替わります。';
+      '国の設定はTMDBの地域、言語、レーティングに適用されます。画面の言語は個別に選択できます。';
+
+  @override
+  String get interfaceLanguage => '画面の言語';
+
+  @override
+  String get followCountryLanguage => '国の言語に合わせる';
 
   @override
   String get classification => 'レーティング';
@@ -153,28 +220,28 @@ class AppLocalizationsJa extends AppLocalizations {
   String get openMenu => 'メニューを開く';
 
   @override
-  String get pleaseWait => 'お待ちください';
+  String get pleaseWait => 'くつろいで、まもなく上映開始です！';
 
   @override
-  String get loading => '読み込み中...';
+  String get loading => 'リモコンを探しています...';
 
   @override
-  String get loadingMovies => '映画を読み込み中';
+  String get loadingMovies => '映画たちに登場してもらっています...';
 
   @override
-  String get gettingPopcorn => 'ポップコーンを用意しています';
+  String get gettingPopcorn => 'ポップコーンと交渉中...';
 
   @override
-  String get loadingPopular => '人気作品を読み込み中';
+  String get loadingPopular => 'スターに声をかけています...';
 
   @override
-  String get callingGirlfriend => '友人に電話しています';
+  String get callingGirlfriend => '監督に少々お待ちいただいています...';
 
   @override
-  String get almostThere => 'もうすぐです...';
+  String get almostThere => '予告編はもうすぐです！';
 
   @override
-  String get takingLonger => '予想より時間がかかっています :(';
+  String get takingLonger => '映画が登場をじらしています...';
 
   @override
   String get mainMenu => 'メイン';

@@ -52,8 +52,79 @@ class AppLocalizationsEs extends AppLocalizations {
   String get favorites => 'Favoritos';
 
   @override
+  String get addToFavorites => 'Añadir a favoritos';
+
+  @override
+  String get removeFromFavorites => 'Quitar de favoritos';
+
+  @override
+  String get noFavoriteMovies => 'Aún no tienes películas favoritas.';
+
+  @override
+  String get favoritesLoadFailed =>
+      'No se pudieron cargar las películas favoritas.';
+
+  @override
+  String get selectGenre => 'Elige un género para ver sus películas.';
+
+  @override
+  String get genresLoadFailed => 'No se pudieron cargar los géneros.';
+
+  @override
+  String get genreMoviesLoadFailed =>
+      'No se pudieron cargar las películas de este género.';
+
+  @override
+  String get noMoviesForGenre => 'No hay películas disponibles en este género.';
+
+  @override
+  String get series => 'Series';
+
+  @override
+  String get popularSeries => 'Series populares';
+
+  @override
+  String get seriesLoadFailed => 'No se pudieron cargar las series populares.';
+
+  @override
+  String get seriesDetailsLoadFailed =>
+      'No se pudieron cargar los detalles de la serie.';
+
+  @override
+  String get noPopularSeries => 'No hay series populares disponibles.';
+
+  @override
+  String get noFavorites => 'Aún no tienes favoritos.';
+
+  @override
+  String get rankingTitle => 'Clasificación';
+
+  @override
+  String get demoDataLabel => 'Datos de demostración';
+
+  @override
+  String get demoDataDescription =>
+      'Los perfiles y puntos son ejemplos ficticios, no representan usuarios ni puntuaciones reales.';
+
+  @override
+  String demoProfile(int number) {
+    return 'Perfil de ejemplo $number';
+  }
+
+  @override
+  String demoPoints(int points) {
+    return '$points puntos';
+  }
+
+  @override
   String get selectorDescription =>
-      'Cambia la región, el idioma de TMDB y la clasificación mostrada. La interfaz también cambiará al idioma del país seleccionado.';
+      'El país define la región, el idioma y la clasificación de TMDB. El idioma de la interfaz se puede elegir por separado.';
+
+  @override
+  String get interfaceLanguage => 'Idioma de la interfaz';
+
+  @override
+  String get followCountryLanguage => 'Seguir idioma del país';
 
   @override
   String get classification => 'Clasificación';
@@ -154,28 +225,29 @@ class AppLocalizationsEs extends AppLocalizations {
   String get openMenu => 'Abrir menú';
 
   @override
-  String get pleaseWait => 'Espere por favor';
+  String get pleaseWait => 'Acomódate, ¡ya empieza la función!';
 
   @override
-  String get loading => 'Cargando...';
+  String get loading => 'Buscando el control remoto...';
 
   @override
-  String get loadingMovies => 'Cargando películas';
+  String get loadingMovies => 'Convenciendo a las películas de aparecer...';
 
   @override
-  String get gettingPopcorn => 'Comprando palomitas de maíz';
+  String get gettingPopcorn => 'Negociando con las palomitas...';
 
   @override
-  String get loadingPopular => 'Cargando populares';
+  String get loadingPopular => 'Llamando a las estrellas...';
 
   @override
-  String get callingGirlfriend => 'Llamando a mi novia';
+  String get callingGirlfriend => 'Pidiéndole a la claqueta que espere...';
 
   @override
-  String get almostThere => 'Ya mero...';
+  String get almostThere => '¡Ya casi llega el tráiler!';
 
   @override
-  String get takingLonger => 'Esto está tardando más de lo esperado :(';
+  String get takingLonger =>
+      'La película se está tomando su tiempo para entrar...';
 
   @override
   String get mainMenu => 'Principal';
