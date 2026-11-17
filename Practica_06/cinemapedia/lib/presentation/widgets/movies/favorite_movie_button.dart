@@ -28,14 +28,10 @@ class FavoriteMovieButton extends ConsumerWidget {
           ),
         );
       },
-      loading: () => const IconButton(
-        onPressed: null,
-        icon: Icon(Icons.favorite_border),
-      ),
-      error: (error, stackTrace) => const IconButton(
-        onPressed: null,
-        icon: Icon(Icons.favorite_border),
-      ),
+      loading: () =>
+          const IconButton(onPressed: null, icon: Icon(Icons.favorite_border)),
+      error: (error, stackTrace) =>
+          const IconButton(onPressed: null, icon: Icon(Icons.favorite_border)),
     );
   }
 }

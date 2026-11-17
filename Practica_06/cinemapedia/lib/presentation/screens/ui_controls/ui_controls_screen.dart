@@ -43,83 +43,77 @@ class _UiControlsViewState extends State<_UiControlsView> {
       Transportation.submarine => l10n.bySubmarine,
     };
 
-    return ListView(
-      physics: const ClampingScrollPhysics(),
-      children: [
-        SwitchListTile(
-          title: Text(l10n.developerMode),
-          subtitle: Text(l10n.additionalControls),
-          value: isDeveloper,
-          onChanged: (value) => setState(() {
-            isDeveloper = !isDeveloper;
-          }),
-        ),
+    return RadioGroup<Transportation>(
+      groupValue: selectedTransportation,
+      onChanged: (value) {
+        if (value != null) {
+          setState(() {
+            selectedTransportation = value;
+          });
+        }
+      },
+      child: ListView(
+        physics: const ClampingScrollPhysics(),
+        children: [
+          SwitchListTile(
+            title: Text(l10n.developerMode),
+            subtitle: Text(l10n.additionalControls),
+            value: isDeveloper,
+            onChanged: (value) => setState(() {
+              isDeveloper = !isDeveloper;
+            }),
+          ),
 
-        ExpansionTile(
-          title: Text(l10n.transportationVehicle),
-          subtitle: Text(selectedTransportationLabel),
-          children: [
-            RadioListTile(
-              title: Text(l10n.byCar),
-              subtitle: Text(l10n.travelByCar),
-              value: Transportation.car,
-              groupValue: selectedTransportation,
-              onChanged: (value) => setState(() {
-                selectedTransportation = Transportation.car;
-              }),
-            ),
-            RadioListTile(
-              title: Text(l10n.byBoat),
-              subtitle: Text(l10n.travelByBoat),
-              value: Transportation.boat,
-              groupValue: selectedTransportation,
-              onChanged: (value) => setState(() {
-                selectedTransportation = Transportation.boat;
-              }),
-            ),
-            RadioListTile(
-              title: Text(l10n.byPlane),
-              subtitle: Text(l10n.travelByPlane),
-              value: Transportation.plane,
-              groupValue: selectedTransportation,
-              onChanged: (value) => setState(() {
-                selectedTransportation = Transportation.plane;
-              }),
-            ),
-            RadioListTile(
-              title: Text(l10n.bySubmarine),
-              subtitle: Text(l10n.travelBySubmarine),
-              value: Transportation.submarine,
-              groupValue: selectedTransportation,
-              onChanged: (value) => setState(() {
-                selectedTransportation = Transportation.submarine;
-              }),
-            ),
-          ],
-        ),
+          ExpansionTile(
+            title: Text(l10n.transportationVehicle),
+            subtitle: Text(selectedTransportationLabel),
+            children: [
+              RadioListTile<Transportation>(
+                title: Text(l10n.byCar),
+                subtitle: Text(l10n.travelByCar),
+                value: Transportation.car,
+              ),
+              RadioListTile<Transportation>(
+                title: Text(l10n.byBoat),
+                subtitle: Text(l10n.travelByBoat),
+                value: Transportation.boat,
+              ),
+              RadioListTile<Transportation>(
+                title: Text(l10n.byPlane),
+                subtitle: Text(l10n.travelByPlane),
+                value: Transportation.plane,
+              ),
+              RadioListTile<Transportation>(
+                title: Text(l10n.bySubmarine),
+                subtitle: Text(l10n.travelBySubmarine),
+                value: Transportation.submarine,
+              ),
+            ],
+          ),
 
-        CheckboxListTile(
-          title: Text(l10n.breakfast),
-          value: wantsBreakfast,
-          onChanged: (value) => setState(() {
-            wantsBreakfast = !wantsBreakfast;
-          }),
-        ),
-        CheckboxListTile(
-          title: Text(l10n.lunch),
-          value: wantsLunch,
-          onChanged: (value) => setState(() {
-            wantsLunch = !wantsLunch;
-          }),
-        ),
-        CheckboxListTile(
-          title: Text(l10n.dinner),
-          value: wantsDinner,
-          onChanged: (value) => setState(() {
-            wantsDinner = !wantsDinner;
-          }),
-        ),
-      ],
+          CheckboxListTile(
+            title: Text(l10n.breakfast),
+            value: wantsBreakfast,
+            onChanged: (value) => setState(() {
+              wantsBreakfast = !wantsBreakfast;
+            }),
+          ),
+          CheckboxListTile(
+            title: Text(l10n.lunch),
+            value: wantsLunch,
+            onChanged: (value) => setState(() {
+              wantsLunch = !wantsLunch;
+            }),
+          ),
+          CheckboxListTile(
+            title: Text(l10n.dinner),
+            value: wantsDinner,
+            onChanged: (value) => setState(() {
+              wantsDinner = !wantsDinner;
+            }),
+          ),
+        ],
+      ),
     );
   }
 }

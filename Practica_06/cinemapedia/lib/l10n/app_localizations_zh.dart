@@ -88,6 +88,41 @@ class AppLocalizationsZh extends AppLocalizations {
   String get seriesDetailsLoadFailed => '无法加载剧集详情。';
 
   @override
+  String get tvSeriesOverviewUnavailable => '暂无简介。';
+
+  @override
+  String tvSeriesVotes(int count) {
+    return '$count 个评分';
+  }
+
+  @override
+  String get tvSeriesGenres => '类型';
+
+  @override
+  String get tvSeriesFirstAirDate => '首播日期';
+
+  @override
+  String get tvSeriesLastAirDate => '末播日期';
+
+  @override
+  String get tvSeriesStatus => '播出状态';
+
+  @override
+  String get tvSeriesSeasons => '季数';
+
+  @override
+  String get tvSeriesEpisodes => '集数';
+
+  @override
+  String get tvSeriesCreators => '创作者';
+
+  @override
+  String get tvSeriesProductionCompanies => '制作公司';
+
+  @override
+  String get tvSeriesNetworks => '电视台';
+
+  @override
   String get noPopularSeries => '暂无热门剧集。';
 
   @override
@@ -149,6 +184,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get searchMovies => '搜索电影';
 
   @override
+  String get searchTvSeries => '搜索电视剧';
+
+  @override
+  String get searchTvSeriesHint => '输入电视剧名称进行搜索。';
+
+  @override
+  String get noTvSeriesResults => '未找到电视剧。';
+
+  @override
+  String get tvSeriesSearchFailed => '电视剧搜索失败。';
+
+  @override
+  String get clearTvSeriesSearch => '清除搜索';
+
+  @override
   String get retry => '重试';
 
   @override
@@ -162,6 +212,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get castLoadFailed => '无法加载演职人员。';
+
+  @override
+  String get castTitle => '演职人员';
+
+  @override
+  String get castEmpty => '暂无演职人员信息。';
 
   @override
   String get noMoviesFailed => '无法加载电影。';
@@ -486,4 +542,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get thisColor => '此颜色';
+
+  @override
+  String get tvSeriesGenreResultsLoadFailed => '无法加载此类型的剧集。';
+
+  @override
+  String get all => '全部';
+
+  @override
+  String get noTvSeriesForGenre => '此类型暂无剧集。';
+
+  @override
+  String get tvSeriesGenresLoadFailed => '无法加载剧集类型。';
+
+  @override
+  String get movies => '电影';
 }

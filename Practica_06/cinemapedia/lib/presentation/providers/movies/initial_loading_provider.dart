@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'movies_providers.dart';
 
 final initialLoadingProvider = Provider<bool>((ref) {
@@ -7,7 +8,9 @@ final initialLoadingProvider = Provider<bool>((ref) {
   final topRated = ref.watch(topRatedMoviesProvider);
   final upcoming = ref.watch(upcomingMoviesProvider);
 
-  final nowPlayingLoaded = ref.read(nowPlayingMoviesProvider.notifier).hasLoaded;
+  final nowPlayingLoaded = ref
+      .read(nowPlayingMoviesProvider.notifier)
+      .hasLoaded;
   final popularLoaded = ref.read(popularMoviesProvider.notifier).hasLoaded;
   final topRatedLoaded = ref.read(topRatedMoviesProvider.notifier).hasLoaded;
   final upcomingLoaded = ref.read(upcomingMoviesProvider.notifier).hasLoaded;

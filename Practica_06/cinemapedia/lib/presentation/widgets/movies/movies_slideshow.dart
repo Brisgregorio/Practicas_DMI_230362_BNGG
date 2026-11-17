@@ -74,7 +74,7 @@ class _MoviesSlideshowState extends ConsumerState<MoviesSlideshow> {
                       widget.hasError
                           ? Icons.cloud_off_rounded
                           : Icons.movie_filter_outlined,
-                        color: foreground.withValues(alpha: 0.72),
+                      color: foreground.withValues(alpha: 0.72),
                       size: 32,
                     ),
                     const SizedBox(height: 10),

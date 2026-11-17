@@ -264,6 +264,72 @@ abstract class AppLocalizations {
   /// **'No se pudieron cargar los detalles de la serie.'**
   String get seriesDetailsLoadFailed;
 
+  /// No description provided for @tvSeriesOverviewUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay descripción disponible.'**
+  String get tvSeriesOverviewUnavailable;
+
+  /// No description provided for @tvSeriesVotes.
+  ///
+  /// In es, this message translates to:
+  /// **'{count} votos'**
+  String tvSeriesVotes(int count);
+
+  /// No description provided for @tvSeriesGenres.
+  ///
+  /// In es, this message translates to:
+  /// **'Géneros'**
+  String get tvSeriesGenres;
+
+  /// No description provided for @tvSeriesFirstAirDate.
+  ///
+  /// In es, this message translates to:
+  /// **'Primera emisión'**
+  String get tvSeriesFirstAirDate;
+
+  /// No description provided for @tvSeriesLastAirDate.
+  ///
+  /// In es, this message translates to:
+  /// **'Última emisión'**
+  String get tvSeriesLastAirDate;
+
+  /// No description provided for @tvSeriesStatus.
+  ///
+  /// In es, this message translates to:
+  /// **'Estado'**
+  String get tvSeriesStatus;
+
+  /// No description provided for @tvSeriesSeasons.
+  ///
+  /// In es, this message translates to:
+  /// **'Temporadas'**
+  String get tvSeriesSeasons;
+
+  /// No description provided for @tvSeriesEpisodes.
+  ///
+  /// In es, this message translates to:
+  /// **'Episodios'**
+  String get tvSeriesEpisodes;
+
+  /// No description provided for @tvSeriesCreators.
+  ///
+  /// In es, this message translates to:
+  /// **'Creadores'**
+  String get tvSeriesCreators;
+
+  /// No description provided for @tvSeriesProductionCompanies.
+  ///
+  /// In es, this message translates to:
+  /// **'Productoras'**
+  String get tvSeriesProductionCompanies;
+
+  /// No description provided for @tvSeriesNetworks.
+  ///
+  /// In es, this message translates to:
+  /// **'Cadenas de televisión'**
+  String get tvSeriesNetworks;
+
   /// No description provided for @noPopularSeries.
   ///
   /// In es, this message translates to:
@@ -378,6 +444,36 @@ abstract class AppLocalizations {
   /// **'Buscar películas'**
   String get searchMovies;
 
+  /// No description provided for @searchTvSeries.
+  ///
+  /// In es, this message translates to:
+  /// **'Buscar series'**
+  String get searchTvSeries;
+
+  /// No description provided for @searchTvSeriesHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe el nombre de una serie para buscar.'**
+  String get searchTvSeriesHint;
+
+  /// No description provided for @noTvSeriesResults.
+  ///
+  /// In es, this message translates to:
+  /// **'No se encontraron series.'**
+  String get noTvSeriesResults;
+
+  /// No description provided for @tvSeriesSearchFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo buscar la serie.'**
+  String get tvSeriesSearchFailed;
+
+  /// No description provided for @clearTvSeriesSearch.
+  ///
+  /// In es, this message translates to:
+  /// **'Limpiar búsqueda'**
+  String get clearTvSeriesSearch;
+
   /// No description provided for @retry.
   ///
   /// In es, this message translates to:
@@ -407,6 +503,18 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No se pudo cargar el reparto.'**
   String get castLoadFailed;
+
+  /// No description provided for @castTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Actores y reparto'**
+  String get castTitle;
+
+  /// No description provided for @castEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay información del reparto disponible.'**
+  String get castEmpty;
 
   /// No description provided for @noMoviesFailed.
   ///
@@ -1019,6 +1127,36 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Este color'**
   String get thisColor;
+
+  /// No description provided for @tvSeriesGenreResultsLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudieron cargar las series de este género.'**
+  String get tvSeriesGenreResultsLoadFailed;
+
+  /// No description provided for @all.
+  ///
+  /// In es, this message translates to:
+  /// **'Todos'**
+  String get all;
+
+  /// No description provided for @noTvSeriesForGenre.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay series disponibles en este género.'**
+  String get noTvSeriesForGenre;
+
+  /// No description provided for @tvSeriesGenresLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudieron cargar los géneros de series.'**
+  String get tvSeriesGenresLoadFailed;
+
+  /// No description provided for @movies.
+  ///
+  /// In es, this message translates to:
+  /// **'Películas'**
+  String get movies;
 }
 
 class _AppLocalizationsDelegate

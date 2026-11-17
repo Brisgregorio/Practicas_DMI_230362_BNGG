@@ -7,12 +7,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const favoriteMoviesPreferenceKey = 'favorite_movies_v1';
 
-final favoriteMoviesProvider = StateNotifierProvider<
-  FavoriteMoviesNotifier,
-  AsyncValue<List<Movie>>
->((ref) {
-  return FavoriteMoviesNotifier(ref.watch(sharedPreferencesProvider));
-});
+final favoriteMoviesProvider =
+    StateNotifierProvider<FavoriteMoviesNotifier, AsyncValue<List<Movie>>>((
+      ref,
+    ) {
+      return FavoriteMoviesNotifier(ref.watch(sharedPreferencesProvider));
+    });
 
 class FavoriteMoviesNotifier extends StateNotifier<AsyncValue<List<Movie>>> {
   final SharedPreferences _preferences;
@@ -23,9 +23,8 @@ class FavoriteMoviesNotifier extends StateNotifier<AsyncValue<List<Movie>>> {
   }
 
   Future<void> _load() async {
-    final storedMovies = _preferences.getStringList(
-          favoriteMoviesPreferenceKey,
-        ) ??
+    final storedMovies =
+        _preferences.getStringList(favoriteMoviesPreferenceKey) ??
         const <String>[];
     final movies = <Movie>[];
     for (final storedMovie in storedMovies) {

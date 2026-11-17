@@ -85,7 +85,7 @@ class _Slide extends StatelessWidget {
     final isDarkmode = Theme.of(context).brightness == Brightness.dark;
     final ratingColor = isDarkmode
         ? Colors.amber.shade300
-      : const Color(0xFF6D3700);
+        : const Color(0xFF6D3700);
     final l10n = AppLocalizations.of(context)!;
 
     return Container(
@@ -153,9 +153,7 @@ class _Slide extends StatelessWidget {
                 const SizedBox(width: 3),
                 Text(
                   '${movie.voteAverage}',
-                  style: textStyles.bodyMedium?.copyWith(
-                    color: ratingColor,
-                  ),
+                  style: textStyles.bodyMedium?.copyWith(color: ratingColor),
                 ),
                 const Spacer(),
                 Text(

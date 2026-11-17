@@ -88,6 +88,41 @@ class AppLocalizationsAr extends AppLocalizations {
   String get seriesDetailsLoadFailed => 'تعذر تحميل تفاصيل المسلسل.';
 
   @override
+  String get tvSeriesOverviewUnavailable => 'لا يتوفر وصف.';
+
+  @override
+  String tvSeriesVotes(int count) {
+    return '$count تقييم';
+  }
+
+  @override
+  String get tvSeriesGenres => 'الأنواع';
+
+  @override
+  String get tvSeriesFirstAirDate => 'تاريخ العرض الأول';
+
+  @override
+  String get tvSeriesLastAirDate => 'تاريخ العرض الأخير';
+
+  @override
+  String get tvSeriesStatus => 'الحالة';
+
+  @override
+  String get tvSeriesSeasons => 'المواسم';
+
+  @override
+  String get tvSeriesEpisodes => 'الحلقات';
+
+  @override
+  String get tvSeriesCreators => 'من إنشاء';
+
+  @override
+  String get tvSeriesProductionCompanies => 'شركات الإنتاج';
+
+  @override
+  String get tvSeriesNetworks => 'القنوات';
+
+  @override
   String get noPopularSeries => 'لا تتوفر مسلسلات شائعة.';
 
   @override
@@ -151,6 +186,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get searchMovies => 'ابحث عن أفلام';
 
   @override
+  String get searchTvSeries => 'ابحث عن المسلسلات';
+
+  @override
+  String get searchTvSeriesHint => 'أدخل اسم مسلسل للبحث.';
+
+  @override
+  String get noTvSeriesResults => 'لم يتم العثور على مسلسلات.';
+
+  @override
+  String get tvSeriesSearchFailed => 'تعذر البحث عن المسلسلات.';
+
+  @override
+  String get clearTvSeriesSearch => 'مسح البحث';
+
+  @override
   String get retry => 'إعادة المحاولة';
 
   @override
@@ -164,6 +214,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get castLoadFailed => 'تعذر تحميل طاقم التمثيل.';
+
+  @override
+  String get castTitle => 'طاقم التمثيل';
+
+  @override
+  String get castEmpty => 'لا تتوفر معلومات عن طاقم التمثيل.';
 
   @override
   String get noMoviesFailed => 'تعذر تحميل الأفلام.';
@@ -491,4 +547,20 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get thisColor => 'هذا اللون';
+
+  @override
+  String get tvSeriesGenreResultsLoadFailed =>
+      'تعذر تحميل المسلسلات من هذا النوع.';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get noTvSeriesForGenre => 'لا تتوفر مسلسلات من هذا النوع.';
+
+  @override
+  String get tvSeriesGenresLoadFailed => 'تعذر تحميل أنواع المسلسلات.';
+
+  @override
+  String get movies => 'أفلام';
 }

@@ -33,10 +33,38 @@ void main() {
     expect(repository.requestedGenreIds, [28]);
     expect(find.text('No hay películas disponibles en este género.'), findsOneWidget);
   });
+
+  testWidgets('Todos restores the default movie catalog', (tester) async {
+    final repository = _CategoriesMoviesRepository();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          movieRepositoryProvider.overrideWith((ref) => repository),
+        ],
+        child: MaterialApp(
+          locale: const Locale('es'),
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          home: const Scaffold(body: CategoriesView()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const ValueKey('genre-28')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('genre-all')));
+    await tester.pumpAndSettle();
+
+    expect(repository.requestedGenreIds, [28]);
+    expect(repository.popularPages, [1]);
+    expect(tester.widget<ChoiceChip>(find.byKey(const ValueKey('genre-all'))).selected, isTrue);
+  });
 }
 
 class _CategoriesMoviesRepository implements MoviesRepository {
   final requestedGenreIds = <int>[];
+  final popularPages = <int>[];
 
   @override
   Future<List<MovieGenre>> getMovieGenres() async => const [
@@ -53,7 +81,10 @@ class _CategoriesMoviesRepository implements MoviesRepository {
   Future<List<Movie>> getNowPlaying({int page = 1}) async => [];
 
   @override
-  Future<List<Movie>> getPopular({int page = 1}) async => [];
+  Future<List<Movie>> getPopular({int page = 1}) async {
+    popularPages.add(page);
+    return [];
+  }
 
   @override
   Future<List<Movie>> getTopRated({int page = 1}) async => [];

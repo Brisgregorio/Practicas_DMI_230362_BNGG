@@ -10,6 +10,7 @@ class FavoritesView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final showDrawerButton = MediaQuery.sizeOf(context).width < 850;
     final favorites = ref.watch(favoriteMoviesProvider);
     final favoriteSeries = ref.watch(favoriteTvSeriesProvider);
     final favoriteMovies = favorites.asData?.value;
@@ -19,32 +20,32 @@ class FavoritesView extends ConsumerWidget {
       children: [
         AppBar(
           title: Text(l10n.favorites),
-          leading: Builder(
-            builder: (context) => IconButton(
-              tooltip: l10n.openMenu,
-              icon: const Icon(Icons.menu_rounded),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
-          ),
+          leading: showDrawerButton
+              ? Builder(
+                  builder: (context) => IconButton(
+                    tooltip: l10n.openMenu,
+                    icon: const Icon(Icons.menu_rounded),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  ),
+                )
+              : null,
         ),
         Expanded(
           child: favorites.isLoading || favoriteSeries.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
+              ? const Center(child: CircularProgressIndicator(strokeWidth: 2))
               : favorites.hasError || favoriteSeries.hasError
               ? Center(child: Text(l10n.favoritesLoadFailed))
               : (favoriteMovies?.isEmpty ?? true) && (series?.isEmpty ?? true)
               ? Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.favorite_border, size: 40),
-                        const SizedBox(height: 10),
-                        Text(l10n.noFavorites),
-                      ],
-                    ),
-                  )
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.favorite_border, size: 40),
+                      const SizedBox(height: 10),
+                      Text(l10n.noFavorites),
+                    ],
+                  ),
+                )
               : ListView(
                   children: [
                     if (favoriteMovies!.isNotEmpty)

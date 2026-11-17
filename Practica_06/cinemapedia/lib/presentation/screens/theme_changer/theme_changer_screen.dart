@@ -41,28 +41,25 @@ class _ThemeChangerView extends ConsumerWidget {
     final int selectedColor = ref.watch(themeNotifierProvider).selectedColor;
     final l10n = AppLocalizations.of(context)!;
 
-    return ListView.builder(
-      itemCount: colors.length,
-      itemBuilder: (context, index) {
-        final Color color = colors[index];
-
-        return ListTile(
-          leading: Radio<int>(
-            value: index,
-            groupValue: selectedColor,
-            activeColor: color,
-            onChanged: (value) {
-              if (value != null) {
-                ref
-                    .read(themeNotifierProvider.notifier)
-                    .changeColorIndex(value);
-              }
-            },
-          ),
-          title: Text(l10n.thisColor, style: TextStyle(color: color)),
-          subtitle: Text(color.toARGB32().toRadixString(16).toUpperCase()),
-        );
+    return RadioGroup<int>(
+      groupValue: selectedColor,
+      onChanged: (value) {
+        if (value != null) {
+          ref.read(themeNotifierProvider.notifier).changeColorIndex(value);
+        }
       },
+      child: ListView.builder(
+        itemCount: colors.length,
+        itemBuilder: (context, index) {
+          final Color color = colors[index];
+
+          return ListTile(
+            leading: Radio<int>(value: index, activeColor: color),
+            title: Text(l10n.thisColor, style: TextStyle(color: color)),
+            subtitle: Text(color.toARGB32().toRadixString(16).toUpperCase()),
+          );
+        },
+      ),
     );
   }
 }

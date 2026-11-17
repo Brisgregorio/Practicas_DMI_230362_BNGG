@@ -52,10 +52,11 @@ class AppTheme {
             onSecondary: _contrastForeground(blue),
             onSurface: foreground,
           );
-    final baseTextTheme = (isDarkmode
-            ? Typography.whiteMountainView
-            : Typography.blackMountainView)
-        .apply(bodyColor: foreground, displayColor: foreground);
+    final baseTextTheme =
+        (isDarkmode
+                ? Typography.whiteMountainView
+                : Typography.blackMountainView)
+            .apply(bodyColor: foreground, displayColor: foreground);
     final textTheme = baseTextTheme.copyWith(
       headlineSmall: baseTextTheme.headlineSmall?.copyWith(
         fontWeight: FontWeight.w800,
@@ -70,9 +71,7 @@ class AppTheme {
         color: foreground,
       ),
       bodyMedium: baseTextTheme.bodyMedium?.copyWith(color: foreground),
-      bodySmall: baseTextTheme.bodySmall?.copyWith(
-        color: secondaryForeground,
-      ),
+      bodySmall: baseTextTheme.bodySmall?.copyWith(color: secondaryForeground),
     );
     final surfaceColor = isDarkmode ? surface : Colors.white;
     final accentTextColor = isDarkmode ? selectedColorValue : foreground;

@@ -91,6 +91,41 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se pudieron cargar los detalles de la serie.';
 
   @override
+  String get tvSeriesOverviewUnavailable => 'No hay descripción disponible.';
+
+  @override
+  String tvSeriesVotes(int count) {
+    return '$count votos';
+  }
+
+  @override
+  String get tvSeriesGenres => 'Géneros';
+
+  @override
+  String get tvSeriesFirstAirDate => 'Primera emisión';
+
+  @override
+  String get tvSeriesLastAirDate => 'Última emisión';
+
+  @override
+  String get tvSeriesStatus => 'Estado';
+
+  @override
+  String get tvSeriesSeasons => 'Temporadas';
+
+  @override
+  String get tvSeriesEpisodes => 'Episodios';
+
+  @override
+  String get tvSeriesCreators => 'Creadores';
+
+  @override
+  String get tvSeriesProductionCompanies => 'Productoras';
+
+  @override
+  String get tvSeriesNetworks => 'Cadenas de televisión';
+
+  @override
   String get noPopularSeries => 'No hay series populares disponibles.';
 
   @override
@@ -154,6 +189,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get searchMovies => 'Buscar películas';
 
   @override
+  String get searchTvSeries => 'Buscar series';
+
+  @override
+  String get searchTvSeriesHint =>
+      'Escribe el nombre de una serie para buscar.';
+
+  @override
+  String get noTvSeriesResults => 'No se encontraron series.';
+
+  @override
+  String get tvSeriesSearchFailed => 'No se pudo buscar la serie.';
+
+  @override
+  String get clearTvSeriesSearch => 'Limpiar búsqueda';
+
+  @override
   String get retry => 'Reintentar';
 
   @override
@@ -167,6 +218,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get castLoadFailed => 'No se pudo cargar el reparto.';
+
+  @override
+  String get castTitle => 'Actores y reparto';
+
+  @override
+  String get castEmpty => 'No hay información del reparto disponible.';
 
   @override
   String get noMoviesFailed => 'No se pudieron cargar las películas.';
@@ -499,4 +556,21 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get thisColor => 'Este color';
+
+  @override
+  String get tvSeriesGenreResultsLoadFailed =>
+      'No se pudieron cargar las series de este género.';
+
+  @override
+  String get all => 'Todos';
+
+  @override
+  String get noTvSeriesForGenre => 'No hay series disponibles en este género.';
+
+  @override
+  String get tvSeriesGenresLoadFailed =>
+      'No se pudieron cargar los géneros de series.';
+
+  @override
+  String get movies => 'Películas';
 }

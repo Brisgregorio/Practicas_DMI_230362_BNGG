@@ -6,12 +6,14 @@ class TvSeriesGrid extends StatelessWidget {
   final List<TvSeries> series;
   final bool shrinkWrap;
   final ScrollPhysics? physics;
+  final double childAspectRatio;
 
   const TvSeriesGrid({
     super.key,
     required this.series,
     this.shrinkWrap = false,
     this.physics,
+    this.childAspectRatio = 0.68,
   });
 
   @override
@@ -21,20 +23,18 @@ class TvSeriesGrid extends StatelessWidget {
       shrinkWrap: shrinkWrap,
       physics: physics,
       itemCount: series.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
-        childAspectRatio: 0.68,
+        childAspectRatio: childAspectRatio,
       ),
       itemBuilder: (context, index) {
         final item = series[index];
         return Card(
           margin: EdgeInsets.zero,
           clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: InkWell(
             onTap: () => context.push('/series/${item.id}'),
             child: Column(
@@ -66,7 +66,8 @@ class TvSeriesGrid extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(item.voteAverage.toStringAsFixed(1)),
                       const Spacer(),
-                      Text(item.firstAirDate.year.toString()),
+                      if (item.firstAirDate case final firstAirDate?)
+                        Text(firstAirDate.year.toString()),
                     ],
                   ),
                 ),

@@ -13,7 +13,5 @@ final moviesByGenreProvider = FutureProvider.family<List<Movie>, int>((
   ref,
   genreId,
 ) {
-  return ref
-      .watch(movieRepositoryProvider)
-      .getMoviesByGenre(genreId: genreId);
+  return ref.watch(movieRepositoryProvider).getMoviesByGenre(genreId: genreId);
 });

@@ -88,6 +88,41 @@ class AppLocalizationsJa extends AppLocalizations {
   String get seriesDetailsLoadFailed => 'シリーズの詳細を読み込めませんでした。';
 
   @override
+  String get tvSeriesOverviewUnavailable => 'あらすじはありません。';
+
+  @override
+  String tvSeriesVotes(int count) {
+    return '$count 件の評価';
+  }
+
+  @override
+  String get tvSeriesGenres => 'ジャンル';
+
+  @override
+  String get tvSeriesFirstAirDate => '初回放送日';
+
+  @override
+  String get tvSeriesLastAirDate => '最終放送日';
+
+  @override
+  String get tvSeriesStatus => '放送状況';
+
+  @override
+  String get tvSeriesSeasons => 'シーズン数';
+
+  @override
+  String get tvSeriesEpisodes => 'エピソード数';
+
+  @override
+  String get tvSeriesCreators => '製作者';
+
+  @override
+  String get tvSeriesProductionCompanies => '制作会社';
+
+  @override
+  String get tvSeriesNetworks => '放送局';
+
+  @override
   String get noPopularSeries => '人気シリーズはありません。';
 
   @override
@@ -150,6 +185,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get searchMovies => '映画を検索';
 
   @override
+  String get searchTvSeries => 'テレビシリーズを検索';
+
+  @override
+  String get searchTvSeriesHint => 'シリーズ名を入力してください。';
+
+  @override
+  String get noTvSeriesResults => 'シリーズが見つかりませんでした。';
+
+  @override
+  String get tvSeriesSearchFailed => 'シリーズを検索できませんでした。';
+
+  @override
+  String get clearTvSeriesSearch => '検索をクリア';
+
+  @override
   String get retry => '再試行';
 
   @override
@@ -163,6 +213,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get castLoadFailed => 'キャストを読み込めませんでした。';
+
+  @override
+  String get castTitle => '出演者';
+
+  @override
+  String get castEmpty => '出演者情報はありません。';
 
   @override
   String get noMoviesFailed => '映画を読み込めませんでした。';
@@ -487,4 +543,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get thisColor => 'この色';
+
+  @override
+  String get tvSeriesGenreResultsLoadFailed => 'このジャンルのシリーズを読み込めませんでした。';
+
+  @override
+  String get all => 'すべて';
+
+  @override
+  String get noTvSeriesForGenre => 'このジャンルのシリーズはありません。';
+
+  @override
+  String get tvSeriesGenresLoadFailed => 'シリーズのジャンルを読み込めませんでした。';
+
+  @override
+  String get movies => '映画';
 }

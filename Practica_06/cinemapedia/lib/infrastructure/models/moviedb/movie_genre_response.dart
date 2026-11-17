@@ -7,8 +7,7 @@ class MovieGenreResponse {
       MovieGenreResponse(
         genres: ((json['genres'] as List<dynamic>?) ?? const [])
             .map(
-              (genre) =>
-                  MovieGenreDb.fromJson(genre as Map<String, dynamic>),
+              (genre) => MovieGenreDb.fromJson(genre as Map<String, dynamic>),
             )
             .toList(),
       );
@@ -20,8 +19,6 @@ class MovieGenreDb {
 
   const MovieGenreDb({required this.id, required this.name});
 
-  factory MovieGenreDb.fromJson(Map<String, dynamic> json) => MovieGenreDb(
-    id: json['id'] as int,
-    name: json['name'] as String,
-  );
+  factory MovieGenreDb.fromJson(Map<String, dynamic> json) =>
+      MovieGenreDb(id: json['id'] as int, name: json['name'] as String);
 }

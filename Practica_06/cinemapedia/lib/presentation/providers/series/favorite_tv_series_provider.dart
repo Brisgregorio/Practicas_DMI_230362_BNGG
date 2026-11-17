@@ -7,14 +7,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const favoriteTvSeriesPreferenceKey = 'favorite_tv_series_v1';
 
-final favoriteTvSeriesProvider = StateNotifierProvider<
-  FavoriteTvSeriesNotifier,
-  AsyncValue<List<TvSeries>>
->((ref) {
-  return FavoriteTvSeriesNotifier(ref.watch(sharedPreferencesProvider));
-});
+final favoriteTvSeriesProvider =
+    StateNotifierProvider<FavoriteTvSeriesNotifier, AsyncValue<List<TvSeries>>>(
+      (ref) {
+        return FavoriteTvSeriesNotifier(ref.watch(sharedPreferencesProvider));
+      },
+    );
 
-class FavoriteTvSeriesNotifier extends StateNotifier<AsyncValue<List<TvSeries>>> {
+class FavoriteTvSeriesNotifier
+    extends StateNotifier<AsyncValue<List<TvSeries>>> {
   final SharedPreferences _preferences;
   late final Future<void> initialized;
 
@@ -63,7 +64,7 @@ class FavoriteTvSeriesNotifier extends StateNotifier<AsyncValue<List<TvSeries>>>
 String _encodeSeries(TvSeries series) => jsonEncode({
   'adult': series.adult,
   'backdropPath': series.backdropPath,
-  'firstAirDate': series.firstAirDate.toIso8601String(),
+  'firstAirDate': series.firstAirDate?.toIso8601String(),
   'genreIds': series.genreIds,
   'id': series.id,
   'originalLanguage': series.originalLanguage,
@@ -81,9 +82,7 @@ TvSeries _decodeSeries(String encoded) {
   return TvSeries(
     adult: json['adult'] as bool? ?? false,
     backdropPath: json['backdropPath'] as String? ?? '',
-    firstAirDate:
-        DateTime.tryParse(json['firstAirDate'] as String? ?? '') ??
-        DateTime(1970),
+    firstAirDate: DateTime.tryParse(json['firstAirDate'] as String? ?? ''),
     genreIds: ((json['genreIds'] as List<dynamic>?) ?? const [])
         .map((id) => (id as num).toInt())
         .toList(),

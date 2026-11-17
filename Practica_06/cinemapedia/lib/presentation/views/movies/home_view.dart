@@ -82,6 +82,7 @@ class HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final showDrawerButton = MediaQuery.sizeOf(context).width < 760;
     ref.listen(selectedCinemaCountryProvider, (previous, next) {
       _reloadHomeMovies();
     });
@@ -102,13 +103,15 @@ class HomeViewState extends ConsumerState<HomeView> {
           floating: true,
           pinned: false,
           expandedHeight: 72,
-          leading: Builder(
-            builder: (context) => IconButton(
-              tooltip: l10n.openMenu,
-              icon: const Icon(Icons.menu_rounded, size: 28),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
-          ),
+          leading: showDrawerButton
+              ? Builder(
+                  builder: (context) => IconButton(
+                    tooltip: l10n.openMenu,
+                    icon: const Icon(Icons.menu_rounded, size: 28),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  ),
+                )
+              : null,
           flexibleSpace: const FlexibleSpaceBar(
             titlePadding: EdgeInsets.only(left: 58, bottom: 15),
             title: CustomAppbar(),

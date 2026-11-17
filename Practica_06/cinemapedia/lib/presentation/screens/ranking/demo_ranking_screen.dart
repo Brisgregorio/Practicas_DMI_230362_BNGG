@@ -10,12 +10,12 @@ class DemoRankingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    const entries = [
-      120,
-      85,
-      40,
+    const entries = [120, 85, 40];
+    const rankColors = [
+      Color(0xFFFFC857),
+      Color(0xFFC5CAD3),
+      Color(0xFFCD7F5C),
     ];
-    const rankColors = [Color(0xFFFFC857), Color(0xFFC5CAD3), Color(0xFFCD7F5C)];
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.rankingTitle)),
